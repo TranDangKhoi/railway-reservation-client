@@ -9,12 +9,28 @@ module.exports = {
   },
   theme: {
     extend: {
-      
+      fontFamily: {
+        primary: ["DM Sans", "Roboto", "sans-serif"],
+        secondary: ["Roboto", "DM Sans", "sans-serif"],
+      },
+      backgroundImage: {
+        homepageBackground: "url('./src/assets/images/TrainStation2.png')",
+      },
+      backgroundPosition: {
+        "bottom-center-4": "60% 65%",
+      },
     },
   },
   plugins: [
     plugin(function ({ addComponents, theme }) {
       addComponents({
+        ".layout-container": {
+          maxWidth: "1370px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingLeft: theme("spacing.4"),
+          paddingRight: theme("spacing.4"),
+        },
         ".container": {
           maxWidth: theme("columns.7xl"),
           marginLeft: "auto",
