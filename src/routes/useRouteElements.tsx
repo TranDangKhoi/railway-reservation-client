@@ -1,7 +1,9 @@
 import { useRoutes } from "react-router-dom";
 import { path } from "src/constants/path.enum";
+import AuthenticationLayout from "src/layouts/AuthenticationLayout";
 import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
+import LoginPage from "src/pages/LoginPage";
 
 function ProtectedRoutes() {
   return <></>;
@@ -22,6 +24,15 @@ export default function useRouteElements() {
         </MainLayout>
       ),
     },
+    {
+      path: path.login,
+      element: (
+        <AuthenticationLayout>
+          <LoginPage></LoginPage>
+        </AuthenticationLayout>
+      ),
+    },
+    {},
   ]);
   return routes;
 }
