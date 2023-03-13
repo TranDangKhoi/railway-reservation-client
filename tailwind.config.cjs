@@ -27,7 +27,7 @@ module.exports = {
       },
       backgroundPosition: {
         "bottom-center-4": "60% 65%",
-        "left-center": "0% 50%",
+        "left-center": "0% 45%",
       },
     },
   },
