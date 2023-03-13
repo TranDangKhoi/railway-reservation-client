@@ -20,13 +20,13 @@ const Homepage = () => {
                   containerClassName="flex items-center gap-x-2"
                   iconComponent={<TrainIcon></TrainIcon>}
                 >
-                  Đặt vé
+                  Tra cứu vé
                 </ModalTab>
                 <ModalTab
                   containerClassName="flex items-center gap-x-2"
                   iconComponent={<TrainIcon></TrainIcon>}
                 >
-                  Đặt vé
+                  Trả vé
                 </ModalTab>
               </div>
               <button className="flex items-center gap-x-2">
@@ -37,7 +37,6 @@ const Homepage = () => {
                 ></ArrowDownIcon>
               </button>
             </div>
-            <div className=""></div>
           </div>
           <div className="flex-shrink-0">
             <button className="rounded-lg bg-blue-600 px-5 py-4 font-medium text-white">Tìm kiếm</button>

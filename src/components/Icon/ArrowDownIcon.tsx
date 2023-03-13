@@ -4,8 +4,8 @@ const ArrowDownIcon = ({ kind = "primary", width = 25, height = 18, fill = "#3B3
   if (kind === "primary") {
     return (
       <svg
-        width="10"
-        height="6"
+        width={width}
+        height={height}
         viewBox="0 0 10 6"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

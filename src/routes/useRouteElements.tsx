@@ -1,16 +1,20 @@
-import { useRoutes } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import { path } from "src/constants/path.enum";
+import { AuthContext } from "src/contexts/auth.context";
 import AuthenticationLayout from "src/layouts/AuthenticationLayout";
 import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
 
 function ProtectedRoutes() {
-  return <></>;
+  const { isAuthenticated } = useContext(AuthContext);
+  return isAuthenticated ? <Outlet></Outlet> : <Navigate to={path.login}></Navigate>;
 }
 
 function RejectedRoutes() {
-  return <></>;
+  const { isAuthenticated } = useContext(AuthContext);
+  return !isAuthenticated ? <Outlet></Outlet> : <Navigate to={path.homepage}></Navigate>;
 }
 
 export default function useRouteElements() {
@@ -25,14 +29,32 @@ export default function useRouteElements() {
       ),
     },
     {
-      path: path.login,
-      element: (
-        <AuthenticationLayout>
-          <LoginPage></LoginPage>
-        </AuthenticationLayout>
-      ),
+      path: "",
+      element: <ProtectedRoutes></ProtectedRoutes>,
+      children: [{}],
     },
-    {},
+    {
+      path: "",
+      element: <RejectedRoutes></RejectedRoutes>,
+      children: [
+        {
+          path: path.login,
+          element: (
+            <AuthenticationLayout>
+              <LoginPage></LoginPage>
+            </AuthenticationLayout>
+          ),
+        },
+        {
+          path: path.register,
+          element: (
+            <AuthenticationLayout>
+              <></>
+            </AuthenticationLayout>
+          ),
+        },
+      ],
+    },
   ]);
   return routes;
 }

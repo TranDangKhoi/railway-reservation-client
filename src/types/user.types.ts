@@ -4,4 +4,5 @@ export type ApplicationUserType = {
   fullname: string;
   address: string;
   email: string;
+  avatar: string;
 };

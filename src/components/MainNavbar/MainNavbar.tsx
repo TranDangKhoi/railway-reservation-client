@@ -1,15 +1,29 @@
-import Avatar from "src/assets/images/Avatar.png";
+import { useMutation } from "@tanstack/react-query";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import authApi from "src/apis/auth.api";
+import { path } from "src/constants/path.enum";
+import { AuthContext } from "src/contexts/auth.context";
 import { ArrowDownIcon, LogoIcon } from "../Icon";
 const MainNavbar = () => {
-  const isAuthenticated = false;
+  const { isAuthenticated, userProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const logOutAccountMutation = useMutation({
+    mutationFn: () => authApi.logoutAccount(),
+  });
+  const handleLogout = () => {
+    navigate(path.login);
+    logOutAccountMutation.mutate();
+    window.location.reload();
+  };
   return (
-    <div className="bg-white px-2 py-3">
+    <div className="bg-white px-2 py-5">
       <div className="layout-container">
         <nav className="flex items-center justify-between">
           <div className="flex items-center gap-x-2">
             <LogoIcon
-              width={28}
-              height={27}
+              width={31}
+              height={29}
               kind="primary"
             ></LogoIcon>
             <span className="text-lg font-bold">Railway</span>
@@ -27,15 +41,25 @@ const MainNavbar = () => {
             </div>
             {isAuthenticated ? (
               <div className="flex items-center gap-x-2">
-                <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full">
+                <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full">
                   <img
-                    src={Avatar}
+                    src={userProfile?.avatar}
                     alt=""
-                    className="h-full w-full rounded-full object-cover"
+                    className="h-8 w-8 rounded-full object-cover"
                   />
                 </div>
-                <span className="font-medium">Delowar</span>
-                <ArrowDownIcon kind="secondary"></ArrowDownIcon>
+                <span
+                  className="font-medium"
+                  onClick={handleLogout}
+                  aria-hidden={true}
+                >
+                  {userProfile?.fullname}
+                </span>
+                <ArrowDownIcon
+                  kind="secondary"
+                  width={10}
+                  height={10}
+                ></ArrowDownIcon>
               </div>
             ) : (
               <div className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-disabled">

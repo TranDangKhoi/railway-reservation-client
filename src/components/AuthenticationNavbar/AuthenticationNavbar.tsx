@@ -12,11 +12,11 @@ const AuthenticationNavbar = () => {
             className="flex items-center gap-x-2"
           >
             <LogoIcon
-              width={28}
-              height={27}
+              width={31}
+              height={29}
               kind="secondary"
             ></LogoIcon>
-            <span className="text-lg font-bold">Railway</span>
+            <span className="text-lg font-bold text-white">Railway</span>
           </Link>
         </nav>
       </div>
