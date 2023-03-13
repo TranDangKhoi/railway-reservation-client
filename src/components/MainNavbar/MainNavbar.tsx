@@ -30,7 +30,7 @@ const MainNavbar = () => {
           </div>
           <div className="flex items-center gap-x-4">
             <div className="flex items-center gap-x-2 border border-l-transparent border-t-transparent border-b-transparent border-r-[#D9D9D9] pr-2">
-              <span>USD</span>
+              <span>EN</span>
               <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
                 <img
                   src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/255px-Flag_of_the_United_States.svg.png"
