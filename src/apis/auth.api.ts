@@ -1,5 +1,4 @@
 import { AuthResponseType } from "src/types/auth-response.types";
-import { ErrorApiResponseType, SuccessApiResponseType } from "src/types/response.types";
 import http from "src/utils/http";
 
 const authApi = {

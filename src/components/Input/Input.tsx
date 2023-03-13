@@ -27,7 +27,6 @@ const Input = ({
   rules,
   ...rest
 }: InputProps) => {
-  console.log(errorMsg);
   const registerResult = register && name ? register(name, rules) : {};
   return (
     <div className={containerClassName}>
