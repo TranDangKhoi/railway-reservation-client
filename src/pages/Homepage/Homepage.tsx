@@ -1,5 +1,4 @@
-import { TrainIcon } from "src/components/Icon";
-import ArrowDownIcon from "src/components/Icon/ArrowDownIcon";
+import { ArrowDownIcon, LockIcon, ReturnTicketIcon, TrainIcon } from "src/components/Icon";
 import ModalTab from "./components/ModalTab";
 const Homepage = () => {
   return (
@@ -18,13 +17,13 @@ const Homepage = () => {
                 </ModalTab>
                 <ModalTab
                   containerClassName="flex items-center gap-x-2"
-                  iconComponent={<TrainIcon></TrainIcon>}
+                  iconComponent={<LockIcon pathClassName="fill-black"></LockIcon>}
                 >
                   Tra cứu vé
                 </ModalTab>
                 <ModalTab
                   containerClassName="flex items-center gap-x-2"
-                  iconComponent={<TrainIcon></TrainIcon>}
+                  iconComponent={<ReturnTicketIcon fill="black"></ReturnTicketIcon>}
                 >
                   Trả vé
                 </ModalTab>
@@ -32,6 +31,8 @@ const Homepage = () => {
               <button className="flex items-center gap-x-2">
                 <span className="font-medium">Một chiều</span>
                 <ArrowDownIcon
+                  width={11}
+                  height={10}
                   fill="#84878B"
                   kind="primary"
                 ></ArrowDownIcon>
