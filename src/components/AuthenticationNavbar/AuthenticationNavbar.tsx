@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import { path } from "src/constants/path.enum";
 import { LogoIcon } from "../Icon";
 const AuthenticationNavbar = () => {
+  const matchLogin = useMatch(path.login);
+  const isMatchLogin = Boolean(matchLogin);
   return (
-    <div className="bg-primary px-2 py-5">
+    <div className="bg-white px-2 py-5">
       <div className="layout-container">
         <nav className="flex items-center">
           <Link
@@ -14,9 +16,9 @@ const AuthenticationNavbar = () => {
             <LogoIcon
               width={31}
               height={29}
-              kind="secondary"
+              kind="primary"
             ></LogoIcon>
-            <span className="text-lg font-bold text-white">Railway</span>
+            <span className="text-lg font-bold text-primary">{isMatchLogin ? "Đăng nhập" : "Đăng ký"}</span>
           </Link>
         </nav>
       </div>

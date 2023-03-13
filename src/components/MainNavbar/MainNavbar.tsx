@@ -1,12 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import authApi from "src/apis/auth.api";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { ArrowDownIcon, LogoIcon } from "../Icon";
 const MainNavbar = () => {
-  const { isAuthenticated, userProfile } = useContext(AuthContext);
+  const { isAuthenticated, userProfile, setIsAuthenticated, setUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const logOutAccountMutation = useMutation({
     mutationFn: () => authApi.logoutAccount(),
@@ -14,7 +15,11 @@ const MainNavbar = () => {
   const handleLogout = () => {
     navigate(path.login);
     logOutAccountMutation.mutate();
-    window.location.reload();
+    setIsAuthenticated(false);
+    setUserProfile(null);
+    toast.success("Đăng xuất thành công", {
+      progressClassName: "bg-primary",
+    });
   };
   return (
     <div className="bg-white px-2 py-5">

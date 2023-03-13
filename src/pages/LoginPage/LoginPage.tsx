@@ -12,6 +12,7 @@ import { AuthContext } from "src/contexts/auth.context";
 import { isAxiosError } from "axios";
 import { ErrorApiResponseType } from "src/types/response.types";
 import { isAxiosUnprocessableEntity } from "src/utils/isAxiosError";
+import { toast } from "react-toastify";
 
 type FormDataType = LoginType;
 const LoginPage = () => {
@@ -36,7 +37,6 @@ const LoginPage = () => {
         navigate(path.homepage);
         setUserProfile(data.data.data.applicationUser);
         setIsAuthenticated(Boolean(data.data.data.applicationUser));
-        window.location.reload();
       },
       onError: (error) => {
         if (
