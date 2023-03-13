@@ -3,4 +3,6 @@ export type IconType = {
   width?: number;
   height?: number;
   fill?: string;
+  className?: string;
+  pathClassName?: string;
 };
