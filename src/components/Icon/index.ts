@@ -1,5 +1,6 @@
 import TrainIcon from "./TrainIcon";
 import ArrowDownIcon from "./ArrowDownIcon";
 import LogoIcon from "./LogoIcon";
-
-export { TrainIcon, LogoIcon, ArrowDownIcon };
+import ReturnTicketIcon from "./ReturnTicketIcon";
+import LockIcon from "./LockIcon";
+export { TrainIcon, LogoIcon, ArrowDownIcon, ReturnTicketIcon, LockIcon };

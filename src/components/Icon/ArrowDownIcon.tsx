@@ -1,6 +1,6 @@
 import { IconType } from "src/types/icon.types";
 
-const ArrowDownIcon = ({ kind = "primary", width = 25, height = 18, fill = "#3B3E44" }: IconType) => {
+const ArrowDownIcon = ({ kind = "primary", width = 11, height = 10, fill = "#3B3E44" }: IconType) => {
   if (kind === "primary") {
     return (
       <svg
