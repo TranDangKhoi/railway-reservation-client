@@ -9,6 +9,9 @@ import { path } from "src/constants/path.enum";
 import { loginSchema, LoginType } from "src/utils/schemas";
 import Button from "src/components/Button";
 import { AuthContext } from "src/contexts/auth.context";
+import { isAxiosError } from "axios";
+import { ErrorApiResponseType } from "src/types/response.types";
+import { isAxiosUnprocessableEntity } from "src/utils/isAxiosError";
 
 type FormDataType = LoginType;
 const LoginPage = () => {
@@ -34,6 +37,18 @@ const LoginPage = () => {
         setUserProfile(data.data.data.applicationUser);
         setIsAuthenticated(Boolean(data.data.data.applicationUser));
         window.location.reload();
+      },
+      onError: (error) => {
+        if (
+          isAxiosError<ErrorApiResponseType<FormDataType>>(error) &&
+          isAxiosUnprocessableEntity<ErrorApiResponseType<FormDataType>>(error)
+        ) {
+          const formError = error.response?.data.errorMessages;
+          if (formError) {
+            setError("email", { message: formError });
+            setError("password", { message: formError });
+          }
+        }
       },
     });
   });

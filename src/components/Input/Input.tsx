@@ -20,13 +20,14 @@ const Input = ({
   errorMsg,
   name,
   register,
-  inputClassName = "w-full p-3 outline-none rounded-lg bg-input h-[48px] border-2 transition-all duration-150 hover:border-primary font-medium",
+  inputClassName = "w-full p-3 outline-none rounded-lg h-[48px] border-2 transition-all duration-150 font-medium",
   containerClassName = "",
   errorClassName = "mt-1 text-red-600 min-h-[1.25rem] text-sm",
   placeholder = "",
   rules,
   ...rest
 }: InputProps) => {
+  console.log(errorMsg);
   const registerResult = register && name ? register(name, rules) : {};
   return (
     <div className={containerClassName}>
@@ -38,6 +39,9 @@ const Input = ({
           // Error!
           {
             "border-red-600 bg-red-50 focus:border-red-600": errorMsg,
+          },
+          {
+            "bg-input hover:border-primary": !errorMsg,
           },
           // Custom classNames
         )}
