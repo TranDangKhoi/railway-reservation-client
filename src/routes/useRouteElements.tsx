@@ -6,6 +6,7 @@ import AuthenticationLayout from "src/layouts/AuthenticationLayout";
 import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
+import RegisterPage from "src/pages/RegisterPage";
 
 function ProtectedRoutes() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -49,7 +50,7 @@ export default function useRouteElements() {
           path: path.register,
           element: (
             <AuthenticationLayout>
-              <></>
+              <RegisterPage></RegisterPage>
             </AuthenticationLayout>
           ),
         },
