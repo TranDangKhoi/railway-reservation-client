@@ -1,6 +1,10 @@
 ## Back-end repository
 
-[Backend Repository Link](https://github.com/TranDangKhoi/railway-reservation-server/tree/main/RailwayReservationAPI)
+Click here to navigate: [Backend Repository Link](https://github.com/TranDangKhoi/railway-reservation-server/tree/main/RailwayReservationAPI)
+
+## Prerequisite
+
+- **In order to run the current project, you must also clone the back-end codes**
 
 ## How to run this project
 
