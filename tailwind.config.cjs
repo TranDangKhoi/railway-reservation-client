@@ -35,6 +35,11 @@ module.exports = {
         "bottom-center-4": "60% 65%",
         "left-center": "0% 150px",
       },
+      boxShadow: {
+        shadow1: "rgba(0, 0, 0, 0.34) 0px 4px 9px;",
+        shadow2:
+          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;",
+      },
     },
   },
   plugins: [
