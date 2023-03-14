@@ -85,7 +85,7 @@ const LoginPage = () => {
           <Button
             type="submit"
             isLoading={loginAccountMutation.isLoading}
-            containerClassName="mt-3"
+            containerClassName="mt-2"
           >
             Đăng nhập
           </Button>

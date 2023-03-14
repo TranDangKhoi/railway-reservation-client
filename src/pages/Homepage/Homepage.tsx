@@ -3,7 +3,7 @@ import ModalTab from "./components/ModalTab";
 const Homepage = () => {
   return (
     <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
-      <h2 className="absolute top-36 left-12 w-[300px] font-primary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
+      <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
         Travel With Us And Enjoy your Journey !
       </h2>
       <div className="absolute top-[300px] left-1/2 w-[400px] -translate-x-1/2 rounded-md bg-white py-3 px-4 sm:w-[500px] lg:top-[400px] lg:w-[900px] xl:w-[1000px]">

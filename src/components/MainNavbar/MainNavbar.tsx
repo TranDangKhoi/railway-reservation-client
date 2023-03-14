@@ -21,7 +21,7 @@ const MainNavbar = () => {
     toast.success("Đăng xuất thành công");
   };
   return (
-    <div className="bg-white px-2 py-5">
+    <div className="bg-primaryGray px-2 py-5">
       <div className="layout-container">
         <nav className="flex items-center justify-between">
           <div
@@ -55,18 +55,18 @@ const MainNavbar = () => {
                     <div className="flex flex-col">
                       <Link
                         to={path.profile}
-                        className="px-4 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
+                        className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
                         Thông tin cá nhân
                       </Link>
                       <Link
                         to={path.orders}
-                        className="px-4 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
+                        className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
                         Đơn mua
                       </Link>
                       <div
-                        className="cursor-pointer px-4 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
+                        className="cursor-pointer px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                         onClick={handleLogout}
                         aria-hidden={true}
                       >
@@ -84,7 +84,7 @@ const MainNavbar = () => {
                       className="h-8 w-8 rounded-full object-cover"
                     />
                   </div>
-                  <span className="font-medium">{userProfile?.fullname}</span>
+                  <span className="text-sm font-medium">{userProfile?.fullname}</span>
                   <ArrowDownIcon
                     kind="secondary"
                     width={10}
@@ -95,19 +95,18 @@ const MainNavbar = () => {
             ) : (
               <Popover
                 initialOpen={false}
-                placement="bottom"
                 renderPopover={
                   <div className="overflow-hidden rounded-lg bg-white text-center shadow-shadow1">
                     <div className="flex flex-col">
                       <Link
                         to={path.register}
-                        className="px-4 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
+                        className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
                         Đăng ký
                       </Link>
                       <Link
                         to={path.login}
-                        className="px-4 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
+                        className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
                         Đăng nhập
                       </Link>

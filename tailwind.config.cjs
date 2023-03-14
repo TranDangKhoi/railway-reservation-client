@@ -21,9 +21,9 @@ module.exports = {
         secondaryGray: "#84878B",
       },
       fontFamily: {
-        primary: ["Poppins", "DM Sans", "Roboto", "sans-serif"],
-        secondary: ["Roboto", "Poppins", "DM Sans", "sans-serif"],
-        tertiary: ["DM Sans", "Poppins", "DM Sans", "sans-serif"],
+        primary: ["Epilogue", "DM Sans", "Roboto", "sans-serif"],
+        secondary: ["Poppins", "DM Sans", "Roboto", "sans-serif"],
+        tertiary: ["Be Vietnam", "Poppins", "DM Sans", "sans-serif"],
       },
       backgroundImage: {
         homepageBackground: "url('./src/assets/images/TrainStation2.png')",
