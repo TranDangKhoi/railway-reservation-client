@@ -17,9 +17,7 @@ const MainNavbar = () => {
     logOutAccountMutation.mutate();
     setIsAuthenticated(false);
     setUserProfile(null);
-    toast.success("Đăng xuất thành công", {
-      progressClassName: "bg-primary",
-    });
+    toast.success("Đăng xuất thành công");
   };
   return (
     <div className="bg-white px-2 py-5">
