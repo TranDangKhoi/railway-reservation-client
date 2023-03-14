@@ -4,10 +4,10 @@ const Footer = () => {
   return (
     <footer className="bg-primaryGray p-5">
       <div className="container">
-        <div className="grid grid-cols-5 gap-x-10">
+        <div className="flex flex-col gap-x-10 sm:grid sm:grid-cols-5">
           <div className="col-span-2">
             <div className="flex flex-col items-start gap-y-2">
-              <div className="flex items-center gap-x-2">
+              <div className="mb-5 flex items-center gap-x-2 sm:mb-0">
                 <LogoIcon
                   kind="primary"
                   width={31}
@@ -15,7 +15,7 @@ const Footer = () => {
                 ></LogoIcon>
                 <span className="text-xl font-bold">Railway</span>
               </div>
-              <span className="text-sm font-medium text-secondaryGray">
+              <span className="hidden text-sm font-medium text-secondaryGray sm:block">
                 Chuẩn bị cho chuyến đi tuyệt vời sắp tới của bạn cùng Railway: Tìm kiếm thông tin hành trình tàu chạy,
                 đặt mua vé tàu hỏa và thanh toán tiện lợi với nhiều cơ hội nhận ưu đãi hấp dẫn.
               </span>
