@@ -2,12 +2,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { omit } from "lodash";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "src/apis/auth.api";
 import Button from "src/components/Button";
 import Input from "src/components/Input";
+import InputPassword from "src/components/InputPassword";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { ErrorApiResponseType } from "src/types/response.types";
@@ -17,6 +18,7 @@ import { registerSchema, RegisterType } from "src/utils/schemas";
 type FormDataType = RegisterType;
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const { setUserProfile, setIsAuthenticated } = useContext(AuthContext);
   const {
     handleSubmit,
@@ -77,20 +79,24 @@ const LoginPage = () => {
             errorMsg={errors.email?.message}
             register={register}
           />
-          <Input
+          <InputPassword
             type="password"
             name="password"
             placeholder="Nhập mật khẩu"
             containerClassName="mt-1"
             errorMsg={errors.password?.message}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
             register={register}
           />
-          <Input
+          <InputPassword
             type="password"
             name="confirm_password"
             placeholder="Xác nhận mật khẩu"
             containerClassName="mt-1"
             errorMsg={errors.confirm_password?.message}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
             register={register}
           />
           <Button

@@ -2,9 +2,11 @@ import { ArrowDownIcon, LockIcon, ReturnTicketIcon, TrainIcon } from "src/compon
 import ModalTab from "./components/ModalTab";
 const Homepage = () => {
   return (
-    <div className="relative h-[630px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat">
-      <h2 className="absolute top-40 left-12 w-[487px] text-6xl font-bold">Book With Us And Enjoy your Journey !</h2>
-      <div className="absolute top-[400px] left-1/2 w-[1000px] -translate-x-1/2 rounded-md bg-white py-3 px-4">
+    <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
+      <h2 className="absolute top-36 left-12 w-[300px] font-primary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
+        Travel With Us And Enjoy your Journey !
+      </h2>
+      <div className="absolute top-[300px] left-1/2 w-[400px] -translate-x-1/2 rounded-md bg-white py-3 px-4 sm:w-[500px] lg:top-[400px] lg:w-[900px] xl:w-[1000px]">
         <div className="flex justify-between gap-x-5">
           <div className="left flex w-full flex-col gap-y-3">
             <div className="flex items-center justify-between">
@@ -40,7 +42,9 @@ const Homepage = () => {
             </div>
           </div>
           <div className="flex-shrink-0">
-            <button className="rounded-lg bg-blue-600 px-5 py-4 font-medium text-white">Tìm kiếm</button>
+            <button className="rounded-lg bg-primary px-5 py-4 font-medium text-white transition-all duration-150 hover:bg-hover">
+              Tìm kiếm
+            </button>
           </div>
         </div>
       </div>

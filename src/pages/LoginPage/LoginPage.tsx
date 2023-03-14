@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "src/apis/auth.api";
@@ -12,12 +12,14 @@ import { AuthContext } from "src/contexts/auth.context";
 import { isAxiosError } from "axios";
 import { ErrorApiResponseType } from "src/types/response.types";
 import { isAxiosUnprocessableEntity } from "src/utils/isAxiosError";
-import { toast } from "react-toastify";
+import InputPassword from "src/components/InputPassword";
 
 type FormDataType = LoginType;
 const LoginPage = () => {
   const navigate = useNavigate();
   const { setUserProfile, setIsAuthenticated } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const {
     handleSubmit,
     register,
@@ -34,6 +36,7 @@ const LoginPage = () => {
   const handleLogin = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
       onSuccess: (data) => {
+        console.log(data);
         navigate(path.homepage);
         setUserProfile(data.data.data.applicationUser);
         setIsAuthenticated(Boolean(data.data.data.applicationUser));
@@ -69,12 +72,14 @@ const LoginPage = () => {
             errorMsg={errors.email?.message}
             register={register}
           />
-          <Input
+          <InputPassword
             type="password"
             name="password"
             placeholder="Nhập mật khẩu"
             containerClassName="mt-1"
             errorMsg={errors.password?.message}
+            showPassword={showPassword}
+            setShowPassword={setShowPassword}
             register={register}
           />
           <Button
