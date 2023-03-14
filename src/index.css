@@ -42,3 +42,7 @@ video {
   display: block;
   max-width: 100%;
 }
+
+.Toastify__toast-icon svg {
+  fill: #3b71fe;
+}
