@@ -43,6 +43,12 @@ video {
   max-width: 100%;
 }
 
+/* Hide Edge password reveal/hide */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
 .Toastify__toast-icon svg {
   fill: #3b71fe;
 }
