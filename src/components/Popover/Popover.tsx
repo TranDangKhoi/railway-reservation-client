@@ -17,19 +17,21 @@ type PopoverProps = {
   as?: React.ElementType;
   initialOpen?: boolean;
   placement?: Placement;
+  offsetPx?: number;
 };
 const Popover = ({
   children,
   renderPopover,
   className,
   initialOpen = false,
+  offsetPx = 10,
   placement = "bottom-end",
   as: Element = "div",
 }: PopoverProps) => {
   const arrowRef = useRef<HTMLElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(initialOpen);
   const { x, y, strategy, refs, context, middlewareData } = useFloating({
-    middleware: [offset(10), shift(), arrow({ element: arrowRef })],
+    middleware: [offset(offsetPx), shift(), arrow({ element: arrowRef })],
     placement: placement,
   });
   const click = useClick(context);

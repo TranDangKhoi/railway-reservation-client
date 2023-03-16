@@ -50,6 +50,7 @@ const MainNavbar = () => {
             {isAuthenticated ? (
               <Popover
                 placement="bottom"
+                offsetPx={15}
                 renderPopover={
                   <div className="overflow-hidden rounded-lg bg-white text-center shadow-shadow1">
                     <div className="flex flex-col">
@@ -95,12 +96,13 @@ const MainNavbar = () => {
             ) : (
               <Popover
                 initialOpen={false}
+                offsetPx={15}
                 renderPopover={
                   <div className="overflow-hidden rounded-lg bg-white text-center shadow-shadow1">
                     <div className="flex flex-col">
                       <Link
                         to={path.register}
-                        className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
+                        className="border-b-2 border-b-primaryGray px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
                         Đăng ký
                       </Link>

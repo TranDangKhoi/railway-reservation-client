@@ -7,7 +7,7 @@ const ReturnTicketIcon = ({ className, fill }: IconType) => {
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-4 w-4 ${className}`}
+      className={className}
     >
       <circle
         cx={12}
