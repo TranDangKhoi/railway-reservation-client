@@ -85,11 +85,12 @@ const MainNavbar = () => {
                       className="h-8 w-8 rounded-full object-cover"
                     />
                   </div>
-                  <span className="text-sm font-medium">{userProfile?.fullname}</span>
+                  <span className="hidden text-sm font-medium lg:block">{userProfile?.fullname}</span>
                   <ArrowDownIcon
                     kind="secondary"
                     width={10}
                     height={10}
+                    className="hidden lg:block"
                   ></ArrowDownIcon>
                 </div>
               </Popover>

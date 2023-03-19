@@ -1,5 +1,4 @@
 import React from "react";
-import { TrainIcon } from "src/components/Icon";
 
 type ModalTabProps = {
   children?: React.ReactNode;
@@ -12,7 +11,7 @@ const ModalTab = ({ children, containerClassName, iconComponent, textClassName =
   return (
     <div className={containerClassName}>
       {iconComponent}
-      <span className={`text-sm font-medium ${textClassName}`}>{children}</span>
+      <span className={`text-xs font-medium sm:text-sm ${textClassName}`}>{children}</span>
     </div>
   );
 };

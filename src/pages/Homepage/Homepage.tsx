@@ -8,11 +8,11 @@ const Homepage = () => {
       <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
         Travel With Us And Enjoy your Journey !
       </h2>
-      <div className="absolute top-full left-1/2 w-[400px] translate-y-[100px] -translate-x-1/2 rounded-md bg-white py-5 px-12 shadow-shadow1 sm:w-[500px] lg:top-[400px] lg:w-[900px] xl:w-[1170px]">
-        <div className="flex justify-between gap-x-5">
+      <div className="absolute top-full left-1/2 w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-5 pl-12 pr-10 shadow-shadow1 sm:w-[500px] lg:top-[400px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]">
+        <div className="flex flex-col justify-between gap-x-5 lg:flex-row">
           <div className="left flex w-full flex-col gap-y-3">
-            <div className="flex items-center justify-between border-b-[3px] border-b-input pb-5">
-              <div className="flex items-center gap-x-4">
+            <div className="flex items-center justify-center border-b-[3px] border-b-input pb-5 lg:justify-between">
+              <div className="flex items-center gap-x-4 lg:justify-start">
                 <ModalTab
                   containerClassName="flex items-center gap-x-2"
                   iconComponent={<TrainIcon className="h-4 w-4"></TrainIcon>}
@@ -56,7 +56,7 @@ const Homepage = () => {
                   </div>
                 }
               >
-                <button className="flex items-center gap-x-2">
+                <button className="hidden items-center gap-x-2 lg:flex">
                   <span className="font-medium">Một chiều</span>
                   <ArrowDownIcon
                     width={11}
@@ -67,7 +67,7 @@ const Homepage = () => {
                 </button>
               </Popover>
             </div>
-            <div className="mt-5 grid grid-cols-5 gap-x-2">
+            <div className="mt-5 grid grid-cols-2 gap-2 lg:grid-cols-5 lg:gap-x-2">
               <ModalSelect
                 title="Ga đi"
                 subtitle="Chọn ga đi"
@@ -77,6 +77,8 @@ const Homepage = () => {
                 title="Ga đến"
                 subtitle="Chọn ga đến"
                 arrowIconBefore={true}
+                colSpan={2}
+                extendOnMobile
               ></ModalSelect>
               <ModalSelect
                 title="Ngày đi"
@@ -90,8 +92,8 @@ const Homepage = () => {
               ></ModalSelect>
             </div>
           </div>
-          <div className="flex-shrink-0 self-end">
-            <button className="rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover">
+          <div className="flex-shrink-0 lg:self-end">
+            <button className="w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover">
               Tìm kiếm
             </button>
           </div>
