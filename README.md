@@ -44,6 +44,8 @@ Click here to navigate: [Backend Repository Link](https://github.com/TranDangKho
 
 # My notes
 
+## For "@floating-ui/react": "^0.21.0",
+
 ### How can i make the floating element the same width with the references ?
 
 The quickest and most optimized solution is to use the `size` middleware, like the following:
@@ -66,4 +68,73 @@ const { x, y, strategy, refs, context, middlewareData } = useFloating({
   open: isOpen,
   onOpenChange: setIsOpen,
 });
+```
+
+### How can i close all of the current opening floating elements when i click outside of its children and itself
+
+You can use `useDismiss` hook to do that. First in order to show the floating element you should declare events like `onClick, onMouseEnter, e.t.c` in the <Element></Element> element. Like this:
+
+```tsx
+<Element
+  className={className}
+  onClick={() => setIsOpen(true)}
+></Element>
+```
+
+And now you might use all of the codes followed on the documentation, implement it into your code. Here's an example:
+
+```tsx
+type PopoverProps = {
+  children?: React.ReactNode;
+  renderPopover?: React.ReactNode;
+  className?: string;
+  as?: React.ElementType;
+  initialOpen?: boolean;
+  placement?: Placement;
+  offsetPx?: number;
+};
+
+const PopoverFocus = ({
+  children,
+  renderPopover,
+  className,
+  initialOpen = false,
+  offsetPx = 10,
+  placement = "bottom-end",
+  as: Element = "div",
+}: PopoverProps) => {
+  const arrowRef = useRef<HTMLElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(initialOpen);
+  const { x, y, strategy, refs, context, middlewareData } = useFloating({
+    middleware: [
+      offset(offsetPx),
+      shift(),
+      arrow({ element: arrowRef }),
+      size({
+        apply({ rects, elements }) {
+          Object.assign(elements.floating.style, {
+            width: `${rects.reference.width}px`,
+          });
+        },
+      }),
+    ],
+    placement: placement,
+    open: isOpen,
+    onOpenChange: setIsOpen,
+  });
+  const dismiss = useDismiss(context);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
+  return (
+    <Element
+      className={className}
+      onClick={() => setIsOpen(true)}
+      ref={refs.setReference}
+      {...getReferenceProps()}
+    >
+      {children}
+      <FloatingPortal>// Your floating element content</FloatingPortal>
+    </Element>
+  );
+};
 ```
