@@ -41,3 +41,29 @@ Click here to navigate: [Backend Repository Link](https://github.com/TranDangKho
 - Self-testing and unit-testing applied 🔧
 
 - _And many more ..._
+
+# My notes
+
+### How can i make the floating element the same width with the references ?
+
+The quickest and most optimized solution is to use the `size` middleware, like the following:
+
+```tsx
+const { x, y, strategy, refs, context, middlewareData } = useFloating({
+  middleware: [
+    offset(offsetPx),
+    shift(),
+    arrow({ element: arrowRef }),
+    size({
+      apply({ rects, elements }) {
+        Object.assign(elements.floating.style, {
+          width: `${rects.reference.width}px`,
+        });
+      },
+    }),
+  ],
+  placement: placement,
+  open: isOpen,
+  onOpenChange: setIsOpen,
+});
+```
