@@ -1,8 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames";
-import { useContext, useRef } from "react";
-import { Dropdown, List, Search, Select } from "src/components/Dropdown";
+import { DebouncedFunc } from "lodash";
+import { useRef } from "react";
+import countryApi from "src/apis/country.api";
+import { Dropdown, List, Option, Search, Select } from "src/components/Dropdown";
 import { TwoWayArrowIcon } from "src/components/Icon";
-import { DropdownContext } from "src/contexts/dropdown.context";
 import useOnChange from "src/hooks/useOnChange";
 
 type ModalSelectPropsType = {
@@ -11,21 +13,19 @@ type ModalSelectPropsType = {
   colSpan?: number;
   arrowIconBefore?: boolean;
   extendOnMobile?: boolean;
+  setProvinceQuery?: string | DebouncedFunc<(e: React.ChangeEvent<HTMLInputElement>) => void>;
 };
 
 const ModalSelect = ({
   title,
-  subtitle,
+  subtitle = "",
   colSpan = 1,
   arrowIconBefore = false,
   extendOnMobile,
+  setProvinceQuery,
 }: ModalSelectPropsType) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [provinceQuery, setProvinceQuery] = useOnChange();
-  const handleFocusInput = () => {
-    const inputElement = inputRef.current as HTMLInputElement;
-    inputElement.focus();
-  };
+
   return (
     <div
       className={classNames("relative rounded-lg bg-tertiaryGray py-6 pr-16 pl-6", {
@@ -33,18 +33,27 @@ const ModalSelect = ({
         "col-span-1": colSpan === 1,
         "col-span-2 lg:col-span-1": colSpan === 2 && extendOnMobile,
       })}
-      onClick={handleFocusInput}
+      // onClick={handleFocusInput}
       aria-hidden={true}
     >
       <div className="flex flex-col gap-y-1">
         <h4 className="text-lg font-semibold">{title}</h4>
         <Dropdown>
-          <Select placeholder="Chọn ga đi"></Select>
+          <Select placeholder={subtitle}></Select>
           <List>
             <Search
               placeholder="Tìm kiếm ga đi..."
               onChange={setProvinceQuery}
             ></Search>
+            {countriesData &&
+              countriesData.map((country) => (
+                <Option
+                  key={country}
+                  onClick={() => handleSelectOption("country", country)}
+                >
+                  <span className="capitalize">{country}</span>
+                </Option>
+              ))}
           </List>
         </Dropdown>
       </div>
