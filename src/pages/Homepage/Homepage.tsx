@@ -1,16 +1,28 @@
+import { useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import countryApi from "src/apis/country.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
 import ModalSelect from "./components/ModalSelect";
 import ModalTab from "./components/ModalTab";
 const Homepage = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({});
+  const { data } = useQuery({
+    queryFn: () => countryApi.getCountries(),
+  });
+  const countriesData = data?.data.map((country) => country.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
   return (
     <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
       <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
         Travel With Us And Enjoy your Journey !
       </h2>
-      <div className="absolute top-full left-1/2 w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-5 pl-12 pr-10 shadow-shadow1 sm:w-[500px] lg:top-[400px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]">
+      <form className="absolute top-full left-1/2 w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-5 pl-12 pr-10 shadow-shadow1 sm:w-[500px] lg:top-[400px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]">
         <div className="flex flex-col justify-between gap-x-5 lg:flex-row">
-          <div className="left flex w-full flex-col gap-y-3">
+          <div className="flex w-full flex-col gap-y-3">
             <div className="flex items-center justify-center border-b-[3px] border-b-input pb-5 lg:justify-between">
               <div className="flex items-center gap-x-4 lg:justify-start">
                 <ModalTab
@@ -98,7 +110,7 @@ const Homepage = () => {
             </button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

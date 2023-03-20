@@ -64,7 +64,7 @@ const MainNavbar = () => {
                         to={path.orders}
                         className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
-                        Đơn mua
+                        Lịch sử giao dịch
                       </Link>
                       <div
                         className="cursor-pointer px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"

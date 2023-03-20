@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "src/apis/auth.api";

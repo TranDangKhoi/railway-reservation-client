@@ -8,6 +8,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider } from "./contexts/auth.context";
+import { DropdownProvider } from "./contexts/dropdown.context";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
