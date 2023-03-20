@@ -3,18 +3,16 @@ import { useForm } from "react-hook-form";
 import countryApi from "src/apis/country.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
-import useOnChange from "src/hooks/useOnChange";
 import ModalSelect from "./components/ModalSelect";
 import ModalTab from "./components/ModalTab";
 const Homepage = () => {
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({});
-  const [provinceQuery, setProvinceQuery] = useOnChange();
   const { data } = useQuery({
-    queryKey: ["countries"],
     queryFn: () => countryApi.getCountries(),
   });
   const countriesData = data?.data.map((country) => country.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
@@ -87,15 +85,15 @@ const Homepage = () => {
                 title="Ga đi"
                 subtitle="Chọn ga đi"
                 colSpan={2}
-                setProvinceQuery={setProvinceQuery}
+                countriesData={countriesData}
               ></ModalSelect>
               <ModalSelect
                 title="Ga đến"
                 subtitle="Chọn ga đến"
                 arrowIconBefore={true}
                 colSpan={2}
-                setProvinceQuery={setProvinceQuery}
                 extendOnMobile
+                countriesData={countriesData}
               ></ModalSelect>
               <ModalSelect
                 title="Ngày đi"

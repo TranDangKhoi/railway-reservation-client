@@ -4,12 +4,14 @@ import {
   offset,
   Placement,
   shift,
-  useClick,
+  size,
+  useDismiss,
   useFloating,
   useInteractions,
 } from "@floating-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useRef, useState } from "react";
+
 type PopoverProps = {
   children?: React.ReactNode;
   renderPopover?: React.ReactNode;
@@ -18,9 +20,9 @@ type PopoverProps = {
   initialOpen?: boolean;
   placement?: Placement;
   offsetPx?: number;
-  renderMethod?: "hover" | "conditional";
 };
-const Popover = ({
+
+const PopoverFocus = ({
   children,
   renderPopover,
   className,
@@ -32,28 +34,29 @@ const Popover = ({
   const arrowRef = useRef<HTMLElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(initialOpen);
   const { x, y, strategy, refs, context, middlewareData } = useFloating({
-    middleware: [offset(offsetPx), shift(), arrow({ element: arrowRef })],
+    middleware: [
+      offset(offsetPx),
+      shift(),
+      arrow({ element: arrowRef }),
+      size({
+        apply({ rects, elements }) {
+          Object.assign(elements.floating.style, {
+            width: `${rects.reference.width}px`,
+          });
+        },
+      }),
+    ],
     placement: placement,
+    open: isOpen,
+    onOpenChange: setIsOpen,
   });
-  const click = useClick(context);
-  const { getReferenceProps, getFloatingProps } = useInteractions([click]);
+  const dismiss = useDismiss(context);
 
-  const showPopover = () => {
-    setIsOpen(true);
-  };
-  const hidePopover = () => {
-    setIsOpen(false);
-  };
-  const togglePopOver = () => {
-    setIsOpen((prev) => !prev);
-  };
-
+  const { getReferenceProps, getFloatingProps } = useInteractions([dismiss]);
   return (
     <Element
       className={className}
-      onMouseEnter={showPopover}
-      onMouseLeave={hidePopover}
-      onTouchEnd={togglePopOver}
+      onClick={() => setIsOpen(true)}
       ref={refs.setReference}
       {...getReferenceProps()}
     >
@@ -95,4 +98,4 @@ const Popover = ({
   );
 };
 
-export default Popover;
+export default PopoverFocus;
