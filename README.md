@@ -46,7 +46,7 @@ Click here to navigate: [Backend Repository Link](https://github.com/TranDangKho
 
 ## For "@floating-ui/react": "^0.21.0",
 
-### How can i make the floating element the same width with the references ?
+### How can i make the floating element the same width as the references ?
 
 The quickest and most optimized solution is to use the `size` middleware, like the following:
 
