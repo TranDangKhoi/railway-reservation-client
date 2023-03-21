@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useState } from "react";
-import { LocationIcon, TwoWayArrowIcon } from "src/components/Icon";
+import { TwoWayArrowIcon } from "src/components/Icon";
 import PopoverDismiss from "src/components/PopoverDismiss";
 import { TrackSearchType } from "src/utils/schemas";
 
@@ -10,28 +10,27 @@ type ModalSelectPropsType = {
   colSpan?: number;
   arrowIconBefore?: boolean;
   extendOnMobile?: boolean;
-  countriesData?: string[];
   name: keyof TrackSearchType;
-  handleSelectProvince: (name: keyof TrackSearchType, value: string) => void;
+  departureTime?: Date;
+  returnTime?: Date;
 };
 
-const ModalSelect = ({
+const ModalSelectDate = ({
   title,
   subtitle,
   colSpan = 1,
   name,
-  countriesData,
   arrowIconBefore = false,
   extendOnMobile,
-  handleSelectProvince,
 }: ModalSelectPropsType) => {
   const [stationName, setStationName] = useState(subtitle);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const handleSelectStation = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setStationName(e.currentTarget.outerText);
-    setIsOpen(false);
-    handleSelectProvince(name as keyof TrackSearchType, e.currentTarget.outerText);
+    // handleSelectProvince(name as keyof TrackSearchType, e.currentTarget.outerText);
   };
+  // Declare a if-else statement here, if it's for departure time then return the code for departure time, the same for return time
   return (
     <PopoverDismiss
       className={classNames(
@@ -45,28 +44,7 @@ const ModalSelect = ({
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       placement="bottom"
-      offsetPx={0}
-      enableArrow={false}
-      renderPopover={
-        <div className="max-h-[280px] overflow-y-auto bg-white p-4 shadow-shadow1">
-          <input
-            type="text"
-            className="my-2 w-full rounded-lg border-2 border-gray-300 p-2 outline-none"
-          />
-          {countriesData &&
-            countriesData.map((country) => (
-              <div
-                className="flex cursor-pointer gap-x-2 py-2 hover:bg-tertiaryGray"
-                key={country}
-                aria-hidden
-                onClick={handleSelectStation}
-              >
-                <LocationIcon></LocationIcon>
-                <div className="text-sm font-medium text-secondaryGray">{country}</div>
-              </div>
-            ))}
-        </div>
-      }
+      renderPopover={<div className="bg-white p-4"></div>}
     >
       <div className="flex flex-col gap-y-1">
         <h4 className="text-lg font-semibold">{title}</h4>
@@ -81,4 +59,4 @@ const ModalSelect = ({
   );
 };
 
-export default ModalSelect;
+export default ModalSelectDate;

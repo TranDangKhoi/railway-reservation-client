@@ -5,6 +5,7 @@ import LogoIcon from "./LogoIcon";
 import ReturnTicketIcon from "./ReturnTicketIcon";
 import LockIcon from "./LockIcon";
 import TicketIcon from "./TicketIcon";
+import LocationIcon from "./LocationIcon";
 import EyeCloseIcon from "./EyeCloseIcon";
 import EyeOpenIcon from "./EyeOpenIcon";
 export {
@@ -17,4 +18,5 @@ export {
   EyeOpenIcon,
   TicketIcon,
   TwoWayArrowIcon,
+  LocationIcon,
 };
