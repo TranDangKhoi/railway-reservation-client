@@ -1,5 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
 import classNames from "classnames";
+import { debounce } from "lodash";
 import React, { useState } from "react";
+import provinceApi from "src/apis/province.api";
 import { LocationIcon, TwoWayArrowIcon } from "src/components/Icon";
 import PopoverDismiss from "src/components/PopoverDismiss";
 import { TrackSearchType } from "src/utils/schemas";
@@ -10,8 +13,9 @@ type ModalSelectPropsType = {
   colSpan?: number;
   arrowIconBefore?: boolean;
   extendOnMobile?: boolean;
-  countriesData?: string[];
+  provincesData?: string[];
   name: keyof TrackSearchType;
+  inputPlaceholder?: string;
   handleSelectProvince: (name: keyof TrackSearchType, value: string) => void;
 };
 
@@ -20,13 +24,31 @@ const ModalSelect = ({
   subtitle,
   colSpan = 1,
   name,
-  countriesData,
+  provincesData,
+  inputPlaceholder,
   arrowIconBefore = false,
   extendOnMobile,
   handleSelectProvince,
 }: ModalSelectPropsType) => {
   const [stationName, setStationName] = useState(subtitle);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [stationQuery, setStationQuery] = useState<string>("");
+  const { data, isFetching } = useQuery({
+    queryKey: ["countries", { stationQuery }],
+    queryFn: () => provinceApi.searchCountries(stationQuery),
+    staleTime: 60 * 1000,
+  });
+
+  // Get all provinces name without "Tỉnh" and "Thành phố" in it
+  const newProvincesData = data?.data.map((province) =>
+    province.name.replace("Tỉnh", "").replace("Thành phố", "").trim(),
+  );
+
+  const handleQueryStation = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setStationQuery(inputValue);
+  }, 1000);
+
   const handleSelectStation = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setStationName(e.currentTarget.outerText);
     setIsOpen(false);
@@ -52,19 +74,55 @@ const ModalSelect = ({
           <input
             type="text"
             className="my-2 w-full rounded-lg border-2 border-gray-300 p-2 outline-none"
+            placeholder={inputPlaceholder}
+            onChange={handleQueryStation}
           />
-          {countriesData &&
-            countriesData.map((country) => (
+          {newProvincesData?.length === 0 &&
+            provincesData &&
+            provincesData.map((province) => (
               <div
                 className="flex cursor-pointer gap-x-2 py-2 hover:bg-tertiaryGray"
-                key={country}
+                key={province}
                 aria-hidden
                 onClick={handleSelectStation}
               >
                 <LocationIcon></LocationIcon>
-                <div className="text-sm font-medium text-secondaryGray">{country}</div>
+                <div className="text-sm font-medium text-secondaryGray">{province}</div>
               </div>
             ))}
+          {!isFetching &&
+            newProvincesData &&
+            newProvincesData.map((province) => (
+              <div
+                className="flex cursor-pointer gap-x-2 py-2 hover:bg-tertiaryGray"
+                key={province}
+                aria-hidden
+                onClick={handleSelectStation}
+              >
+                <LocationIcon></LocationIcon>
+                <div className="text-sm font-medium text-secondaryGray">{province}</div>
+              </div>
+            ))}
+          {isFetching && (
+            <div
+              role="status"
+              className="mt-6 animate-pulse"
+            >
+              <div className="mb-4 h-4 rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+              <div className="h-10 rounded bg-gray-200 dark:bg-gray-700" />
+            </div>
+          )}
         </div>
       }
     >

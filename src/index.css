@@ -35,6 +35,29 @@ input[type="number"] {
   padding: 0;
   font: inherit;
 }
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #7f767f #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #7f767f;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
+
 img,
 picture,
 svg,

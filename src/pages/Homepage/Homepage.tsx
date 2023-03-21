@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import countryApi from "src/apis/country.api";
+import provinceApi from "src/apis/province.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
 import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
@@ -24,7 +24,7 @@ const Homepage = () => {
   });
   const { data } = useQuery({
     queryKey: ["countries"],
-    queryFn: () => countryApi.getCountries(),
+    queryFn: () => provinceApi.getCountries(),
   });
   const handleSelectProvince = (name: keyof FormDataType, value: string) => {
     setValue(name, value);
@@ -32,8 +32,7 @@ const Homepage = () => {
   const handleSearchTrack = handleSubmit((data) => {
     console.log(data);
   });
-  console.log(errors);
-  const countriesData = data?.data.map((country) => country.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
+  const provincesData = data?.data.map((province) => province.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
   return (
     <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
       <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
@@ -106,7 +105,8 @@ const Homepage = () => {
                 title="Ga đi"
                 subtitle="Chọn ga đi"
                 colSpan={2}
-                countriesData={countriesData}
+                provincesData={provincesData}
+                inputPlaceholder="Tìm kiếm ga..."
                 name="departureStation"
                 handleSelectProvince={handleSelectProvince}
               ></ModalSelect>
@@ -117,7 +117,7 @@ const Homepage = () => {
                 colSpan={2}
                 extendOnMobile
                 name="arrivalStation"
-                countriesData={countriesData}
+                provincesData={provincesData}
                 handleSelectProvince={handleSelectProvince}
               ></ModalSelect>
               <ModalSelectDate
