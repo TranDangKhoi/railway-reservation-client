@@ -11,10 +11,16 @@ const schema = yup.object({
     .string()
     .required("Vui lòng xác nhận mật khẩu của bạn")
     .oneOf([yup.ref("password")], "Mật khẩu xác nhận không trùng khớp"),
+  departureStation: yup.string().required("Vui lòng chọn ga khởi hành"),
+  arrivalStation: yup.string().required("Vui lòng chọn ga bạn muốn đến"),
+  departureTime: yup.date().required("Vui lòng chọn ngày khởi hành"),
+  returnTime: yup.date().required("Vui lòng chọn ngày về"),
 });
 
 export const loginSchema = schema.pick(["email", "password"]);
 export const registerSchema = schema.pick(["fullname", "email", "password", "confirm_password"]);
+export const trackSearchSchema = schema.pick(["departureStation", "arrivalStation", "returnTime", "departureTime"]);
 
 export type LoginType = yup.InferType<typeof loginSchema>;
 export type RegisterType = yup.InferType<typeof registerSchema>;
+export type TrackSearchType = yup.InferType<typeof trackSearchSchema>;
