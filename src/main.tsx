@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import { AuthProvider } from "./contexts/auth.context";
 import "./index.css";
+import "react-datepicker/dist/react-datepicker.css";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

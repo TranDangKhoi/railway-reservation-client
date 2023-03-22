@@ -16,7 +16,7 @@ type ModalSelectPropsType = {
   provincesData?: string[];
   name: keyof TrackSearchType;
   inputPlaceholder?: string;
-  handleSelectProvince: (name: keyof TrackSearchType, value: string) => void;
+  handleSelectOption: (name: keyof TrackSearchType, value: string) => void;
 };
 
 const ModalSelect = ({
@@ -28,7 +28,7 @@ const ModalSelect = ({
   inputPlaceholder,
   arrowIconBefore = false,
   extendOnMobile,
-  handleSelectProvince,
+  handleSelectOption,
 }: ModalSelectPropsType) => {
   const [stationName, setStationName] = useState(subtitle);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -52,7 +52,7 @@ const ModalSelect = ({
   const handleSelectStation = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setStationName(e.currentTarget.outerText);
     setIsOpen(false);
-    handleSelectProvince(name as keyof TrackSearchType, e.currentTarget.outerText);
+    handleSelectOption(name as keyof TrackSearchType, e.currentTarget.outerText);
   };
   return (
     <PopoverDismiss

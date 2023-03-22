@@ -25,6 +25,20 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input[name="departureTime"] {
+  @apply bg-tertiaryGray text-[14px] font-medium text-secondaryGray;
+  width: 100%;
+  outline: none;
+}
+
+.react-datepicker__input-container {
+  width: inherit;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
 *,
 *:before,
 *:after {

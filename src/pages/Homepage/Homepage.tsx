@@ -13,24 +13,31 @@ import ModalTab from "./components/ModalTab";
 type FormDataType = TrackSearchType;
 
 const Homepage = () => {
-  const [departureTime, setDepartureTime] = useState<Date>(new Date());
-  const [returnTime, setReturnTime] = useState<Date>(new Date());
+  const [departureTime, setDepartureTime] = useState<string>(new Date().toLocaleDateString("en-GB"));
+  const [returnTime, setReturnTime] = useState<string>(new Date().toLocaleDateString("en-GB"));
   const {
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<FormDataType>({
-    resolver: yupResolver(trackSearchSchema),
+    // resolver: yupResolver(trackSearchSchema),
+    defaultValues: {
+      departureTime: departureTime,
+    },
   });
   const { data } = useQuery({
     queryKey: ["countries"],
     queryFn: () => provinceApi.getCountries(),
   });
-  const handleSelectProvince = (name: keyof FormDataType, value: string) => {
+  const handleSelectOption = (name: keyof FormDataType, value: string) => {
     setValue(name, value);
   };
   const handleSearchTrack = handleSubmit((data) => {
-    console.log(data);
+    console.log({
+      ...data,
+      departureTime: `${departureTime.replaceAll("/", "-")} 23:59:59.0000000`,
+    });
   });
   const provincesData = data?.data.map((province) => province.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
   return (
@@ -81,16 +88,16 @@ const Homepage = () => {
                 renderPopover={
                   <div className="bg-white shadow-shadow1">
                     <button className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40">
-                      Một chiều
+                      Khứ hồi
                     </button>
                     <button className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40">
-                      Khứ hồi
+                      Một chiều
                     </button>
                   </div>
                 }
               >
                 <button className="hidden items-center gap-x-2 lg:flex">
-                  <span className="font-medium">Một chiều</span>
+                  <span className="font-medium">Khứ hồi</span>
                   <ArrowDownIcon
                     width={11}
                     height={10}
@@ -108,7 +115,7 @@ const Homepage = () => {
                 provincesData={provincesData}
                 inputPlaceholder="Tìm kiếm ga..."
                 name="departureStation"
-                handleSelectProvince={handleSelectProvince}
+                handleSelectOption={handleSelectOption}
               ></ModalSelect>
               <ModalSelect
                 title="Ga đến"
@@ -118,20 +125,23 @@ const Homepage = () => {
                 extendOnMobile
                 name="arrivalStation"
                 provincesData={provincesData}
-                handleSelectProvince={handleSelectProvince}
+                handleSelectOption={handleSelectOption}
               ></ModalSelect>
               <ModalSelectDate
+                departureTime={departureTime}
                 title="Ngày đi"
                 subtitle="Chọn ngày đi"
                 name="departureTime"
                 arrowIconBefore={true}
+                setDepartureTime={setDepartureTime}
+                handleSelectOption={handleSelectOption}
               ></ModalSelectDate>
-              <ModalSelectDate
+              {/* <ModalSelectDate
                 title="Ngày về"
                 subtitle="Chọn ngày về"
                 name="returnTime"
                 arrowIconBefore={true}
-              ></ModalSelectDate>
+              ></ModalSelectDate> */}
             </div>
           </div>
           <div className="flex-shrink-0 lg:self-end">
