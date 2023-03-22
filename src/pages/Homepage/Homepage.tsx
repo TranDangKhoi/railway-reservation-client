@@ -13,7 +13,7 @@ import ModalTab from "./components/ModalTab";
 type FormDataType = TrackSearchType;
 
 const Homepage = () => {
-  const [departureTime, setDepartureTime] = useState<string>(new Date().toLocaleDateString("en-GB"));
+  const [departureTime, setDepartureTime] = useState<Date>(new Date());
   const [returnTime, setReturnTime] = useState<string>(new Date().toLocaleDateString("en-GB"));
   const {
     handleSubmit,
@@ -36,7 +36,7 @@ const Homepage = () => {
   const handleSearchTrack = handleSubmit((data) => {
     console.log({
       ...data,
-      departureTime: `${departureTime.replaceAll("/", "-")} 23:59:59.0000000`,
+      departureTime: `${departureTime.toLocaleDateString("en-GB").replaceAll("/", "-")} 23:59:59.0000000`,
     });
   });
   const provincesData = data?.data.map((province) => province.name.replace("Tỉnh", "").replace("Thành phố", "").trim());

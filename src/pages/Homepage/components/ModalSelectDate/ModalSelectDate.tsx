@@ -12,9 +12,9 @@ type ModalSelectPropsType = {
   arrowIconBefore?: boolean;
   extendOnMobile?: boolean;
   name: keyof TrackSearchType;
-  departureTime: string;
+  departureTime: Date;
   returnTime?: string;
-  setDepartureTime: React.Dispatch<React.SetStateAction<string>>;
+  setDepartureTime: React.Dispatch<React.SetStateAction<Date>>;
   setReturnTime?: React.Dispatch<React.SetStateAction<string>>;
   handleSelectOption: (name: keyof TrackSearchType, value: string) => void;
 };
@@ -33,7 +33,7 @@ const ModalSelectDate = ({
   extendOnMobile,
 }: ModalSelectPropsType) => {
   const handleSelectDate = (date: Date) => {
-    setDepartureTime(date.toLocaleDateString("en-GB"));
+    setDepartureTime(date);
     handleSelectOption(name as keyof TrackSearchType, date.toLocaleDateString("en-GB"));
   };
   // Declare a if-else statement here, if it's for departure time then return the code for departure time, the same for return time
@@ -52,10 +52,10 @@ const ModalSelectDate = ({
       <div className="flex flex-col gap-y-1">
         <h4 className="text-lg font-semibold">{title}</h4>
         <ReactDatePicker
-          selected={new Date("Wed Mar 23 2023 16:10:15 GMT+0700")}
+          selected={departureTime}
           onChange={handleSelectDate}
           name={name}
-          value={departureTime}
+          value={departureTime.toLocaleDateString("en-GB")}
           placeholderText={subtitle}
           className="group-hover:bg-[#E8EFFF]"
         ></ReactDatePicker>
