@@ -138,3 +138,36 @@ const PopoverFocus = ({
   );
 };
 ```
+
+### Parent element height increases when datepicker is opened
+
+Because you're using Tailwind to set the `font-size` and `line-height` for texts. So for example, `text-sm` will set that element's styles to:
+
+```css
+.text-sm {
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+}
+```
+
+What made your parent element height increase is the `line-height` property, you can fix that by setting only the font-size to 14px using jit-mode
+
+Usage:
+
+```tsx
+<ReactDatePicker
+  selected={date}
+  onChange={handleSelectDate}
+  className="text-[14px]"
+></ReactDatePicker>
+```
+
+Instead of:
+
+```tsx
+<ReactDatePicker
+  selected={date}
+  onChange={handleSelectDate}
+  className="text-sm"
+></ReactDatePicker>
+```
