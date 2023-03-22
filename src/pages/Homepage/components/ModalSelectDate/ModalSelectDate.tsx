@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import ReactDatePicker from "react-datepicker";
 import { TwoWayArrowIcon } from "src/components/Icon";
-import PopoverDismiss from "src/components/PopoverDismiss";
 import { TrackSearchType } from "src/utils/schemas";
 
 type ModalSelectPropsType = {
@@ -36,8 +35,12 @@ const ModalSelectDate = ({
     setDepartureTime(date);
     handleSelectOption(name as keyof TrackSearchType, date.toLocaleDateString("en-GB"));
   };
+  const dateInputRef = useRef<HTMLInputElement>(null);
   // Declare a if-else statement here, if it's for departure time then return the code for departure time, the same for return time
-  console.log();
+  const handleFocusDateInput = () => {
+    const dateInputEl = document.querySelector(`#${name}`) as HTMLInputElement;
+    dateInputEl.focus();
+  };
   return (
     <div
       className={classNames(
@@ -48,6 +51,8 @@ const ModalSelectDate = ({
           "col-span-2 lg:col-span-1": colSpan === 2 && extendOnMobile,
         },
       )}
+      onClick={handleFocusDateInput}
+      aria-hidden
     >
       <div className="flex flex-col gap-y-1">
         <h4 className="text-lg font-semibold">{title}</h4>
@@ -55,9 +60,11 @@ const ModalSelectDate = ({
           selected={departureTime}
           onChange={handleSelectDate}
           name={name}
+          minDate={new Date()}
           value={departureTime.toLocaleDateString("en-GB")}
           placeholderText={subtitle}
-          className="group-hover:bg-[#E8EFFF]"
+          id={name}
+          className=" cursor-pointer group-hover:bg-[#E8EFFF]"
         ></ReactDatePicker>
       </div>
       {arrowIconBefore && (
