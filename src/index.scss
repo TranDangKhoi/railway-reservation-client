@@ -25,18 +25,11 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-input[name="departureTime"] {
+input[name="departureTime"],
+input[name="returnTime"] {
   @apply bg-tertiaryGray text-[14px] font-medium text-secondaryGray;
   width: 100%;
   outline: none;
-}
-
-.react-datepicker__input-container {
-  width: inherit;
-}
-
-.react-datepicker-wrapper {
-  width: 100%;
 }
 
 *,
@@ -88,4 +81,14 @@ input::-ms-clear {
 
 .Toastify__toast-icon svg {
   fill: #3b71fe;
+}
+
+.react-datepicker__week {
+  .react-datepicker__day--selected {
+    background-color: #3b71fe !important;
+  }
+  .react-datepicker__day--keyboard-selected {
+    background-color: rgba($color: #3b71fe, $alpha: 0.3) !important;
+    @apply text-primary;
+  }
 }
