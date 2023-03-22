@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import React, { useRef } from "react";
+import vi from "date-fns/locale/vi";
+import React from "react";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
 import { TwoWayArrowIcon } from "src/components/Icon";
 import { TrackSearchType } from "src/utils/schemas";
-import vi from "date-fns/locale/vi";
 registerLocale("vi", vi); // register it with the name you want
 
 type ModalSelectPropsType = {

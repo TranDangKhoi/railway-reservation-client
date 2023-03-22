@@ -1,11 +1,10 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import provinceApi from "src/apis/province.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
-import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
+import { TrackSearchType } from "src/utils/schemas";
 import ModalSelect from "./components/ModalSelect";
 import ModalSelectDate from "./components/ModalSelectDate";
 import ModalTab from "./components/ModalTab";
@@ -18,7 +17,6 @@ const Homepage = () => {
   const {
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm<FormDataType>({
     // resolver: yupResolver(trackSearchSchema),
