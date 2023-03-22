@@ -14,7 +14,7 @@ type FormDataType = TrackSearchType;
 
 const Homepage = () => {
   const [departureTime, setDepartureTime] = useState<Date>(new Date());
-  const [returnTime, setReturnTime] = useState<string>(new Date().toLocaleDateString("en-GB"));
+  const [returnTime, setReturnTime] = useState<Date>(new Date());
   const {
     handleSubmit,
     setValue,
@@ -24,6 +24,7 @@ const Homepage = () => {
     // resolver: yupResolver(trackSearchSchema),
     defaultValues: {
       departureTime: departureTime,
+      returnTime: returnTime,
     },
   });
   const { data } = useQuery({
@@ -37,6 +38,7 @@ const Homepage = () => {
     console.log({
       ...data,
       departureTime: `${departureTime.toLocaleDateString("en-GB").replaceAll("/", "-")} 23:59:59.0000000`,
+      returnTime: `${returnTime.toLocaleDateString("en-GB").replaceAll("/", "-")} 23:59:59.0000000`,
     });
   });
   const provincesData = data?.data.map((province) => province.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
@@ -136,12 +138,15 @@ const Homepage = () => {
                 setDepartureTime={setDepartureTime}
                 handleSelectOption={handleSelectOption}
               ></ModalSelectDate>
-              {/* <ModalSelectDate
+              <ModalSelectDate
                 title="Ngày về"
                 subtitle="Chọn ngày về"
-                name="returnTime"
                 arrowIconBefore={true}
-              ></ModalSelectDate> */}
+                name="returnTime"
+                returnTime={returnTime}
+                setReturnTime={setReturnTime}
+                handleSelectOption={handleSelectOption}
+              ></ModalSelectDate>
             </div>
           </div>
           <div className="flex-shrink-0 lg:self-end">
