@@ -67,7 +67,7 @@ const ModalSelectDate = ({
             placeholderText={subtitle}
             locale="vi"
             id={name}
-            className=" cursor-pointer group-hover:bg-[#E8EFFF]"
+            className="w-full cursor-pointer bg-tertiaryGray text-[14px] font-medium text-secondaryGray outline-none group-hover:bg-[#E8EFFF]"
           ></ReactDatePicker>
         </div>
         {arrowIconBefore && (
@@ -102,7 +102,7 @@ const ModalSelectDate = ({
             placeholderText={subtitle}
             locale="vi"
             id={name}
-            className=" cursor-pointer group-hover:bg-[#E8EFFF]"
+            className="w-full cursor-pointer bg-tertiaryGray text-[14px] font-medium text-secondaryGray outline-none group-hover:bg-[#E8EFFF]"
           ></ReactDatePicker>
         </div>
         {arrowIconBefore && (
