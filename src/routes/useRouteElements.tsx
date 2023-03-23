@@ -7,6 +7,7 @@ import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
 import RegisterPage from "src/pages/RegisterPage";
+import TrackPage from "src/pages/TrackPage";
 
 function ProtectedRoutes() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -52,6 +53,14 @@ export default function useRouteElements() {
             <AuthenticationLayout>
               <RegisterPage></RegisterPage>
             </AuthenticationLayout>
+          ),
+        },
+        {
+          path: path.trackDetails,
+          element: (
+            <MainLayout>
+              <TrackPage></TrackPage>
+            </MainLayout>
           ),
         },
       ],
