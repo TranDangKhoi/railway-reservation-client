@@ -13,8 +13,8 @@ const schema = yup.object({
     .oneOf([yup.ref("password")], "Mật khẩu xác nhận không trùng khớp"),
   departureStation: yup.string().required("Vui lòng chọn ga khởi hành"),
   arrivalStation: yup.string().required("Vui lòng chọn ga bạn muốn đến"),
-  departureTime: yup.date().required("Vui lòng chọn ngày khởi hành"),
-  returnTime: yup.date().required("Vui lòng chọn ngày về"),
+  departureTime: yup.string().required("Vui lòng chọn ngày khởi hành"),
+  returnTime: yup.string().required("Vui lòng chọn ngày về"),
 });
 
 export const loginSchema = schema.pick(["email", "password"]);
