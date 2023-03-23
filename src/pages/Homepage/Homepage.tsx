@@ -1,10 +1,16 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import provinceApi from "src/apis/province.api";
+import trackApi from "src/apis/track.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
-import { TrackSearchType } from "src/utils/schemas";
+import SkeletonLoading from "src/components/SkeletonLoading";
+import { path } from "src/constants/path.enum";
+import useQueryConfig from "src/hooks/useQueryConfig";
+import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
 import ModalSelect from "./components/ModalSelect";
 import ModalSelectDate from "./components/ModalSelectDate";
 import ModalTab from "./components/ModalTab";
@@ -14,32 +20,42 @@ type FormDataType = TrackSearchType;
 const Homepage = () => {
   const [departureTime, setDepartureTime] = useState<Date>(new Date());
   const [returnTime, setReturnTime] = useState<Date>(new Date());
+  const queryConfig = useQueryConfig();
   const {
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<FormDataType>({
-    // resolver: yupResolver(trackSearchSchema),
     defaultValues: {
-      departureTime: departureTime,
-      returnTime: returnTime,
+      departureTime: departureTime.toString(),
+      returnTime: returnTime.toString(),
     },
+    resolver: yupResolver(trackSearchSchema),
   });
-  const { data } = useQuery({
+  const navigate = useNavigate();
+  const { data: provincesQueryData } = useQuery({
     queryKey: ["countries"],
     queryFn: () => provinceApi.getCountries(),
   });
+
   const handleSelectOption = (name: keyof FormDataType, value: string) => {
     setValue(name, value);
   };
   const handleSearchTrack = handleSubmit((data) => {
-    console.log({
-      ...data,
-      departureTime: `${departureTime.toLocaleDateString("en-GB").replaceAll("/", "-")} 23:59:59.0000000`,
-      returnTime: `${returnTime.toLocaleDateString("en-GB").replaceAll("/", "-")} 23:59:59.0000000`,
+    navigate({
+      pathname: path.trackDetails,
+      search: createSearchParams({
+        ...queryConfig,
+        departureStation: data.departureStation,
+        arrivalStation: data.arrivalStation,
+        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00.0000000`,
+        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59.0000000`,
+      }).toString(),
     });
   });
-  const provincesData = data?.data.map((province) => province.name.replace("Tỉnh", "").replace("Thành phố", "").trim());
+  const provincesData = provincesQueryData?.data.map((province) =>
+    province.name.replace("Tỉnh", "").replace("Thành phố", "").trim(),
+  );
   return (
     <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
       <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
@@ -148,7 +164,10 @@ const Homepage = () => {
             </div>
           </div>
           <div className="flex-shrink-0 lg:self-end">
-            <button className="w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover">
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover"
+            >
               Tìm kiếm
             </button>
           </div>
