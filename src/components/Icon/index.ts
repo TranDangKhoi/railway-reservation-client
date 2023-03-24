@@ -8,6 +8,9 @@ import TicketIcon from "./TicketIcon";
 import LocationIcon from "./LocationIcon";
 import EyeCloseIcon from "./EyeCloseIcon";
 import EyeOpenIcon from "./EyeOpenIcon";
+import ArrowRightIcon from "./ArrowRightIcon";
+import ArrowLeftIcon from "./ArrowLeftIcon";
+import DashLineIcon from "./DashLineIcon";
 export {
   TrainIcon,
   LogoIcon,
@@ -19,4 +22,7 @@ export {
   TicketIcon,
   TwoWayArrowIcon,
   LocationIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  DashLineIcon as SendoTrainIcon,
 };

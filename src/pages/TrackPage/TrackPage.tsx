@@ -6,7 +6,15 @@ import { createSearchParams, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import provinceApi from "src/apis/province.api";
 import trackApi from "src/apis/track.api";
-import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
+import {
+  ArrowDownIcon,
+  ArrowRightIcon,
+  ReturnTicketIcon,
+  SendoTrainIcon,
+  TicketIcon,
+  TrainIcon,
+} from "src/components/Icon";
+import DashLineIcon from "src/components/Icon/DashLineIcon";
 import Popover from "src/components/Popover";
 import SkeletonLoading from "src/components/SkeletonLoading";
 import { path } from "src/constants/path.enum";
@@ -179,8 +187,49 @@ const TrackPage = () => {
           </div>
         </form>
       </div>
-      <div className="container">
-        <SkeletonLoading></SkeletonLoading>
+      <div className="bg-[#FAFAFB]">
+        <div className="container pt-48">
+          {/* <SkeletonLoading></SkeletonLoading> */}
+          <div className="rounded-lg border-2 border-primaryGray bg-white py-4 px-10 shadow-md">
+            <div className="flex items-center gap-x-2">
+              <div className="text-lg font-medium">Hồ Chí Minh</div>
+              <ArrowRightIcon
+                width={17}
+                height={12}
+              ></ArrowRightIcon>
+              <div className="text-lg font-medium">Hà Nội</div>
+              <div className="text-lg font-medium">Thứ 5, 19 tháng 8</div>
+            </div>
+            <div className="mt-7 flex items-start justify-between">
+              <div className="grid grid-cols-5 gap-x-6">
+                <div className="relative col-span-1 flex h-[65px] w-[60px] items-center justify-center bg-sendoTrainBackground bg-contain bg-no-repeat">
+                  <div className="text-[15px] font-bold">SE7</div>
+                </div>
+                <div className="col-span-1 flex flex-col items-start justify-start">
+                  <div className="text-xl font-bold">Hồ Chí Minh</div>
+                  <div className="text-base font-medium">Thời gian đi:</div>
+                  <span className="text-base font-medium text-secondaryGray">24/04/2023 8:45AM</span>
+                </div>
+                <div className="relative col-span-2 flex items-center justify-center">
+                  <div className="absolute top-1/2 -translate-y-1/2">
+                    <div className="flex h-[67px] w-[157px] items-center justify-center gap-x-3 bg-dashLineBackground bg-contain bg-no-repeat">
+                      <TrainIcon className="h-5 w-5"></TrainIcon>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-1 flex flex-col items-start justify-start">
+                  <div className="text-xl font-bold">Hà Nội</div>
+                  <div className="text-base font-medium">Thời gian về:</div>
+                  <span className="text-base font-medium text-secondaryGray">26/04/2023 8:45AM</span>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-base font-medium">63 chỗ trống</span>
+                <button className="w-full rounded-lg bg-primary px-3 py-4 text-white">Đặt chỗ</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
