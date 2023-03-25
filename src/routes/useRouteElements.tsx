@@ -56,7 +56,7 @@ export default function useRouteElements() {
           ),
         },
         {
-          path: path.trackDetails,
+          path: path.tracks,
           element: (
             <MainLayout>
               <TrackPage></TrackPage>
