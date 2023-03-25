@@ -1,29 +1,20 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createSearchParams, Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import provinceApi from "src/apis/province.api";
 import trackApi from "src/apis/track.api";
-import {
-  ArrowDownIcon,
-  ArrowRightIcon,
-  ReturnTicketIcon,
-  SendoTrainIcon,
-  TicketIcon,
-  TrainIcon,
-} from "src/components/Icon";
-import DashLineIcon from "src/components/Icon/DashLineIcon";
+import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
 import SkeletonLoading from "src/components/SkeletonLoading";
 import { path } from "src/constants/path.enum";
-import { AuthContext } from "src/contexts/auth.context";
 import useQueryConfig from "src/hooks/useQueryConfig";
 import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
 import ModalSelect from "../Homepage/components/ModalSelect";
 import ModalSelectDate from "../Homepage/components/ModalSelectDate";
 import ModalTab from "../Homepage/components/ModalTab";
+import Track from "./components/Track";
 
 type FormDataType = TrackSearchType;
 
@@ -47,19 +38,24 @@ const TrackPage = () => {
     queryKey: ["countries"],
     queryFn: () => provinceApi.getCountries(),
   });
-
   const handleSelectOption = (name: keyof FormDataType, value: string) => {
     setValue(name, value);
   };
+  const { data: tracksQueryData, isLoading: tracksQueryIsLoading } = useQuery({
+    queryKey: ["tracks", queryConfig],
+    queryFn: () => trackApi.findTracks(queryConfig),
+  });
+  const tracksData = tracksQueryData?.data;
+  console.log(tracksData);
   const handleSearchTrack = handleSubmit((data) => {
     navigate({
-      pathname: path.trackDetails,
+      pathname: path.tracks,
       search: createSearchParams({
         ...queryConfig,
         departureStation: data.departureStation,
         arrivalStation: data.arrivalStation,
-        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00.0000000`,
-        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59.0000000`,
+        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00`,
+        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59`,
       }).toString(),
     });
   });
@@ -187,50 +183,25 @@ const TrackPage = () => {
           </div>
         </form>
       </div>
-      <div className="bg-[#FAFAFB]">
-        <div className="container pt-48">
-          {/* <SkeletonLoading></SkeletonLoading> */}
-          <div className="rounded-lg border-2 border-primaryGray bg-white py-4 px-10 shadow-md">
-            <div className="flex items-center gap-x-2">
-              <div className="text-lg font-medium">Hồ Chí Minh</div>
-              <ArrowRightIcon
-                width={17}
-                height={12}
-              ></ArrowRightIcon>
-              <div className="text-lg font-medium">Hà Nội</div>
-              <div className="text-lg font-medium">Thứ 5, 19 tháng 8</div>
-            </div>
-            <div className="mt-7 flex items-start justify-between">
-              <div className="grid grid-cols-5 gap-x-6">
-                <div className="relative col-span-1 flex h-[65px] w-[60px] items-center justify-center bg-sendoTrainBackground bg-contain bg-no-repeat">
-                  <div className="text-[15px] font-bold">SE7</div>
-                </div>
-                <div className="col-span-1 flex flex-col items-start justify-start">
-                  <div className="text-xl font-bold">Hồ Chí Minh</div>
-                  <div className="text-base font-medium">Thời gian đi:</div>
-                  <span className="text-base font-medium text-secondaryGray">24/04/2023 8:45AM</span>
-                </div>
-                <div className="relative col-span-2 flex items-center justify-center">
-                  <div className="absolute top-1/2 -translate-y-1/2">
-                    <div className="flex h-[67px] w-[157px] items-center justify-center gap-x-3 bg-dashLineBackground bg-contain bg-no-repeat">
-                      <TrainIcon className="h-5 w-5"></TrainIcon>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-1 flex flex-col items-start justify-start">
-                  <div className="text-xl font-bold">Hà Nội</div>
-                  <div className="text-base font-medium">Thời gian về:</div>
-                  <span className="text-base font-medium text-secondaryGray">26/04/2023 8:45AM</span>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-medium">63 chỗ trống</span>
-                <button className="w-full rounded-lg bg-primary px-3 py-4 text-white">Đặt chỗ</button>
-              </div>
-            </div>
+      {tracksData && tracksData?.length > 0 ? (
+        <div>
+          <div className="container pt-48">
+            {tracksQueryIsLoading && !tracksData && <SkeletonLoading></SkeletonLoading>}
+            {!tracksQueryIsLoading &&
+              tracksData &&
+              tracksData.map((track) => (
+                <Track
+                  track={track}
+                  key={track.id}
+                ></Track>
+              ))}
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="container pt-48 text-center text-lg font-medium">
+          {tracksQueryIsLoading ? <SkeletonLoading></SkeletonLoading> : <span>Không tìm thấy chuyến đi nào!</span>}
+        </div>
+      )}
     </>
   );
 };
