@@ -43,13 +43,13 @@ const Homepage = () => {
   };
   const handleSearchTrack = handleSubmit((data) => {
     navigate({
-      pathname: path.trackDetails,
+      pathname: path.tracks,
       search: createSearchParams({
         ...queryConfig,
         departureStation: data.departureStation,
         arrivalStation: data.arrivalStation,
-        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00.0000000`,
-        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59.0000000`,
+        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00`,
+        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59`,
       }).toString(),
     });
   });
