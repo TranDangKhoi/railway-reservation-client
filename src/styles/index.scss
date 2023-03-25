@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "datepicker";
+@import "scrollbar";
 html {
   height: 100%;
   line-height: 1.2;
@@ -12,6 +14,7 @@ body {
   font-family: "Epilogue", "Poppins", "Be Vietnam", "Roboto", sans-serif;
   font-weight: 400;
   line-height: 14px;
+  background-color: #fafafb;
 }
 
 input::-webkit-outer-spin-button,
@@ -36,28 +39,6 @@ input[type="number"] {
   font: inherit;
 }
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: #7f767f #ffffff;
-}
-
-/* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #7f767f;
-  border-radius: 10px;
-  border: 3px solid #ffffff;
-}
-
 img,
 picture,
 svg,
@@ -74,14 +55,4 @@ input::-ms-clear {
 
 .Toastify__toast-icon svg {
   fill: #3b71fe;
-}
-
-.react-datepicker__week {
-  .react-datepicker__day--selected {
-    background-color: #3b71fe !important;
-  }
-  .react-datepicker__day--keyboard-selected {
-    background-color: rgba($color: #3b71fe, $alpha: 0.3) !important;
-    @apply text-primary;
-  }
 }
