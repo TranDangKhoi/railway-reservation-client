@@ -3,35 +3,41 @@ const SkeletonLoading = () => {
     <>
       <div
         role="status"
-        className="mt-32 max-w-full animate-pulse space-y-4 divide-y divide-gray-200 rounded border border-gray-200 p-4 shadow dark:divide-gray-700 dark:border-gray-700 md:p-6"
+        className="animate-pulse"
       >
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="my-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600" />
-            <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700" />
-            <div className="my-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600" />
-            <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700" />
-          </div>
-          <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700" />
-        </div>
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="my-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600" />
-            <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700" />
-            <div className="my-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600" />
-            <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700" />
-          </div>
-          <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700" />
-        </div>
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="my-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600" />
-            <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700" />
-            <div className="my-2.5 h-2.5 w-24 rounded-full bg-gray-300 dark:bg-gray-600" />
-            <div className="h-2 w-32 rounded-full bg-gray-200 dark:bg-gray-700" />
-          </div>
-          <div className="h-2.5 w-12 rounded-full bg-gray-300 dark:bg-gray-700" />
-        </div>
+        <div className="mb-4 h-4 rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="h-10 rounded bg-gray-200 dark:bg-gray-700" />
+        <span className="sr-only">Loading...</span>
+      </div>
+      <div
+        role="status"
+        className="mt-6 animate-pulse"
+      >
+        <div className="mb-4 h-4 rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10 rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="mb-2.5 h-10  rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="h-10 rounded bg-gray-200 dark:bg-gray-700" />
+        <span className="sr-only">Loading...</span>
       </div>
     </>
   );
