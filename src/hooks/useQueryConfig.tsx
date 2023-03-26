@@ -8,10 +8,10 @@ export default function useQueryConfig() {
     {
       departureStation: queryParams.departureStation,
       arrivalStation: queryParams.arrivalStation,
-      depatureTime: queryParams.departureTime,
-      returnTime: queryParams.returnTime,
+      departureTime: queryParams.departureTime,
     },
     isUndefined,
   );
+
   return queryConfig;
 }
