@@ -26,13 +26,6 @@ const TrackMeta = ({ track, type }: TrackMetaPropsType) => {
           <span className="text-base font-medium text-secondaryGray">{displayEnGBDateAndTime(track.arrivalTime)}</span>
         </>
       )}
-      {type === "return" && (
-        <>
-          <div className="text-xl font-bold">{track.departureStation}</div>
-          <div className="text-base font-medium">Thời gian về:</div>
-          <span className="text-base font-medium text-secondaryGray">{displayEnGBDateAndTime(track.returnTime)}</span>
-        </>
-      )}
     </div>
   );
 };

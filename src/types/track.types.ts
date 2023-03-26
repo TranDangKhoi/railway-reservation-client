@@ -4,12 +4,11 @@ export type TrackType = {
   departureTime: string;
   arrivalStation: string;
   arrivalTime: string;
-  returnTime: string;
   trainId: number;
   train: {
     id: number;
     name: string;
-    trainCarriages: {
+    carriages: {
       id: number;
       carriageNo: number;
       seats: {
@@ -30,4 +29,21 @@ export type TrackType = {
     totalReservedSeats: number;
     totalSeats: number;
   };
+};
+
+export type CarriageType = {
+  id: number;
+  carriageNo: number;
+  seats: {
+    id: number;
+    seatPrice: number;
+    seatStatus: number;
+    carriageId: number;
+  }[];
+  carriageTypeId: number;
+  carriageType: {
+    id: number;
+    name: string;
+  };
+  totalSeats: number;
 };

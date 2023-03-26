@@ -4,7 +4,7 @@ const removeSpecialCharacter = (str: string) =>
 
 export const getIdFromSlug = (slug: string) => {
   const arr = slug.split("-");
-  return arr[arr.length - 1];
+  return Number(arr[arr.length - 1]);
 };
 
 export const generateSlug = ({

@@ -26,6 +26,9 @@ module.exports = {
         secondary: ["Poppins", "DM Sans", "Roboto", "sans-serif"],
         tertiary: ["Be Vietnam", "Poppins", "DM Sans", "sans-serif"],
       },
+      gridTemplateColumns: {
+        14: "repeat(14, minmax(0, 1fr));",
+      },
       backgroundImage: {
         homepageBackground: "url('./src/assets/images/TrainStation2.png')",
         logoBackground: "url('./src/assets/images/BigWhiteLogo2.png')",
@@ -57,6 +60,17 @@ module.exports = {
         },
         ".container": {
           maxWidth: theme("columns.7xl"),
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingLeft: theme("spacing.4"),
+          paddingRight: theme("spacing.4"),
+          // Vì các trình duyệt phiên bản cũ (Chrome <2020, IE 9 11, ...v.v) chưa hỗ trợ kiểu styles này nên phải tạm comment để sử dụng kiểu trên
+          // marginInline: "auto",
+          // paddingInline: theme("spacing.4"),
+          // Nguồn: https://caniuse.com/?search=%20%20padding-inline và https://caniuse.com/?search=margin-inline
+        },
+        ".small-container": {
+          maxWidth: theme("columns.5xl"),
           marginLeft: "auto",
           marginRight: "auto",
           paddingLeft: theme("spacing.4"),

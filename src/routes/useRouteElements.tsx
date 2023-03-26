@@ -7,6 +7,7 @@ import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
 import RegisterPage from "src/pages/RegisterPage";
+import TrackDetailsPage from "src/pages/TrackDetailsPage";
 import TrackPage from "src/pages/TrackPage";
 
 function ProtectedRoutes() {
@@ -60,6 +61,14 @@ export default function useRouteElements() {
           element: (
             <MainLayout>
               <TrackPage></TrackPage>
+            </MainLayout>
+          ),
+        },
+        {
+          path: path.trackDetails,
+          element: (
+            <MainLayout>
+              <TrackDetailsPage></TrackDetailsPage>
             </MainLayout>
           ),
         },

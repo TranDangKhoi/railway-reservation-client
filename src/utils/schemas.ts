@@ -14,12 +14,11 @@ const schema = yup.object({
   departureStation: yup.string().required("Vui lòng chọn ga khởi hành"),
   arrivalStation: yup.string().required("Vui lòng chọn ga bạn muốn đến"),
   departureTime: yup.string().required("Vui lòng chọn ngày khởi hành"),
-  returnTime: yup.string().required("Vui lòng chọn ngày về"),
 });
 
 export const loginSchema = schema.pick(["email", "password"]);
 export const registerSchema = schema.pick(["fullname", "email", "password", "confirm_password"]);
-export const trackSearchSchema = schema.pick(["departureStation", "arrivalStation", "returnTime", "departureTime"]);
+export const trackSearchSchema = schema.pick(["departureStation", "arrivalStation", "departureTime"]);
 
 export type LoginType = yup.InferType<typeof loginSchema>;
 export type RegisterType = yup.InferType<typeof registerSchema>;

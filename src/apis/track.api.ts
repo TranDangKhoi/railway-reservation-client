@@ -7,6 +7,7 @@ const trackApi = {
     http.get<TrackType[]>(`/track/find`, {
       params,
     }),
+  getTrackDetailsById: (trackId: number) => http.get<TrackType>(`/track/${trackId}`),
 };
 
 export default trackApi;

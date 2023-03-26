@@ -20,7 +20,6 @@ type FormDataType = TrackSearchType;
 
 const TrackPage = () => {
   const [departureTime, setDepartureTime] = useState<Date>(new Date());
-  const [returnTime, setReturnTime] = useState<Date>(new Date());
   const queryConfig = useQueryConfig();
   const {
     handleSubmit,
@@ -29,7 +28,6 @@ const TrackPage = () => {
   } = useForm<FormDataType>({
     defaultValues: {
       departureTime: departureTime.toString(),
-      returnTime: returnTime.toString(),
     },
     resolver: yupResolver(trackSearchSchema),
   });
@@ -54,8 +52,7 @@ const TrackPage = () => {
         ...queryConfig,
         departureStation: data.departureStation,
         arrivalStation: data.arrivalStation,
-        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00`,
-        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59`,
+        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)}`,
       }).toString(),
     });
   });
@@ -113,16 +110,16 @@ const TrackPage = () => {
                   renderPopover={
                     <div className="bg-white shadow-shadow1">
                       <button className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40">
-                        Khứ hồi
+                        Một chiều
                       </button>
                       <button className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40">
-                        Một chiều
+                        Khứ hồi
                       </button>
                     </div>
                   }
                 >
                   <button className="hidden items-center gap-x-2 lg:flex">
-                    <span className="font-medium">Khứ hồi</span>
+                    <span className="font-medium">Một chiều</span>
                     <ArrowDownIcon
                       width={11}
                       height={10}
@@ -147,7 +144,6 @@ const TrackPage = () => {
                   subtitle="Chọn ga đến"
                   arrowIconBefore={true}
                   colSpan={2}
-                  extendOnMobile
                   name="arrivalStation"
                   provincesData={provincesData}
                   handleSelectOption={handleSelectOption}
@@ -159,15 +155,6 @@ const TrackPage = () => {
                   name="departureTime"
                   arrowIconBefore={true}
                   setDepartureTime={setDepartureTime}
-                  handleSelectOption={handleSelectOption}
-                ></ModalSelectDate>
-                <ModalSelectDate
-                  title="Ngày về"
-                  subtitle="Chọn ngày về"
-                  arrowIconBefore={true}
-                  name="returnTime"
-                  returnTime={returnTime}
-                  setReturnTime={setReturnTime}
                   handleSelectOption={handleSelectOption}
                 ></ModalSelectDate>
               </div>
