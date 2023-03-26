@@ -16,6 +16,7 @@ type ModalSelectPropsType = {
   provincesData?: string[];
   name: keyof TrackSearchType;
   inputPlaceholder?: string;
+  errorMsg?: string;
   handleSelectOption: (name: keyof TrackSearchType, value: string) => void;
 };
 
@@ -26,6 +27,7 @@ const ModalSelect = ({
   name,
   provincesData,
   inputPlaceholder,
+  errorMsg,
   arrowIconBefore = false,
   extendOnMobile,
   handleSelectOption,
@@ -67,7 +69,7 @@ const ModalSelect = ({
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       placement="bottom"
-      offsetPx={0}
+      offsetPx={5}
       enableArrow={false}
       renderPopover={
         <div className="max-h-[280px] overflow-y-auto bg-white p-4 shadow-shadow1">
@@ -128,7 +130,19 @@ const ModalSelect = ({
     >
       <div className="flex flex-col gap-y-1">
         <h4 className="text-lg font-semibold">{title}</h4>
-        <div className="text-sm font-medium text-secondaryGray">{stationName}</div>
+        <div
+          className={classNames(
+            "text-sm font-medium",
+            {
+              "text-red-500": errorMsg && stationName === subtitle,
+            },
+            {
+              "text-secondaryGray": !errorMsg && stationName !== subtitle,
+            },
+          )}
+        >
+          {errorMsg && stationName === subtitle ? errorMsg : stationName}
+        </div>
       </div>
       {arrowIconBefore && (
         <span className="absolute top-1/2 -left-4 z-[1] hidden h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-white lg:flex">

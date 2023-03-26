@@ -4,10 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import provinceApi from "src/apis/province.api";
-import trackApi from "src/apis/track.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
 import Popover from "src/components/Popover";
-import SkeletonLoading from "src/components/SkeletonLoading";
 import { path } from "src/constants/path.enum";
 import useQueryConfig from "src/hooks/useQueryConfig";
 import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
@@ -19,7 +17,6 @@ type FormDataType = TrackSearchType;
 
 const Homepage = () => {
   const [departureTime, setDepartureTime] = useState<Date>(new Date());
-  const [returnTime, setReturnTime] = useState<Date>(new Date());
   const queryConfig = useQueryConfig();
   const {
     handleSubmit,
@@ -28,9 +25,10 @@ const Homepage = () => {
   } = useForm<FormDataType>({
     defaultValues: {
       departureTime: departureTime.toString(),
-      returnTime: returnTime.toString(),
     },
     resolver: yupResolver(trackSearchSchema),
+    reValidateMode: "onChange",
+    mode: "onChange",
   });
   const navigate = useNavigate();
   const { data: provincesQueryData } = useQuery({
@@ -48,14 +46,20 @@ const Homepage = () => {
         ...queryConfig,
         departureStation: data.departureStation,
         arrivalStation: data.arrivalStation,
-        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)} 00:00:00`,
-        returnTime: `${returnTime.toISOString().replaceAll("/", "-").slice(0, 10)} 23:59:59`,
+        departureTime: `${departureTime
+          .toLocaleDateString("pt-br")
+          .split("/")
+          .reverse()
+          .join("-")
+          .replaceAll("/", "-")
+          .slice(0, 10)}`,
       }).toString(),
     });
   });
   const provincesData = provincesQueryData?.data.map((province) =>
     province.name.replace("Tỉnh", "").replace("Thành phố", "").trim(),
   );
+  console.log(errors);
   return (
     <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
       <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
@@ -104,16 +108,16 @@ const Homepage = () => {
                 renderPopover={
                   <div className="bg-white shadow-shadow1">
                     <button className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40">
-                      Khứ hồi
+                      Một chiều
                     </button>
                     <button className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40">
-                      Một chiều
+                      Khứ hồi
                     </button>
                   </div>
                 }
               >
                 <button className="hidden items-center gap-x-2 lg:flex">
-                  <span className="font-medium">Khứ hồi</span>
+                  <span className="font-medium">Một chiều</span>
                   <ArrowDownIcon
                     width={11}
                     height={10}
@@ -129,6 +133,7 @@ const Homepage = () => {
                 subtitle="Chọn ga đi"
                 colSpan={2}
                 provincesData={provincesData}
+                errorMsg={errors.departureStation?.message}
                 inputPlaceholder="Tìm kiếm ga..."
                 name="departureStation"
                 handleSelectOption={handleSelectOption}
@@ -137,8 +142,8 @@ const Homepage = () => {
                 title="Ga đến"
                 subtitle="Chọn ga đến"
                 arrowIconBefore={true}
+                errorMsg={errors.arrivalStation?.message}
                 colSpan={2}
-                extendOnMobile
                 name="arrivalStation"
                 provincesData={provincesData}
                 handleSelectOption={handleSelectOption}
@@ -150,15 +155,6 @@ const Homepage = () => {
                 name="departureTime"
                 arrowIconBefore={true}
                 setDepartureTime={setDepartureTime}
-                handleSelectOption={handleSelectOption}
-              ></ModalSelectDate>
-              <ModalSelectDate
-                title="Ngày về"
-                subtitle="Chọn ngày về"
-                arrowIconBefore={true}
-                name="returnTime"
-                returnTime={returnTime}
-                setReturnTime={setReturnTime}
                 handleSelectOption={handleSelectOption}
               ></ModalSelectDate>
             </div>
