@@ -14,6 +14,7 @@ export type TrackType = {
       seats: {
         id: number;
         seatPrice: number;
+        seatNo: number;
         seatStatus: number;
         carriageId: number;
       }[];
@@ -37,6 +38,7 @@ export type CarriageType = {
   seats: {
     id: number;
     seatPrice: number;
+    seatNo: number;
     seatStatus: number;
     carriageId: number;
   }[];
@@ -46,4 +48,12 @@ export type CarriageType = {
     name: string;
   };
   totalSeats: number;
+};
+
+export type SeatType = {
+  id: number;
+  seatPrice: number;
+  seatNo: number;
+  seatStatus: number;
+  carriageId: number;
 };

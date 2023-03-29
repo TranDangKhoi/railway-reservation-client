@@ -1,0 +1,12 @@
+.carriage-seat {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 4px;
+    height: calc(100% + 4px);
+    transform: translate(-50%, -50%);
+    @apply rounded-sm bg-secondaryGray;
+  }
+}
