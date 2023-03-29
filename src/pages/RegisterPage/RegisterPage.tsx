@@ -37,7 +37,7 @@ const LoginPage = () => {
     const body = omit(data, ["confirm_password"]);
     registerAccountMutation.mutate(body, {
       onSuccess: (data) => {
-        navigate(path.homepage);
+        navigate(-1);
         setUserProfile(data.data.data.applicationUser);
         setIsAuthenticated(Boolean(data.data.data.applicationUser));
       },

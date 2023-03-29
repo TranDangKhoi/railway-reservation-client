@@ -36,7 +36,7 @@ const LoginPage = () => {
   const handleLogin = handleSubmit((data) => {
     loginAccountMutation.mutate(data, {
       onSuccess: (data) => {
-        navigate(path.homepage);
+        navigate(-1);
         setUserProfile(data.data.data.applicationUser);
         setIsAuthenticated(Boolean(data.data.data.applicationUser));
       },
