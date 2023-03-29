@@ -59,7 +59,6 @@ const Homepage = () => {
   const provincesData = provincesQueryData?.data.map((province) =>
     province.name.replace("Tỉnh", "").replace("Thành phố", "").trim(),
   );
-  console.log(errors);
   return (
     <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
       <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
@@ -154,6 +153,8 @@ const Homepage = () => {
                 subtitle="Chọn ngày đi"
                 name="departureTime"
                 arrowIconBefore={true}
+                extendOnMobile
+                colSpan={2}
                 setDepartureTime={setDepartureTime}
                 handleSelectOption={handleSelectOption}
               ></ModalSelectDate>

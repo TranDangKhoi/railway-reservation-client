@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import authApi from "src/apis/auth.api";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
-import { ArrowDownIcon, LogoIcon } from "../Icon";
+import { ArrowDownIcon, BasketIcon, LogoIcon } from "../Icon";
 import Popover from "../Popover";
 const MainNavbar = () => {
   const { isAuthenticated, userProfile, setIsAuthenticated, setUserProfile } = useContext(AuthContext);
@@ -133,6 +133,13 @@ const MainNavbar = () => {
                 </div>
               </Popover>
             )}
+            <div className="cursor-pointer">
+              <BasketIcon
+                width={26}
+                height={26}
+                fill="black"
+              ></BasketIcon>
+            </div>
           </div>
         </nav>
       </div>
