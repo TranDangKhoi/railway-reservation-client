@@ -44,7 +44,6 @@ const TrackPage = () => {
     queryFn: () => trackApi.findTracks(queryConfig),
   });
   const tracksData = tracksQueryData?.data;
-  console.log(tracksData);
   const handleSearchTrack = handleSubmit((data) => {
     navigate({
       pathname: path.tracks,
