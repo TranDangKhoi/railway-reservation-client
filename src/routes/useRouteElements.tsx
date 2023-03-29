@@ -56,23 +56,23 @@ export default function useRouteElements() {
             </AuthenticationLayout>
           ),
         },
-        {
-          path: path.tracks,
-          element: (
-            <MainLayout>
-              <TrackPage></TrackPage>
-            </MainLayout>
-          ),
-        },
-        {
-          path: path.trackDetails,
-          element: (
-            <MainLayout>
-              <TrackDetailsPage></TrackDetailsPage>
-            </MainLayout>
-          ),
-        },
       ],
+    },
+    {
+      path: path.tracks,
+      element: (
+        <MainLayout>
+          <TrackPage></TrackPage>
+        </MainLayout>
+      ),
+    },
+    {
+      path: path.trackDetails,
+      element: (
+        <MainLayout>
+          <TrackDetailsPage></TrackDetailsPage>
+        </MainLayout>
+      ),
     },
   ]);
   return routes;
