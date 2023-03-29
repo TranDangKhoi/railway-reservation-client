@@ -20,6 +20,8 @@ module.exports = {
         primaryGray: "#F4F5F6",
         secondaryGray: "#84878B",
         tertiaryGray: "#F4F2F1",
+        primaryCyan: "#A4CDE3",
+        primaryYellow: "#FFAF4E",
       },
       fontFamily: {
         primary: ["Epilogue", "DM Sans", "Roboto", "sans-serif"],

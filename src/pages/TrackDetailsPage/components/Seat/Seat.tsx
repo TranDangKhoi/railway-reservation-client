@@ -1,7 +1,10 @@
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import classNames from "classnames";
-import React from "react";
+import React, { useContext } from "react";
+import cartApi from "src/apis/cart.api";
 import Popover from "src/components/Popover";
 import { seatStatus } from "src/constants/seatStatus.enum";
+import { AuthContext } from "src/contexts/auth.context";
 import { SeatType } from "src/types/track.types";
 import { formatCurrency } from "src/utils/formatNumber";
 
@@ -10,6 +13,19 @@ type SeatPropsType = {
 };
 
 const Seat = ({ seat }: SeatPropsType) => {
+  const { userProfile } = useContext(AuthContext);
+  const queryClient = new QueryClient();
+  const userId = userProfile?.id;
+  const addToCartMutation = useMutation({
+    mutationFn: cartApi.addToCart,
+  });
+  const handleAddToCart = (body: { userId: string; seatId: number }) => {
+    addToCartMutation.mutate(body, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["cart"]);
+      },
+    });
+  };
   return (
     <Popover
       renderMethod="hover"
@@ -45,6 +61,8 @@ const Seat = ({ seat }: SeatPropsType) => {
             "cursor-pointer bg-white text-black": seat.seatStatus === seatStatus.free,
           },
         )}
+        onClick={() => handleAddToCart({ seatId: seat.id, userId: userId as string })}
+        aria-hidden
       >
         <span className="text-sm">{seat.seatNo}</span>
       </div>
