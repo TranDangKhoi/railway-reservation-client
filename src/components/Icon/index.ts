@@ -11,6 +11,7 @@ import EyeOpenIcon from "./EyeOpenIcon";
 import ArrowRightIcon from "./ArrowRightIcon";
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import DashLineIcon from "./DashLineIcon";
+import BasketIcon from "./BasketIcon";
 export {
   TrainIcon,
   LogoIcon,
@@ -24,5 +25,6 @@ export {
   LocationIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
-  DashLineIcon as SendoTrainIcon,
+  DashLineIcon,
+  BasketIcon,
 };
