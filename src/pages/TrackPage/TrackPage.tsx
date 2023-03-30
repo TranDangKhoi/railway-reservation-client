@@ -134,6 +134,7 @@ const TrackPage = () => {
                   subtitle="Chọn ga đi"
                   colSpan={2}
                   provincesData={provincesData}
+                  errorMsg={errors.departureStation?.message}
                   inputPlaceholder="Tìm kiếm ga..."
                   name="departureStation"
                   handleSelectOption={handleSelectOption}
@@ -143,6 +144,7 @@ const TrackPage = () => {
                   subtitle="Chọn ga đến"
                   arrowIconBefore={true}
                   colSpan={2}
+                  errorMsg={errors.arrivalStation?.message}
                   name="arrivalStation"
                   provincesData={provincesData}
                   handleSelectOption={handleSelectOption}

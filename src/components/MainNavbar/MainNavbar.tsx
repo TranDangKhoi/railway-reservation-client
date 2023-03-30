@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,12 +10,14 @@ import Popover from "../Popover";
 const MainNavbar = () => {
   const { isAuthenticated, userProfile, setIsAuthenticated, setUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const logOutAccountMutation = useMutation({
     mutationFn: () => authApi.logoutAccount(),
   });
   const handleLogout = () => {
     navigate(path.login);
     logOutAccountMutation.mutate();
+    queryClient.invalidateQueries({ queryKey: ["cart"] });
     setIsAuthenticated(false);
     setUserProfile(null);
     toast.success("Đăng xuất thành công");

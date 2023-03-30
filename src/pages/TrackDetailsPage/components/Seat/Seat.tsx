@@ -1,6 +1,7 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
-import React, { useContext } from "react";
+import { useContext } from "react";
+import { toast } from "react-toastify";
 import cartApi from "src/apis/cart.api";
 import Popover from "src/components/Popover";
 import { seatStatus } from "src/constants/seatStatus.enum";
@@ -14,18 +15,20 @@ type SeatPropsType = {
 
 const Seat = ({ seat }: SeatPropsType) => {
   const { userProfile } = useContext(AuthContext);
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const userId = userProfile?.id;
   const addToCartMutation = useMutation({
     mutationFn: cartApi.addToCart,
   });
+
   const handleAddToCart = (body: { userId: string; seatId: number }) => {
     addToCartMutation.mutate(body, {
       onSuccess: () => {
-        queryClient.invalidateQueries(["cart"]);
+        queryClient.invalidateQueries({ queryKey: ["cart"] });
       },
     });
   };
+
   return (
     <Popover
       renderMethod="hover"
