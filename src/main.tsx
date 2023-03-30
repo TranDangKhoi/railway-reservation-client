@@ -23,12 +23,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <AuthProvider>
           <App />
         </AuthProvider>
-        <ToastContainer
-          progressStyle={{
-            background: "#3B71FE",
-          }}
-          pauseOnHover={false}
-        ></ToastContainer>
+        <ToastContainer pauseOnHover={false}></ToastContainer>
         <ReactQueryDevtools></ReactQueryDevtools>
       </QueryClientProvider>
     </BrowserRouter>

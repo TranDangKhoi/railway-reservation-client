@@ -54,6 +54,17 @@ input::-ms-clear {
   display: none;
 }
 
-.Toastify__toast-icon svg {
+.Toastify__toast--success .Toastify__toast-icon svg {
   fill: #3b71fe;
+}
+
+.Toastify__progress-bar--success {
+  background-color: #3b71fe;
+}
+.Toastify__progress-bar--error {
+  background-color: red;
+}
+
+.Toastify__toast--error .Toastify__toast-icon svg {
+  fill: red;
 }
