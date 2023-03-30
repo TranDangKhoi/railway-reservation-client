@@ -48,18 +48,39 @@ class Http {
         } else if (url === "/auth/logout") {
           this.accessToken = "";
           clearAuthenInfoFromLS();
+        } else if (response.status === 200 && url == "/cart/add-to-cart") {
+          toast.dismiss();
+          toast.success("Thêm vào giỏ vé thành công", {
+            autoClose: 1000,
+            hideProgressBar: true,
+            position: "top-center",
+          });
+        } else if (response.status === 202 && url === "/cart/add-to-cart") {
+          toast.dismiss();
+          toast.success("Xóa vé khỏi giỏ thành công", {
+            autoClose: 1000,
+            hideProgressBar: true,
+            position: "top-center",
+          });
         }
         return response;
       },
       (error: AxiosError) => {
+        if (error?.response?.status === HttpStatusCode.Unauthorized) {
+          toast.dismiss();
+          toast.error("Vui lòng đăng nhập để sử dụng tính năng này");
+          return Promise.reject(error);
+        }
         if (error?.response?.status !== HttpStatusCode.UnprocessableEntity) {
           // const message = error.message;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data;
           const message = data.errorMessages || error.message;
+          toast.dismiss();
           toast.error(message);
           return Promise.reject(error);
         }
+
         return Promise.reject(error);
       },
     );
