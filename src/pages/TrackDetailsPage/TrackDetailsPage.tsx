@@ -24,7 +24,8 @@ const TrackDetailsPage = () => {
     keepPreviousData: true,
     staleTime: 10 * 60 * 1000,
   });
-  const track = trackDetailsQueryData?.data;
+  const track = trackDetailsQueryData?.data.data;
+  console.log(track);
   const { data: cartData, isLoading: cartIsLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
@@ -46,7 +47,7 @@ const TrackDetailsPage = () => {
       },
     });
   };
-  const cart = cartData?.data;
+  const cart = cartData?.data.data;
   if (!track) return null;
   return (
     <div className="small-container grid w-full grid-cols-3 gap-x-10 bg-white px-2 py-3">
