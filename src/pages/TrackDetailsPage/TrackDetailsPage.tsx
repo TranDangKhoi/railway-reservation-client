@@ -118,7 +118,12 @@ const TrackDetailsPage = () => {
                 </div>
               ))}
             </div>
-            <button className="w-full rounded-md bg-primary py-2 text-sm font-medium text-white">Thanh toán</button>
+            <button
+              onClick={() => navigate(path.payment)}
+              className="mt-2 w-full rounded-md bg-primary py-2 text-sm font-medium text-white"
+            >
+              Thanh toán
+            </button>
           </>
         )}
         {isAuthenticated && !cart && (
@@ -128,7 +133,7 @@ const TrackDetailsPage = () => {
               alt="Giỏ vé trống"
               className="h-20 w-20 object-cover"
             />
-            <span className="text-sm font-medium">Không có vé trong giỏ</span>
+            <span className="text-sm">Không có vé trong giỏ</span>
           </div>
         )}
       </div>

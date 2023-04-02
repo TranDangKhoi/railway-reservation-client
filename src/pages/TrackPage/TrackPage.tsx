@@ -10,7 +10,7 @@ import Popover from "src/components/Popover";
 import SkeletonLoading from "src/components/SkeletonLoading";
 import { path } from "src/constants/path.enum";
 import useQueryConfig from "src/hooks/useQueryConfig";
-import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
+import { trackSearchSchema, TrackSearchType } from "src/schemas/schemas";
 import ModalSelect from "../Homepage/components/ModalSelect";
 import ModalSelectDate from "../Homepage/components/ModalSelectDate";
 import ModalTab from "../Homepage/components/ModalTab";

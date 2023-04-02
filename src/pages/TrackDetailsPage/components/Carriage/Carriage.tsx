@@ -23,7 +23,7 @@ const Carriage = ({ carriages }: CarriagePropsType) => {
     keepPreviousData: true,
     staleTime: 10 * 60 * 1000,
   });
-  const carriage = carriageDetailsQueryData?.data;
+  const carriage = carriageDetailsQueryData?.data.data;
   const handleSelectCarriage = (carriageId: number) => {
     setCarriageIdState(carriageId);
     refetch({ queryKey: ["carriageDetails", { carriageId: carriageIdState }] });

@@ -8,7 +8,7 @@ import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/comp
 import Popover from "src/components/Popover";
 import { path } from "src/constants/path.enum";
 import useQueryConfig from "src/hooks/useQueryConfig";
-import { trackSearchSchema, TrackSearchType } from "src/utils/schemas";
+import { trackSearchSchema, TrackSearchType } from "src/schemas/schemas";
 import ModalSelect from "./components/ModalSelect";
 import ModalSelectDate from "./components/ModalSelectDate";
 import ModalTab from "./components/ModalTab";
