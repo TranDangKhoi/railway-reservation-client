@@ -6,13 +6,14 @@ import { Link, useNavigate } from "react-router-dom";
 import authApi from "src/apis/auth.api";
 import Input from "src/components/Input";
 import { path } from "src/constants/path.enum";
-import { loginSchema, LoginType } from "src/utils/schemas";
+import { loginSchema, LoginType } from "src/schemas/schemas";
 import Button from "src/components/Button";
 import { AuthContext } from "src/contexts/auth.context";
 import { isAxiosError } from "axios";
 import { ErrorApiResponseType } from "src/types/response.types";
 import { isAxiosUnprocessableEntity } from "src/utils/isAxiosError";
 import InputPassword from "src/components/InputPassword";
+import Label from "../Homepage/components/Label";
 
 type FormDataType = LoginType;
 const LoginPage = () => {
@@ -63,19 +64,24 @@ const LoginPage = () => {
           noValidate
         >
           <div className="text-center text-2xl font-medium">Đăng nhập tài khoản</div>
+          <Label
+            className="mt-5"
+            htmlFor="email"
+          >
+            Địa chỉ e-mail
+          </Label>
           <Input
             type="text"
             name="email"
             placeholder="Nhập địa chỉ e-mail"
-            containerClassName="mt-5"
             errorMsg={errors.email?.message}
             register={register}
           />
+          <Label htmlFor="password">Mật khẩu</Label>
           <InputPassword
             type="password"
             name="password"
             placeholder="Nhập mật khẩu"
-            containerClassName="mt-1"
             errorMsg={errors.password?.message}
             showPassword={showPassword}
             setShowPassword={setShowPassword}

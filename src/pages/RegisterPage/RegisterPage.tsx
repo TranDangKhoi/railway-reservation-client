@@ -13,7 +13,8 @@ import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { ErrorApiResponseType } from "src/types/response.types";
 import { isAxiosUnprocessableEntity } from "src/utils/isAxiosError";
-import { registerSchema, RegisterType } from "src/utils/schemas";
+import { registerSchema, RegisterType } from "src/schemas/schemas";
+import Label from "../Homepage/components/Label";
 
 type FormDataType = RegisterType;
 const LoginPage = () => {
@@ -55,7 +56,7 @@ const LoginPage = () => {
     });
   });
   return (
-    <div className="grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10">
+    <div className="grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-20 lg:pr-10">
       <div className="lg:col-span-2 lg:col-start-4">
         <form
           className="rounded-lg bg-white px-3 py-4 shadow-2xl"
@@ -63,37 +64,42 @@ const LoginPage = () => {
           noValidate
         >
           <div className="text-center text-2xl font-medium">Đăng ký tài khoản</div>
+          <Label
+            className="mt-5"
+            htmlFor="fullname"
+          >
+            Họ và tên
+          </Label>
           <Input
             type="text"
             name="fullname"
             placeholder="Nhập họ tên của bạn"
-            containerClassName="mt-5"
             errorMsg={errors.fullname?.message}
             register={register}
           ></Input>
+          <Label htmlFor="email">Địa chỉ e-mail</Label>
           <Input
             type="text"
             name="email"
             placeholder="Nhập địa chỉ e-mail"
-            containerClassName="mt-1"
             errorMsg={errors.email?.message}
             register={register}
           />
+          <Label htmlFor="password">Mật khẩu</Label>
           <InputPassword
             type="password"
             name="password"
             placeholder="Nhập mật khẩu"
-            containerClassName="mt-1"
             errorMsg={errors.password?.message}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
             register={register}
           />
+          <Label htmlFor="confirm_password">Nhập lại mật khẩu</Label>
           <InputPassword
             type="password"
             name="confirm_password"
             placeholder="Xác nhận mật khẩu"
-            containerClassName="mt-1"
             errorMsg={errors.confirm_password?.message}
             showPassword={showPassword}
             setShowPassword={setShowPassword}
@@ -102,7 +108,6 @@ const LoginPage = () => {
           <Button
             type="submit"
             isLoading={registerAccountMutation.isLoading}
-            containerClassName="mt-3"
           >
             Đăng ký
           </Button>
