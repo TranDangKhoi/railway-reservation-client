@@ -1,6 +1,12 @@
 import * as yup from "yup";
 const schema = yup.object({
   fullname: yup.string().required("Vui lòng nhập vào họ tên đầy đủ của bạn"),
+  phoneNumber: yup
+    .string()
+    .required("Vui lòng nhập vào số điện thoại của bạn")
+    .min(4, "Số điện thoại không hợp lệ")
+    .max(30, "Số điện thoại không hợp lệ"),
+  address: yup.string().required("Vui lòng nhập vào địa chỉ của bạn"),
   email: yup.string().required("Vui lòng nhập địa chỉ e-mail").email("Địa chỉ e-mail không đúng định dạng"),
   password: yup
     .string()
@@ -20,8 +26,10 @@ export const loginSchema = schema.pick(["email", "password"]);
 export const registerSchema = schema.pick(["fullname", "email", "password", "confirm_password"]);
 export const trackSearchSchema = schema.pick(["departureStation", "arrivalStation", "departureTime"]);
 export const authenticationSchema = schema.pick(["email", "fullname", "confirm_password", "password"]);
+export const paymentInfoSchema = schema.pick(["address", "fullname", "phoneNumber"]);
 
 export type LoginType = yup.InferType<typeof loginSchema>;
 export type RegisterType = yup.InferType<typeof registerSchema>;
 export type TrackSearchType = yup.InferType<typeof trackSearchSchema>;
 export type AuthenticationType = yup.InferType<typeof authenticationSchema>;
+export type PaymentInfoType = yup.InferType<typeof paymentInfoSchema>;
