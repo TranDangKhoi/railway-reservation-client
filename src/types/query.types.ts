@@ -1,4 +1,4 @@
-import { TrackSearchType } from "src/utils/schemas";
+import { TrackSearchType } from "src/schemas/schemas";
 
 export type QueryConfigType = {
   [key in keyof TrackSearchType]?: string;
