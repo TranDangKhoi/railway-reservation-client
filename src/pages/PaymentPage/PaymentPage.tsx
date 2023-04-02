@@ -1,5 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import cartApi from "src/apis/cart.api";
@@ -8,22 +10,48 @@ import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { displayEnGBDateAndTime } from "src/utils/formatDate";
 import { formatCurrency } from "src/utils/formatNumber";
+import PaymentForm from "./components/PaymentForm";
+import paymentApi from "src/apis/payment.api";
+import Button from "src/components/Button";
+import { paymentInfoSchema, PaymentInfoType } from "src/schemas/schemas";
+import { yupResolver } from "@hookform/resolvers/yup";
+import PointUp from "src/assets/images/PointUp.png";
 
-type PaymentPagePropsType = {
-  something: string;
-};
-
+const stripePromise = loadStripe(
+  "pk_test_51Mqv9vD9Ce6Kh26GBgqvgFd6rYmEwNm5TXMzC75MDZikqEsNW3IksOfvWs1zKW3OOyB67GyZaO1ZbsMni9iJjfcd00kIhs7vWX",
+);
 const PaymentPage = () => {
-  const { userProfile, isAuthenticated } = useContext(AuthContext);
+  const { userProfile } = useContext(AuthContext);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [clientSecretKey, setClientSecretKey] = useState<string>("");
+  const paymentMutation = useMutation({
+    mutationFn: () => paymentApi.makePayment(userProfile?.id as string),
+    onSuccess: (data) => {
+      setClientSecretKey(data.data.data.clientSecret);
+      setFormSubmitted(true);
+    },
+  });
+  const options = {
+    clientSecret: clientSecretKey,
+  };
+  console.log(options);
   const {
     handleSubmit,
+    register,
     formState: { errors },
-  } = useForm({});
+  } = useForm<PaymentInfoType>({
+    reValidateMode: "onChange",
+    mode: "onSubmit",
+    resolver: yupResolver(paymentInfoSchema),
+  });
   const { data: cartQueryData } = useQuery({
     queryKey: ["cart"],
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
   });
   const cart = cartQueryData?.data.data;
+  const handleCreatePayment = handleSubmit(() => {
+    paymentMutation.mutate();
+  });
   return (
     <div className="container mt-10">
       <div className="flex items-center gap-x-3">
@@ -42,46 +70,65 @@ const PaymentPage = () => {
             <h2 className="text-2xl font-bold">Thông tin cá nhân</h2>
             <p className="mt-2 text-secondaryGray">Hãy điền đầy đủ thông tin của bạn</p>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-x-4">
+          <form
+            className="mt-8 grid grid-cols-2 gap-x-4"
+            onSubmit={handleCreatePayment}
+          >
             <div className="col-span-1">
               <Input
-                type="email"
-                name="email"
-                placeholder="Nhập vào địa chỉ e-mail của bạn"
+                type="text"
+                name="fullname"
+                placeholder="Nhập vào họ tên của bạn"
+                errorMsg={errors.fullname?.message}
+                register={register}
               ></Input>
             </div>
             <div className="col-span-1">
               <Input
-                type="email"
-                name="email"
-                placeholder="Nhập vào địa chỉ e-mail của bạn"
+                type="number"
+                name="phoneNumber"
+                placeholder="Nhập vào số điện thoại của bạn"
+                errorMsg={errors.phoneNumber?.message}
+                register={register}
               ></Input>
             </div>
             <div className="col-span-1">
               <Input
-                type="email"
-                name="email"
-                placeholder="Nhập vào địa chỉ e-mail của bạn"
+                type="text"
+                name="address"
+                placeholder="Nhập vào địa chỉ của bạn"
+                errorMsg={errors.address?.message}
+                register={register}
               ></Input>
             </div>
             <div className="col-span-1">
-              <Input
-                type="email"
-                name="email"
-                placeholder="Nhập vào địa chỉ e-mail của bạn"
-              ></Input>
+              <Button type="submit">Xác nhận</Button>
             </div>
-            <div className="col-span-1">
-              <Input
-                type="email"
-                name="email"
-                placeholder="Nhập vào địa chỉ e-mail của bạn"
-              ></Input>
-            </div>
-          </div>
+          </form>
           <div className="mt-14 flex flex-col">
             <h2 className="text-2xl font-bold">Phương thức thanh toán</h2>
-            <p className="mt-2 text-secondaryGray">Hãy lựa chọn phương thức thanh toán của bạn</p>
+            <p className="mt-2 text-secondaryGray">
+              Hãy lựa chọn phương thức thanh toán của bạn (Phải hoàn thành toàn bộ các bước trên)
+            </p>
+            {formSubmitted ? (
+              <Elements
+                stripe={stripePromise}
+                options={options}
+              >
+                <PaymentForm></PaymentForm>
+              </Elements>
+            ) : (
+              <div className="mt-5 flex flex-col items-center justify-center">
+                <img
+                  src={PointUp}
+                  alt=""
+                  className="h-32 w-32"
+                />
+                <h3 className="w-[500px] text-center text-xl font-medium">
+                  Hãy hoàn thiện các bước bên trên trước khi thực hiện chọn phương thức thanh toán
+                </h3>
+              </div>
+            )}
           </div>
         </div>
         <div className="col-span-1 rounded-xl bg-white p-4 shadow-shadow3">
