@@ -1,12 +1,19 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import authApi from "src/apis/auth.api";
+import cartApi from "src/apis/cart.api";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
+import { displayEnGBDateAndTime } from "src/utils/formatDate";
+import { generateSlug } from "src/utils/slugify";
 import { ArrowDownIcon, BasketIcon, LogoIcon } from "../Icon";
 import Popover from "../Popover";
+import EmptyCart from "src/assets/images/EmptyCart.png";
+
+const MAX_PURCHASES_PER_CART = 10;
+
 const MainNavbar = () => {
   const { isAuthenticated, userProfile, setIsAuthenticated, setUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -17,11 +24,20 @@ const MainNavbar = () => {
   const handleLogout = () => {
     navigate(path.login);
     logOutAccountMutation.mutate();
-    queryClient.invalidateQueries({ queryKey: ["cart"] });
+    queryClient.removeQueries({
+      queryKey: ["cart"],
+    });
     setIsAuthenticated(false);
     setUserProfile(null);
     toast.success("Đăng xuất thành công");
   };
+
+  const { data: cartQueryData } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
+    enabled: isAuthenticated,
+  });
+  const cart = cartQueryData?.data.data;
   return (
     <div className="bg-primaryGray px-2 py-5">
       <div className="layout-container">
@@ -135,13 +151,72 @@ const MainNavbar = () => {
                 </div>
               </Popover>
             )}
-            <div className="cursor-pointer">
-              <BasketIcon
-                width={26}
-                height={26}
-                fill="black"
-              ></BasketIcon>
-            </div>
+            <Popover
+              offsetPx={10}
+              placement="bottom-end"
+              renderMethod="hover"
+              renderPopover={
+                <div className="relative w-full max-w-[380px] rounded-sm border border-gray-200 bg-white text-sm shadow-md sm:max-w-[400px]">
+                  {cart ? (
+                    <>
+                      <div className="m-2 capitalize text-gray-400">Sản phẩm mới thêm</div>
+                      <div className="mt-3">
+                        {cart.cartItems.slice(0, MAX_PURCHASES_PER_CART).map((cartItem) => (
+                          <Link
+                            className="flex py-3 px-2 hover:bg-gray-100"
+                            key={cartItem.id}
+                            to={`/${generateSlug({
+                              departureStation: cartItem.seat.carriage.train.track.departureStation,
+                              arrivalStation: cartItem.seat.carriage.train.track.arrivalStation,
+                              id: cartItem.seat.carriage.train.track.id,
+                            })}`}
+                          >
+                            <div>
+                              <div className="flex items-center gap-x-1">
+                                <span>Tàu {cartItem.seat.carriage.train.name},</span>
+                                <span>{cartItem.seat.carriage.train.track.departureStation}</span>
+                                <span>-</span>
+                                <span>{cartItem.seat.carriage.train.track.arrivalStation}</span>
+                              </div>
+                              <div>{displayEnGBDateAndTime(cartItem.seat.carriage.train.track.departureTime)}</div>
+                              <div>
+                                Toa số {cartItem.seat.carriage.carriageNo}, chỗ ngồi số {cartItem.seat.seatNo}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                        <div className="mx-2 mb-2 mt-6 flex items-center justify-between gap-x-4">
+                          {cart.cartItems.length && <div>Có {cart.cartItems.length} vé trong giỏ</div>}
+                          <button
+                            onClick={() => navigate(path.payment)}
+                            className="rounded-sm bg-primary p-2 capitalize text-white hover:bg-opacity-90"
+                          >
+                            Thanh toán
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex w-full flex-col items-center justify-center p-16">
+                      <img
+                        src={EmptyCart}
+                        alt="Giỏ hàng trống"
+                        className="h-20 w-20 object-cover"
+                      />
+                      <div className="text-sm">Không có vé trong giỏ</div>
+                    </div>
+                  )}
+                </div>
+              }
+            >
+              <div className="cursor-pointer">
+                <BasketIcon
+                  width={26}
+                  height={26}
+                  fill="black"
+                ></BasketIcon>
+              </div>
+            </Popover>
           </div>
         </nav>
       </div>
