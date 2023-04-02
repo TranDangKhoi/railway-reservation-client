@@ -51,7 +51,13 @@ const TrackPage = () => {
         ...queryConfig,
         departureStation: data.departureStation,
         arrivalStation: data.arrivalStation,
-        departureTime: `${departureTime.toISOString().replaceAll("/", "-").slice(0, 10)}`,
+        departureTime: `${departureTime
+          .toLocaleDateString("pt-br")
+          .split("/")
+          .reverse()
+          .join("-")
+          .replaceAll("/", "-")
+          .slice(0, 10)}`,
       }).toString(),
     });
   });

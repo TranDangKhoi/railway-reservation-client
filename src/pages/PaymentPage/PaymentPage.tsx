@@ -42,6 +42,11 @@ const PaymentPage = () => {
   } = useForm<PaymentInfoType>({
     reValidateMode: "onChange",
     mode: "onSubmit",
+    defaultValues: {
+      address: "",
+      fullname: userProfile?.fullname,
+      phoneNumber: "",
+    },
     resolver: yupResolver(paymentInfoSchema),
   });
   const { data: cartQueryData } = useQuery({
