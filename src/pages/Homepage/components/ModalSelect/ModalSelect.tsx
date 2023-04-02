@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import provinceApi from "src/apis/province.api";
 import { LocationIcon, TwoWayArrowIcon } from "src/components/Icon";
 import PopoverDismiss from "src/components/PopoverDismiss";
-import { TrackSearchType } from "src/utils/schemas";
+import { TrackSearchType } from "src/schemas/schemas";
 
 type ModalSelectPropsType = {
   title?: string;

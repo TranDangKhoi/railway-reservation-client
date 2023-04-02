@@ -3,7 +3,7 @@ import vi from "date-fns/locale/vi";
 import React from "react";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
 import { TwoWayArrowIcon } from "src/components/Icon";
-import { TrackSearchType } from "src/utils/schemas";
+import { TrackSearchType } from "src/schemas/schemas";
 registerLocale("vi", vi); // register it with the name you want
 
 type ModalSelectPropsType = {
