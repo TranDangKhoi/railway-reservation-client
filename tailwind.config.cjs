@@ -18,7 +18,7 @@ module.exports = {
         disabled: "#E5E5E5",
         input: "#E7ECF3",
         primaryGray: "#F4F5F6",
-        secondaryGray: "#84878B",
+        secondaryGray: "#777E90",
         tertiaryGray: "#F4F2F1",
         primaryCyan: "#A4CDE3",
         primaryYellow: "#FFAF4E",
@@ -47,6 +47,7 @@ module.exports = {
         shadow1: "rgba(0, 0, 0, 0.34) 0px 4px 9px;",
         shadow2:
           "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;",
+        shadow3: "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;",
       },
     },
   },
