@@ -6,4 +6,5 @@ export enum path {
   orders = "/orders",
   tracks = "/tracks",
   trackDetails = "/:trackId",
+  payment = "/payment",
 }
