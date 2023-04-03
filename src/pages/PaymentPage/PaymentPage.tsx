@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import cartApi from "src/apis/cart.api";
 import paymentApi from "src/apis/payment.api";
 import PointUp from "src/assets/images/PointUp.png";
+import Breadcrumb from "src/components/Breadcrumb";
 import Button from "src/components/Button";
 import Input from "src/components/Input";
 import { path } from "src/constants/path.enum";
@@ -71,16 +72,12 @@ const PaymentPage = () => {
   };
   return (
     <div className="container mt-10">
-      <div className="flex items-center gap-x-3">
-        <Link to={path.homepage}>Trang chủ</Link>
-        <span>{">"}</span>
-        <Link
-          to={path.payment}
-          className="cursor-pointer text-secondaryGray"
-        >
-          Thanh toán giỏ vé
-        </Link>
-      </div>
+      <Breadcrumb
+        firstText="Trang chủ"
+        firstLink={path.homepage}
+        secondText="Thanh toán giỏ vé"
+        secondLink={path.payment}
+      ></Breadcrumb>
       <div className="mt-14 grid grid-cols-3 gap-x-20">
         <div className="col-span-2">
           <div className="flex flex-col">

@@ -1,9 +1,12 @@
 import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useMutation } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import cartApi from "src/apis/cart.api";
 import orderApi from "src/apis/order.api";
+import seatApi from "src/apis/seat.api";
 import Button from "src/components/Button";
 import { orderStatus } from "src/constants/orderStatus.enum";
+import { seatStatus } from "src/constants/seatStatus.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { CartType } from "src/types/cart.types";
 import { OrderDetailType } from "src/types/order.types";
@@ -21,8 +24,14 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
   const { userProfile } = useContext(AuthContext);
   const stripe = useStripe();
   const elements = useElements();
+  const seatStatusMutation = useMutation({
+    mutationFn: seatApi.updateSeatStatusById,
+  });
   const orderMutation = useMutation({
     mutationFn: orderApi.placeOrder,
+  });
+  const removeCartMutation = useMutation({
+    mutationFn: cartApi.removeFromCart,
   });
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,6 +67,8 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
               price: cartItem.seat.seatPrice,
             };
             orderDetails.push(tempOrderDetails);
+            removeCartMutation.mutate({ cartItemId: cartItem.id, userId: userProfile?.id as string });
+            seatStatusMutation.mutate({ id: cartItem.seat.id, seatStatus: seatStatus.reserved });
           });
           orderMutation.mutate({
             pickupName: paymentFormData.fullname,
@@ -77,7 +88,7 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
           icon: "success",
           iconColor: "#1DC071",
           text: "Đã từ chối thanh toán",
-          timer: 1500,
+          timer: 2000,
           showConfirmButton: false,
         });
       }
