@@ -1,8 +1,8 @@
-import { CarriageType } from "src/types/track.types";
+import { SeatType } from "src/types/track.types";
 import http from "src/utils/http";
 
 const seatApi = {
-  getCarriageDetailsById: (carriageId: number) => http.get<CarriageType>(`/seat/${carriageId}`),
+  updateSeatStatusById: (body: { seatStatus: number; id: number }) => http.put<SeatType>("/seat", body),
 };
 
 export default seatApi;
