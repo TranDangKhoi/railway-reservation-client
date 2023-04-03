@@ -4,6 +4,7 @@ export type CartType = {
   cartItems: {
     id: number;
     seat: {
+      id: number;
       seatNo: number;
       seatPrice: number;
       seatStatus: number;

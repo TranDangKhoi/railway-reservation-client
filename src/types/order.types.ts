@@ -7,9 +7,9 @@ export type OrderType = {
   stripePaymentIntentID: string;
   status: string;
   totalItems: number;
-  orderDetailsDTO: {
-    seatId: number;
-    price: number;
-  }[];
+  orderDetailsDTO: OrderDetailType[];
 };
-// export type OrderDetailType = {};
+export type OrderDetailType = {
+  seatId: number;
+  price: number;
+};

@@ -24,6 +24,11 @@ const PaymentPage = () => {
   const { userProfile } = useContext(AuthContext);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [clientSecretKey, setClientSecretKey] = useState<string>("");
+  const [paymentFormData, setPaymentFormData] = useState({
+    fullname: "",
+    address: "",
+    phoneNumber: "",
+  });
   const paymentMutation = useMutation({
     mutationFn: () => paymentApi.makePayment(userProfile?.id as string),
     onSuccess: (data) => {
@@ -34,7 +39,6 @@ const PaymentPage = () => {
   const options = {
     clientSecret: clientSecretKey,
   };
-  console.log(options);
   const {
     handleSubmit,
     register,
@@ -54,9 +58,15 @@ const PaymentPage = () => {
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
   });
   const cart = cartQueryData?.data.data;
-  const handleCreatePayment = handleSubmit(() => {
+  const handleCreatePayment = handleSubmit((data) => {
     paymentMutation.mutate();
+    setPaymentFormData(data);
   });
+  const handleSetFormSubmitted = () => {
+    if (errors) {
+      setFormSubmitted(false);
+    }
+  };
   return (
     <div className="container mt-10">
       <div className="flex items-center gap-x-3">
@@ -107,7 +117,12 @@ const PaymentPage = () => {
               ></Input>
             </div>
             <div className="col-span-1">
-              <Button type="submit">Xác nhận</Button>
+              <Button
+                type="submit"
+                onClick={handleSetFormSubmitted}
+              >
+                Xác nhận
+              </Button>
             </div>
           </form>
           <div className="mt-14 flex flex-col">
@@ -120,7 +135,10 @@ const PaymentPage = () => {
                 stripe={stripePromise}
                 options={options}
               >
-                <PaymentForm></PaymentForm>
+                <PaymentForm
+                  paymentFormData={paymentFormData}
+                  cart={cart}
+                ></PaymentForm>
               </Elements>
             ) : (
               <div className="mt-5 flex flex-col items-center justify-center">
@@ -136,7 +154,7 @@ const PaymentPage = () => {
             )}
           </div>
         </div>
-        <div className="col-span-1 rounded-xl bg-white p-4 shadow-shadow3">
+        <div className="col-span-1 self-baseline rounded-xl bg-white p-4 shadow-shadow3">
           <h2 className="px-2 text-xl font-bold">Đơn hàng của bạn</h2>
           {cart ? (
             <>
