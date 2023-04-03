@@ -4,6 +4,7 @@
 @import "datepicker";
 @import "scrollbar";
 @import "carriage";
+@import "toast";
 html {
   height: 100%;
   line-height: 1.2;
@@ -15,7 +16,7 @@ body {
   font-family: "Epilogue", "Poppins", "Be Vietnam", "Roboto", sans-serif;
   font-weight: 400;
   line-height: 14px;
-  background-color: #fafafb;
+  background-color: white;
 }
 
 input::-webkit-outer-spin-button,
@@ -52,19 +53,4 @@ video {
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
-}
-
-.Toastify__toast--success .Toastify__toast-icon svg {
-  fill: #3b71fe;
-}
-
-.Toastify__progress-bar--success {
-  background-color: #3b71fe;
-}
-.Toastify__progress-bar--error {
-  background-color: red;
-}
-
-.Toastify__toast--error .Toastify__toast-icon svg {
-  fill: red;
 }
