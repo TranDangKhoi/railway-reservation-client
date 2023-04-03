@@ -7,6 +7,7 @@ import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
 import PaymentPage from "src/pages/PaymentPage";
+import ProfilePage from "src/pages/ProfilePage";
 import RegisterPage from "src/pages/RegisterPage";
 import TrackDetailsPage from "src/pages/TrackDetailsPage";
 import TrackPage from "src/pages/TrackPage";
@@ -41,6 +42,14 @@ export default function useRouteElements() {
           element: (
             <MainLayout>
               <PaymentPage></PaymentPage>
+            </MainLayout>
+          ),
+        },
+        {
+          path: path.profile,
+          element: (
+            <MainLayout>
+              <ProfilePage></ProfilePage>
             </MainLayout>
           ),
         },
