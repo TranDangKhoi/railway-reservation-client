@@ -1,21 +1,21 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useContext, useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import cartApi from "src/apis/cart.api";
+import paymentApi from "src/apis/payment.api";
+import PointUp from "src/assets/images/PointUp.png";
+import Button from "src/components/Button";
 import Input from "src/components/Input";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
+import { paymentInfoSchema, PaymentInfoType } from "src/schemas/schemas";
 import { displayEnGBDateAndTime } from "src/utils/formatDate";
 import { formatCurrency } from "src/utils/formatNumber";
 import PaymentForm from "./components/PaymentForm";
-import paymentApi from "src/apis/payment.api";
-import Button from "src/components/Button";
-import { paymentInfoSchema, PaymentInfoType } from "src/schemas/schemas";
-import { yupResolver } from "@hookform/resolvers/yup";
-import PointUp from "src/assets/images/PointUp.png";
 
 const stripePromise = loadStripe(
   "pk_test_51Mqv9vD9Ce6Kh26GBgqvgFd6rYmEwNm5TXMzC75MDZikqEsNW3IksOfvWs1zKW3OOyB67GyZaO1ZbsMni9iJjfcd00kIhs7vWX",
@@ -24,6 +24,7 @@ const PaymentPage = () => {
   const { userProfile } = useContext(AuthContext);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [clientSecretKey, setClientSecretKey] = useState<string>("");
+  const [paymentIntentId, setPaymentIntentId] = useState<string>("");
   const [paymentFormData, setPaymentFormData] = useState({
     fullname: "",
     address: "",
@@ -34,6 +35,7 @@ const PaymentPage = () => {
     onSuccess: (data) => {
       setClientSecretKey(data.data.data.clientSecret);
       setFormSubmitted(true);
+      setPaymentIntentId(data.data.data.stripePaymentIntentId);
     },
   });
   const options = {
@@ -138,6 +140,7 @@ const PaymentPage = () => {
                 <PaymentForm
                   paymentFormData={paymentFormData}
                   cart={cart}
+                  paymentIntentId={paymentIntentId}
                 ></PaymentForm>
               </Elements>
             ) : (

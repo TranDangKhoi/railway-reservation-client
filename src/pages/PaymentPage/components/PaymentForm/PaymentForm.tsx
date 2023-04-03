@@ -15,8 +15,9 @@ type PaymentPropsType = {
     phoneNumber: string;
   };
   cart?: CartType;
+  paymentIntentId: string;
 };
-const PaymentForm = ({ paymentFormData, cart }: PaymentPropsType) => {
+const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsType) => {
   const { userProfile } = useContext(AuthContext);
   const stripe = useStripe();
   const elements = useElements();
@@ -66,7 +67,7 @@ const PaymentForm = ({ paymentFormData, cart }: PaymentPropsType) => {
             pickupEmail: userProfile?.email as string,
             totalItems: cart?.cartItems.length as number,
             status: orderStatus.confirmed,
-            stripePaymentIntentID: "",
+            stripePaymentIntentID: paymentIntentId,
             orderDetailsDTO: orderDetails,
           });
           window.location.reload();
