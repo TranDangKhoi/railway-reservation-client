@@ -17,6 +17,7 @@ module.exports = {
         hover: "#1E5AF4",
         disabled: "#E5E5E5",
         input: "#E7ECF3",
+        primaryBorder: "#DEDFE1",
         primaryGray: "#F4F5F6",
         secondaryGray: "#777E90",
         tertiaryGray: "#F4F2F1",

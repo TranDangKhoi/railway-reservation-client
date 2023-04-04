@@ -4,7 +4,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import cartApi from "src/apis/cart.api";
 import paymentApi from "src/apis/payment.api";
 import PointUp from "src/assets/images/PointUp.png";
@@ -13,9 +12,10 @@ import Button from "src/components/Button";
 import Input from "src/components/Input";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
-import { paymentInfoSchema, PaymentInfoType } from "src/schemas/schemas";
+import { infoSchema, InfoType } from "src/schemas/schemas";
 import { displayEnGBDateAndTime } from "src/utils/formatDate";
 import { formatCurrency } from "src/utils/formatNumber";
+import Label from "../Homepage/components/Label";
 import PaymentForm from "./components/PaymentForm";
 
 const stripePromise = loadStripe(
@@ -46,15 +46,15 @@ const PaymentPage = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<PaymentInfoType>({
+  } = useForm<InfoType>({
     reValidateMode: "onChange",
     mode: "onSubmit",
     defaultValues: {
-      address: "",
+      address: userProfile?.address,
       fullname: userProfile?.fullname,
-      phoneNumber: "",
+      phoneNumber: userProfile?.phoneNumber,
     },
-    resolver: yupResolver(paymentInfoSchema),
+    resolver: yupResolver(infoSchema),
   });
   const { data: cartQueryData } = useQuery({
     queryKey: ["cart"],
@@ -85,10 +85,11 @@ const PaymentPage = () => {
             <p className="mt-2 text-secondaryGray">Hãy điền đầy đủ thông tin của bạn</p>
           </div>
           <form
-            className="mt-8 grid grid-cols-2 gap-x-4"
+            className="mt-8 grid grid-cols-2 items-center gap-x-4"
             onSubmit={handleCreatePayment}
           >
             <div className="col-span-1">
+              <Label htmlFor="fullname">Họ và tên</Label>
               <Input
                 type="text"
                 name="fullname"
@@ -98,6 +99,7 @@ const PaymentPage = () => {
               ></Input>
             </div>
             <div className="col-span-1">
+              <Label htmlFor="phoneNumber">Số điện thoại</Label>
               <Input
                 type="number"
                 name="phoneNumber"
@@ -107,6 +109,7 @@ const PaymentPage = () => {
               ></Input>
             </div>
             <div className="col-span-1">
+              <Label htmlFor="address">Địa chỉ nhà</Label>
               <Input
                 type="text"
                 name="address"
@@ -115,14 +118,13 @@ const PaymentPage = () => {
                 register={register}
               ></Input>
             </div>
-            <div className="col-span-1">
-              <Button
-                type="submit"
-                onClick={handleSetFormSubmitted}
-              >
-                Xác nhận
-              </Button>
-            </div>
+            <Button
+              type="submit"
+              onClick={handleSetFormSubmitted}
+              containerClassName="col-span-1 mb-1"
+            >
+              Xác nhận
+            </Button>
           </form>
           <div className="mt-14 flex flex-col">
             <h2 className="text-2xl font-bold">Phương thức thanh toán</h2>

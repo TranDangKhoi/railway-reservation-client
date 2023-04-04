@@ -1,9 +1,9 @@
 import React from "react";
-import { AuthenticationType } from "src/schemas/schemas";
+import { AuthenticationType, InfoType } from "src/schemas/schemas";
 
 type LabelPropsType = {
   children?: React.ReactNode;
-  htmlFor?: keyof AuthenticationType;
+  htmlFor?: keyof (AuthenticationType & InfoType);
   className?: string;
 } & React.LabelHTMLAttributes<HTMLLabelElement>;
 

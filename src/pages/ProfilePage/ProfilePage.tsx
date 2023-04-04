@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Breadcrumb from "src/components/Breadcrumb";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
-
-type ProfilePagePropsType = {
-  something: string;
-};
+import MainProfile from "./components/MainProfile";
+import ProfileBanner from "./components/ProfileBanner";
 
 const ProfilePage = () => {
   const { userProfile } = useContext(AuthContext);
+  console.log();
   return (
     <div className="container mt-10">
       <Breadcrumb
@@ -17,17 +16,15 @@ const ProfilePage = () => {
         secondText="Thông tin cá nhân"
         secondLink={path.profile}
       ></Breadcrumb>
-      <div className="mt-10 grid grid-cols-3">
-        <div className="col-span-1">
-          <div className="h-32 w-32 overflow-hidden rounded-full">
-            <img
-              src={userProfile?.avatar}
-              alt={userProfile?.fullname}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        </div>
-        <div className="col-span-2"></div>
+      <div className="mt-10 grid grid-cols-3 gap-x-8">
+        <ProfileBanner
+          userProfile={userProfile}
+          containerClassName="col-span-1"
+        ></ProfileBanner>
+        <MainProfile
+          containerClassName="col-span-2"
+          userProfile={userProfile}
+        ></MainProfile>
       </div>
     </div>
   );

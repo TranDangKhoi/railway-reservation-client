@@ -12,6 +12,7 @@ import ArrowRightIcon from "./ArrowRightIcon";
 import ArrowLeftIcon from "./ArrowLeftIcon";
 import DashLineIcon from "./DashLineIcon";
 import BasketIcon from "./BasketIcon";
+import PenIcon from "./PenIcon";
 export {
   TrainIcon,
   LogoIcon,
@@ -27,4 +28,5 @@ export {
   ArrowRightIcon,
   DashLineIcon,
   BasketIcon,
+  PenIcon,
 };

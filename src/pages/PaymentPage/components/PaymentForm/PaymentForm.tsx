@@ -41,9 +41,7 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
       icon: "question",
       showConfirmButton: true,
       confirmButtonText: "Chấp nhận",
-      confirmButtonColor: "#1DC071",
       showCancelButton: true,
-      cancelButtonColor: "#d33",
       cancelButtonText: "Từ chối",
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -86,7 +84,7 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire({
           icon: "success",
-          iconColor: "#1DC071",
+          iconColor: "#3b71fe",
           text: "Đã từ chối thanh toán",
           timer: 2000,
           showConfirmButton: false,
