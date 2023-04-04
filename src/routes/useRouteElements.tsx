@@ -11,6 +11,7 @@ import ProfilePage from "src/pages/ProfilePage";
 import RegisterPage from "src/pages/RegisterPage";
 import TrackDetailsPage from "src/pages/TrackDetailsPage";
 import TrackPage from "src/pages/TrackPage";
+import UpdateProfilePage from "src/pages/UpdateProfilePage";
 
 function ProtectedRoutes() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -50,6 +51,14 @@ export default function useRouteElements() {
           element: (
             <MainLayout>
               <ProfilePage></ProfilePage>
+            </MainLayout>
+          ),
+        },
+        {
+          path: path.updateProfile,
+          element: (
+            <MainLayout>
+              <UpdateProfilePage></UpdateProfilePage>
             </MainLayout>
           ),
         },

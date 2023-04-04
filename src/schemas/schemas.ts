@@ -26,10 +26,10 @@ export const loginSchema = schema.pick(["email", "password"]);
 export const registerSchema = schema.pick(["fullname", "email", "password", "confirm_password"]);
 export const trackSearchSchema = schema.pick(["departureStation", "arrivalStation", "departureTime"]);
 export const authenticationSchema = schema.pick(["email", "fullname", "confirm_password", "password"]);
-export const paymentInfoSchema = schema.pick(["address", "fullname", "phoneNumber"]);
+export const infoSchema = schema.pick(["address", "fullname", "phoneNumber"]);
 
 export type LoginType = yup.InferType<typeof loginSchema>;
 export type RegisterType = yup.InferType<typeof registerSchema>;
 export type TrackSearchType = yup.InferType<typeof trackSearchSchema>;
 export type AuthenticationType = yup.InferType<typeof authenticationSchema>;
-export type PaymentInfoType = yup.InferType<typeof paymentInfoSchema>;
+export type InfoType = yup.InferType<typeof infoSchema>;
