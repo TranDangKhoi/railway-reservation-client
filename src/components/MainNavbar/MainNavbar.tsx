@@ -157,7 +157,7 @@ const MainNavbar = () => {
               renderMethod="hover"
               renderPopover={
                 <div className="relative w-full max-w-[380px] rounded-sm border border-gray-200 bg-white text-sm shadow-md sm:max-w-[400px]">
-                  {cart ? (
+                  {cart && cart.cartItems.length > 0 ? (
                     <>
                       <div className="m-2 capitalize text-gray-400">Sản phẩm mới thêm</div>
                       <div className="mt-3">

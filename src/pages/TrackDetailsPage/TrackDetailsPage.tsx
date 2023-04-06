@@ -89,7 +89,7 @@ const TrackDetailsPage = () => {
             </div>
           </div>
         )}
-        {isAuthenticated && !cartIsLoading && cart && cart.cartItems && (
+        {isAuthenticated && !cartIsLoading && cart && cart.cartItems.length > 0 && (
           <>
             <div className="h-[272px] overflow-y-auto rounded-t-none rounded-b-lg border-2 border-primaryYellow px-4">
               {cart.cartItems.map((cartItem) => (
@@ -126,7 +126,7 @@ const TrackDetailsPage = () => {
             </button>
           </>
         )}
-        {isAuthenticated && !cart && (
+        {isAuthenticated && cart && cart?.cartItems.length <= 0 && (
           <div className="flex h-[272px] flex-col items-center justify-center overflow-y-auto rounded-t-none rounded-b-lg border-2 border-secondaryGray">
             <img
               src={EmptyCart}
