@@ -8,12 +8,9 @@ import Input from "src/components/Input";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { InfoType } from "src/schemas/schemas";
+import { saveProfileToLS } from "src/utils/auth";
 import Swal from "sweetalert2";
 import Label from "../Homepage/components/Label";
-
-type UpdateProfilePagePropsType = {
-  something: string;
-};
 
 const UpdateProfilePage = () => {
   const { userId } = useParams();
@@ -60,6 +57,12 @@ const UpdateProfilePage = () => {
       if (result.isConfirmed) {
         updateProfileMutation.mutate({
           id: userId as string,
+          address: data.address,
+          fullname: data.fullname,
+          phoneNumber: data.phoneNumber,
+        });
+        saveProfileToLS({
+          ...userProfile,
           address: data.address,
           fullname: data.fullname,
           phoneNumber: data.phoneNumber,
