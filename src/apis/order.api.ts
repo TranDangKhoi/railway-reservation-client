@@ -1,9 +1,10 @@
-import { OrderType } from "src/types/order.types";
+import { OrderHistoryType, OrderType } from "src/types/order.types";
 import { SuccessApiResponseType } from "src/types/response.types";
 import http from "src/utils/http";
 
 const orderApi = {
   getAllOrders: () => http.get<SuccessApiResponseType<OrderType[]>>("/order"),
+  getAllOrdersByUserId: (userId: string) => http.get<SuccessApiResponseType<OrderHistoryType[]>>(`order/${userId}`),
   placeOrder: (body: OrderType) =>
     http.post("/order", body, {
       headers: {
