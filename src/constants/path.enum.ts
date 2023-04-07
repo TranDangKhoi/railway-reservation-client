@@ -5,6 +5,7 @@ export enum path {
   profile = "/profile",
   updateProfile = "/profile/:userId",
   orders = "/orders",
+  orderDetail = "/orders/:orderId",
   tracks = "/tracks",
   trackDetails = "/:trackId",
   payment = "/payment",

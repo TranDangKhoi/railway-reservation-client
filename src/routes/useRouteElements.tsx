@@ -6,6 +6,7 @@ import AuthenticationLayout from "src/layouts/AuthenticationLayout";
 import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
+import OrderDetailsPage from "src/pages/OrderDetailsPage";
 import OrdersPage from "src/pages/OrdersPage";
 import PaymentPage from "src/pages/PaymentPage";
 import ProfilePage from "src/pages/ProfilePage";
@@ -68,6 +69,14 @@ export default function useRouteElements() {
           element: (
             <MainLayout>
               <OrdersPage></OrdersPage>
+            </MainLayout>
+          ),
+        },
+        {
+          path: path.orderDetail,
+          element: (
+            <MainLayout>
+              <OrderDetailsPage></OrderDetailsPage>
             </MainLayout>
           ),
         },
