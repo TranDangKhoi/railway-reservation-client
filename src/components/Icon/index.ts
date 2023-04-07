@@ -13,6 +13,8 @@ import ArrowLeftIcon from "./ArrowLeftIcon";
 import DashLineIcon from "./DashLineIcon";
 import BasketIcon from "./BasketIcon";
 import PenIcon from "./PenIcon";
+import ShieldIcon from "./ShieldIcon";
+import CalendarIcon from "./CalendarIcon";
 export {
   TrainIcon,
   LogoIcon,
@@ -29,4 +31,6 @@ export {
   DashLineIcon,
   BasketIcon,
   PenIcon,
+  ShieldIcon,
+  CalendarIcon,
 };
