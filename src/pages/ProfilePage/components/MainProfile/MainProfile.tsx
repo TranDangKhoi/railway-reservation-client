@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { path } from "src/constants/path.enum";
 import { ApplicationUserType } from "src/types/user.types";
 
 type MainProfilePropsType = {
@@ -11,14 +12,35 @@ const MainProfile = ({ containerClassName, userProfile }: MainProfilePropsType) 
     <div className={containerClassName}>
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold">Thông tin cá nhân</h2>
-        <Link
-          to={`${userProfile?.id}`}
-          className="text-medium group w-max rounded-full border border-secondaryGray p-2 text-center transition-all hover:border-primary hover:bg-primary"
-        >
-          <span className="text-sm font-medium text-secondaryGray transition-all group-hover:text-white">
-            Cập nhật thông tin
-          </span>
-        </Link>
+        {userProfile?.role === "admin" ? (
+          <div className="flex items-center gap-x-2">
+            <Link
+              to={path.dashboard}
+              className="text-medium group w-max rounded-full border border-secondaryGray p-2 text-center transition-all hover:border-primary hover:bg-primary"
+            >
+              <span className="text-sm font-medium text-secondaryGray transition-all group-hover:text-white">
+                Dashboard
+              </span>
+            </Link>
+            <Link
+              to={`${userProfile?.id}`}
+              className="text-medium group w-max rounded-full border border-secondaryGray p-2 text-center transition-all hover:border-primary hover:bg-primary"
+            >
+              <span className="text-sm font-medium text-secondaryGray transition-all group-hover:text-white">
+                Cập nhật thông tin
+              </span>
+            </Link>
+          </div>
+        ) : (
+          <Link
+            to={`${userProfile?.id}`}
+            className="text-medium group w-max rounded-full border border-secondaryGray p-2 text-center transition-all hover:border-primary hover:bg-primary"
+          >
+            <span className="text-sm font-medium text-secondaryGray transition-all group-hover:text-white">
+              Cập nhật thông tin
+            </span>
+          </Link>
+        )}
       </div>
       <div className="mt-8 grid grid-cols-2 gap-x-5 gap-y-4">
         <div className="col-span-1">
