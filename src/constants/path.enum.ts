@@ -9,4 +9,5 @@ export enum path {
   tracks = "/tracks",
   trackDetails = "/:trackId",
   payment = "/payment",
+  dashboard = "/dashboard",
 }

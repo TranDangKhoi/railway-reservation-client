@@ -115,7 +115,7 @@ const MainNavbar = () => {
             ) : (
               <Popover
                 initialOpen={false}
-                offsetPx={15}
+                offsetPx={10}
                 renderPopover={
                   <div className="overflow-hidden rounded-lg bg-white text-center shadow-shadow1">
                     <div className="flex flex-col">

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Navigate, Outlet, useRoutes } from "react-router-dom";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
+import AdminLayout from "src/layouts/AdminLayout";
 import AuthenticationLayout from "src/layouts/AuthenticationLayout";
 import MainLayout from "src/layouts/MainLayout";
 import Homepage from "src/pages/Homepage";
@@ -23,6 +24,15 @@ function ProtectedRoutes() {
 function RejectedRoutes() {
   const { isAuthenticated } = useContext(AuthContext);
   return !isAuthenticated ? <Outlet></Outlet> : <Navigate to={path.homepage}></Navigate>;
+}
+
+function AdminRoutes() {
+  const { isAuthenticated, userProfile } = useContext(AuthContext);
+  return isAuthenticated && userProfile?.role === "admin" ? (
+    <Outlet></Outlet>
+  ) : (
+    <Navigate to={path.homepage}></Navigate>
+  );
 }
 
 export default function useRouteElements() {
@@ -79,6 +89,16 @@ export default function useRouteElements() {
               <OrderDetailsPage></OrderDetailsPage>
             </MainLayout>
           ),
+        },
+      ],
+    },
+    {
+      path: "",
+      element: <AdminRoutes></AdminRoutes>,
+      children: [
+        {
+          path: path.dashboard,
+          element: <AdminLayout></AdminLayout>,
         },
       ],
     },
