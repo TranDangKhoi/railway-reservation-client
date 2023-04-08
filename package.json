@@ -31,6 +31,7 @@
     "date-fns": "^2.29.3",
     "framer-motion": "^10.3.0",
     "immer": "^9.0.19",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-datepicker": "^4.10.0",
