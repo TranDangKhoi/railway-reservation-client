@@ -8,4 +8,5 @@ export type ApplicationUserType = {
   avatar?: string;
   createdDate?: string;
   updatedDate?: string;
+  role?: Role;
 };

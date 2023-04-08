@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from "axios";
+import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 import { HttpStatusCode } from "src/constants/httpStatusCode.enum";
 import { AuthResponseType } from "src/types/auth-response.types";
@@ -29,6 +30,7 @@ class Http {
       (config) => {
         if (this.accessToken) {
           config.headers.Authorization = `Bearer ${this.accessToken}`;
+
           return config;
         }
         return config;
@@ -43,8 +45,10 @@ class Http {
         if (url === "/auth/login" || url === "/auth/register") {
           this.accessToken = (response.data as AuthResponseType).data.access_token;
           this.userProfile = (response.data as AuthResponseType).data.applicationUser;
+          const token = this.accessToken;
+          const decoded: ApplicationUserType = jwtDecode(token);
           saveAccessTokenToLS(this.accessToken);
-          saveProfileToLS(this.userProfile);
+          saveProfileToLS({ ...this.userProfile, role: decoded.role });
         } else if (url === "/auth/logout") {
           this.accessToken = "";
           clearAuthenInfoFromLS();
