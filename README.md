@@ -2,9 +2,9 @@
 
 Click here to navigate: [Backend Repository Link](https://github.com/TranDangKhoi/railway-reservation-server)
 
-## Prerequisite
+## Prerequisites
 
-- **In order to run the current project, you must also clone the back-end codes**
+- **In order to run the current project, you must also clone the back-end repo and run it**
 
 ## How to run this project
 
@@ -26,7 +26,7 @@ Click here to navigate: [Backend Repository Link](https://github.com/TranDangKho
 
 - Programming languages: Typescript, C# 👩‍💻
 
-- UI / CSS Library: Tailwind 🌊
+- UI / CSS Library: SASS, styled-components, Tailwind 💅
 
 - State Management: React Query for async state and React Context for other states 🔍
 
