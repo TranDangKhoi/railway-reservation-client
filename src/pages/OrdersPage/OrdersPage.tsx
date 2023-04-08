@@ -93,14 +93,14 @@ const OrdersPage = () => {
               <td>{displayEnGBDateAndTime(orderHistory.orderDate)}</td>
               {orderHistory.status === orderStatus.pending && (
                 <td>
-                  <span className="flex w-max items-center justify-center rounded-full bg-primaryYellow px-3 py-2 text-sm font-medium text-white">
+                  <span className="flex w-[106px] items-center justify-center rounded-full bg-primaryYellow px-3 py-2 text-sm font-medium text-white">
                     Đang chờ
                   </span>
                 </td>
               )}
               {orderHistory.status === orderStatus.confirmed && (
                 <td>
-                  <span className="flex w-max items-center justify-center rounded-full bg-green-400 px-3 py-2 text-sm font-medium text-white">
+                  <span className="flex w-[106px] items-center justify-center rounded-full bg-green-400 px-3 py-2 text-sm font-medium text-white">
                     Thành công
                   </span>
                 </td>

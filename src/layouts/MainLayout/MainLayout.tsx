@@ -11,7 +11,7 @@ const MainLayout = ({ children }: MainLayoutType) => {
     <>
       <MainNavbar></MainNavbar>
       <div>{children}</div>
-      <div className="mt-72"></div>
+      <div className="mt-48"></div>
       <Footer></Footer>
     </>
   );

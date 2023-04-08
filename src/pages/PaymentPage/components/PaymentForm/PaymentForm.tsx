@@ -58,9 +58,9 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
         if (result.error) {
           console.log(result.error.message);
         } else {
-          const orderDetails: OrderDetailType[] = [];
+          const orderDetails: { seatId: number; price: number }[] = [];
           cart?.cartItems.forEach((cartItem) => {
-            const tempOrderDetails: OrderDetailType = {
+            const tempOrderDetails: { seatId: number; price: number } = {
               seatId: cartItem.seat.id,
               price: cartItem.seat.seatPrice,
             };
@@ -75,7 +75,7 @@ const PaymentForm = ({ paymentFormData, cart, paymentIntentId }: PaymentPropsTyp
             orderTotal: cart?.cartTotal as number,
             pickupEmail: userProfile?.email as string,
             totalItems: cart?.cartItems.length as number,
-            status: orderStatus.confirmed,
+            status: orderStatus.pending,
             stripePaymentIntentID: paymentIntentId,
             orderDetailsDTO: orderDetails,
           });

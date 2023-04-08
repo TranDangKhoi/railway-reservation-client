@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import cartApi from "src/apis/cart.api";
 import Popover from "src/components/Popover";
@@ -14,21 +14,26 @@ type SeatPropsType = {
 };
 
 const Seat = ({ seat }: SeatPropsType) => {
+  const [selectedSeatId, setSelectedSeatId] = useState<number[]>([]);
   const { userProfile } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const userId = userProfile?.id;
   const addToCartMutation = useMutation({
     mutationFn: cartApi.addToCart,
   });
-
+  const { data: cartData } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
+  });
+  const cart = cartData?.data.data;
   const handleAddToCart = (body: { userId: string; seatId: number }) => {
     addToCartMutation.mutate(body, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["cart"] });
+        data.data.data.cartItems.forEach((cartItem) => setSelectedSeatId((prev) => [...prev, cartItem.seat.id]));
       },
     });
   };
-
   return (
     <Popover
       renderMethod="hover"
@@ -62,6 +67,9 @@ const Seat = ({ seat }: SeatPropsType) => {
           },
           {
             "cursor-pointer bg-white text-black": seat.seatStatus === seatStatus.free,
+          },
+          {
+            "cursor-pointer !bg-green-400 text-white": cart?.cartItems.find((cartItem) => cartItem.seat.id === seat.id),
           },
         )}
         onClick={() => handleAddToCart({ seatId: seat.id, userId: userId as string })}

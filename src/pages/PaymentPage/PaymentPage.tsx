@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import cartApi from "src/apis/cart.api";
 import paymentApi from "src/apis/payment.api";
 import PointUp from "src/assets/images/PointUp.png";
@@ -23,6 +24,7 @@ const stripePromise = loadStripe(
 );
 const PaymentPage = () => {
   const { userProfile } = useContext(AuthContext);
+  const queryClient = useQueryClient();
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [clientSecretKey, setClientSecretKey] = useState<string>("");
   const [paymentIntentId, setPaymentIntentId] = useState<string>("");
@@ -61,6 +63,9 @@ const PaymentPage = () => {
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
   });
   const cart = cartQueryData?.data.data;
+  const removeFromCartMutation = useMutation({
+    mutationFn: cartApi.removeFromCart,
+  });
   const handleCreatePayment = handleSubmit((data) => {
     paymentMutation.mutate();
     setPaymentFormData(data);
@@ -69,6 +74,19 @@ const PaymentPage = () => {
     if (errors) {
       setFormSubmitted(false);
     }
+  };
+  const handleRemoveFromCart = (body: { cartItemId: number; userId: string }) => {
+    removeFromCartMutation.mutate(body, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["cart"] });
+        toast.dismiss();
+        toast.success("Xóa vé khỏi giỏ thành công", {
+          autoClose: 1000,
+          hideProgressBar: true,
+          position: "top-center",
+        });
+      },
+    });
   };
   return (
     <div className="container mt-10">
@@ -162,21 +180,29 @@ const PaymentPage = () => {
             <>
               {cart.cartItems.map((cartItem) => (
                 <div
-                  className="mt-4 px-2 text-base"
+                  className="flex items-center justify-between"
                   key={cartItem.id}
                 >
-                  <div>
-                    <div className="flex items-center gap-x-1">
-                      <span>Tàu {cartItem.seat.carriage.train.name},</span>
-                      <span>{cartItem.seat.carriage.train.track.departureStation}</span>
-                      <span>-</span>
-                      <span>{cartItem.seat.carriage.train.track.arrivalStation}</span>
-                    </div>
-                    <div>{displayEnGBDateAndTime(cartItem.seat.carriage.train.track.departureTime)}</div>
+                  <div className="mt-4 px-2 text-base">
                     <div>
-                      Toa số {cartItem.seat.carriage.carriageNo}, chỗ ngồi số {cartItem.seat.seatNo}
+                      <div className="flex items-center gap-x-1">
+                        <span>Tàu {cartItem.seat.carriage.train.name},</span>
+                        <span>{cartItem.seat.carriage.train.track.departureStation}</span>
+                        <span>-</span>
+                        <span>{cartItem.seat.carriage.train.track.arrivalStation}</span>
+                      </div>
+                      <div>{displayEnGBDateAndTime(cartItem.seat.carriage.train.track.departureTime)}</div>
+                      <div>
+                        Toa số {cartItem.seat.carriage.carriageNo}, chỗ ngồi số {cartItem.seat.seatNo}
+                      </div>
                     </div>
                   </div>
+                  <button
+                    className="flex-shrink-0 text-4xl text-red-500"
+                    onClick={() => handleRemoveFromCart({ userId: userProfile?.id as string, cartItemId: cartItem.id })}
+                  >
+                    🗑
+                  </button>
                 </div>
               ))}
             </>
