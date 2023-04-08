@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -7,7 +8,7 @@ import Breadcrumb from "src/components/Breadcrumb";
 import Input from "src/components/Input";
 import { path } from "src/constants/path.enum";
 import { AuthContext } from "src/contexts/auth.context";
-import { InfoType } from "src/schemas/schemas";
+import { infoSchema, InfoType } from "src/schemas/schemas";
 import { saveProfileToLS } from "src/utils/auth";
 import Swal from "sweetalert2";
 import Label from "../Homepage/components/Label";
@@ -28,6 +29,7 @@ const UpdateProfilePage = () => {
       fullname: userProfile?.fullname,
       phoneNumber: userProfile?.phoneNumber,
     },
+    resolver: yupResolver(infoSchema),
   });
   const updateProfileMutation = useMutation({
     mutationFn: authApi.updateProfile,
@@ -84,7 +86,7 @@ const UpdateProfilePage = () => {
         secondText="Thông tin cá nhân"
         secondLink={path.profile}
         thirdText="Cập nhật thông tin cá nhân"
-        thirdLink={path.updateProfile}
+        thirdLink={window.location.href}
       ></Breadcrumb>
       <h2 className="mt-6 text-3xl font-bold">Cập nhật thông tin cá nhân</h2>
       <form
@@ -98,6 +100,7 @@ const UpdateProfilePage = () => {
             name="fullname"
             placeholder="Nhập họ tên của bạn"
             register={register}
+            errorMsg={errors.fullname?.message}
           ></Input>
         </div>
         <div className="col-span-1">
@@ -107,6 +110,7 @@ const UpdateProfilePage = () => {
             name="phoneNumber"
             placeholder="Nhập số điện thoại của bạn"
             register={register}
+            errorMsg={errors.phoneNumber?.message}
           ></Input>
         </div>
         <div className="col-span-2">
@@ -116,6 +120,7 @@ const UpdateProfilePage = () => {
             name="address"
             placeholder="Nhập địa chỉ nhà của bạn"
             register={register}
+            errorMsg={errors.address?.message}
           ></Input>
         </div>
         <div className="flex items-center gap-x-3">
