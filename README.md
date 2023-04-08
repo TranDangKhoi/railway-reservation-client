@@ -22,9 +22,9 @@ Click here to navigate: [Backend Repository Link](https://github.com/TranDangKho
 
 ## What i was using and is gonna be using in this project 🤔
 
-- Framework: React, ASP.NET Core 7.0
+- Framework: React
 
-- Programming languages: Typescript, C# 👩‍💻
+- Programming languages: Typescript👩‍💻
 
 - UI / CSS Library: SASS, styled-components, Tailwind 💅
 
