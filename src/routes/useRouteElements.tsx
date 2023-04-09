@@ -5,6 +5,7 @@ import { AuthContext } from "src/contexts/auth.context";
 import AdminLayout from "src/layouts/AdminLayout";
 import AuthenticationLayout from "src/layouts/AuthenticationLayout";
 import MainLayout from "src/layouts/MainLayout";
+import AdminOrdersPage from "src/pages/AdminOrdersPage";
 import Homepage from "src/pages/Homepage";
 import LoginPage from "src/pages/LoginPage";
 import OrderDetailsPage from "src/pages/OrderDetailsPage";
@@ -45,6 +46,24 @@ export default function useRouteElements() {
           <Homepage></Homepage>
         </MainLayout>
       ),
+    },
+    {
+      path: "",
+      element: <AdminRoutes></AdminRoutes>,
+      children: [
+        {
+          path: path.dashboardOrder,
+          element: (
+            <AdminLayout>
+              <AdminOrdersPage></AdminOrdersPage>
+            </AdminLayout>
+          ),
+        },
+        {
+          path: path.dashboardUser,
+          element: <AdminLayout></AdminLayout>,
+        },
+      ],
     },
     {
       path: "",
@@ -92,16 +111,7 @@ export default function useRouteElements() {
         },
       ],
     },
-    {
-      path: "",
-      element: <AdminRoutes></AdminRoutes>,
-      children: [
-        {
-          path: path.dashboard,
-          element: <AdminLayout></AdminLayout>,
-        },
-      ],
-    },
+
     {
       path: "",
       element: <RejectedRoutes></RejectedRoutes>,
