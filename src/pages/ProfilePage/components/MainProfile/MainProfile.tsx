@@ -15,7 +15,7 @@ const MainProfile = ({ containerClassName, userProfile }: MainProfilePropsType) 
         {userProfile?.role === "admin" ? (
           <div className="flex items-center gap-x-2">
             <Link
-              to={path.dashboard}
+              to={path.dashboardOrder}
               className="text-medium group w-max rounded-full border border-secondaryGray p-2 text-center transition-all hover:border-primary hover:bg-primary"
             >
               <span className="text-sm font-medium text-secondaryGray transition-all group-hover:text-white">

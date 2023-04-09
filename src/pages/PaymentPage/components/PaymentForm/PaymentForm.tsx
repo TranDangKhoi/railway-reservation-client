@@ -1,4 +1,4 @@
-import { PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useMutation } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import cartApi from "src/apis/cart.api";
@@ -9,7 +9,6 @@ import { orderStatus } from "src/constants/orderStatus.enum";
 import { seatStatus } from "src/constants/seatStatus.enum";
 import { AuthContext } from "src/contexts/auth.context";
 import { CartType } from "src/types/cart.types";
-import { OrderDetailType } from "src/types/order.types";
 import Swal from "sweetalert2";
 type PaymentPropsType = {
   paymentFormData: {

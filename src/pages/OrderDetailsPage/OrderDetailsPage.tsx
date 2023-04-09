@@ -38,6 +38,22 @@ const OrderDetailsPage = () => {
                 </span>
               </div>
             )}
+            {order?.status === orderStatus.pending && (
+              <div className="flex items-center gap-x-1 text-base font-medium text-secondaryGray">
+                <span>Trạng thái:</span>
+                <span className="flex w-max items-center justify-center rounded-full bg-primaryYellow p-2 text-xs text-white">
+                  Đang chờ
+                </span>
+              </div>
+            )}
+            {order?.status === orderStatus.cancelled && (
+              <div className="flex items-center gap-x-1 text-base font-medium text-secondaryGray">
+                <span>Trạng thái:</span>
+                <span className="flex w-max items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">
+                  Đã hủy
+                </span>
+              </div>
+            )}
           </>
         ) : (
           <div className="mt-2 w-full">

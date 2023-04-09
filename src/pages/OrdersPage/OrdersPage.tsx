@@ -60,6 +60,13 @@ const OrdersPage = () => {
                   </span>
                 </td>
               )}
+              {orderHistory.status === orderStatus.cancelled && (
+                <td>
+                  <span className="flex w-[106px] items-center justify-center rounded-full bg-green-400 px-3 py-2 text-sm font-medium text-white">
+                    Đã hủy
+                  </span>
+                </td>
+              )}
               <td>
                 <Link
                   className="text-primary"
