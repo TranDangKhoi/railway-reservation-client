@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import orderApi from "src/apis/order.api";
+import SkeletonLoading from "src/components/SkeletonLoading";
 import Table from "src/components/Table";
 import { orderStatus } from "src/constants/orderStatus.enum";
 import { displayEnGBDateAndTime } from "src/utils/formatDate";
@@ -46,65 +47,71 @@ const AdminOrdersPage = () => {
 
   return (
     <div className="mx-auto">
-      <Table>
-        <thead>
-          <tr>
-            <th>Mã đơn hàng</th>
-            <th>Tên người thanh toán</th>
-            <th>Thời gian giao dịch</th>
-            <th>Trạng thái</th>
-            <th>Cập nhật trạng thái</th>
-            <th>Chi tiết</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders?.map((order) => (
-            <tr key={order.orderHeaderId}>
-              <td>{order.orderHeaderId}</td>
-              <td>{order.pickupName}</td>
-              <td>{displayEnGBDateAndTime(order.orderDate)}</td>
-
-              {order.status === orderStatus.pending && (
-                <td>
-                  <span className="flex w-[106px] items-center justify-center rounded-full bg-primaryYellow px-3 py-2 text-sm font-medium text-white">
-                    Đang chờ
-                  </span>
-                </td>
-              )}
-              {order.status === orderStatus.confirmed && (
-                <td>
-                  <span className="flex w-[106px] items-center justify-center rounded-full bg-green-400 px-3 py-2 text-sm font-medium text-white">
-                    Thành công
-                  </span>
-                </td>
-              )}
-              {order.status === orderStatus.cancelled && (
-                <td>
-                  <span className="flex w-[106px] items-center justify-center rounded-full bg-red-500 px-3 py-2 text-sm font-medium text-white">
-                    Đã hủy
-                  </span>
-                </td>
-              )}
-              <td>
-                <button
-                  className="text-primary"
-                  onClick={() => handleUpdateStatus(order.orderHeaderId)}
-                >
-                  Cập nhật
-                </button>
-              </td>
-              <td>
-                <Link
-                  className="text-primary"
-                  to={`/orders/${order.orderHeaderId}`}
-                >
-                  Xem chi tiết
-                </Link>
-              </td>
+      {orders && !allOrdersIsLoading ? (
+        <Table>
+          <thead>
+            <tr>
+              <th>Mã đơn hàng</th>
+              <th>Tên người thanh toán</th>
+              <th>Thời gian giao dịch</th>
+              <th>Trạng thái</th>
+              <th>Cập nhật trạng thái</th>
+              <th>Chi tiết</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {orders?.map((order) => (
+              <tr key={order.orderHeaderId}>
+                <td>{order.orderHeaderId}</td>
+                <td>{order.pickupName}</td>
+                <td>{displayEnGBDateAndTime(order.orderDate)}</td>
+
+                {order.status === orderStatus.pending && (
+                  <td>
+                    <span className="flex w-[106px] items-center justify-center rounded-full bg-primaryYellow px-3 py-2 text-sm font-medium text-white">
+                      Đang chờ
+                    </span>
+                  </td>
+                )}
+                {order.status === orderStatus.confirmed && (
+                  <td>
+                    <span className="flex w-[106px] items-center justify-center rounded-full bg-green-400 px-3 py-2 text-sm font-medium text-white">
+                      Thành công
+                    </span>
+                  </td>
+                )}
+                {order.status === orderStatus.cancelled && (
+                  <td>
+                    <span className="flex w-[106px] items-center justify-center rounded-full bg-red-500 px-3 py-2 text-sm font-medium text-white">
+                      Đã hủy
+                    </span>
+                  </td>
+                )}
+                <td>
+                  <button
+                    className="text-primary"
+                    onClick={() => handleUpdateStatus(order.orderHeaderId)}
+                  >
+                    Cập nhật
+                  </button>
+                </td>
+                <td>
+                  <Link
+                    className="text-primary"
+                    to={`/orders/${order.orderHeaderId}`}
+                  >
+                    Xem chi tiết
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <div className="mt-2 w-full">
+          <SkeletonLoading></SkeletonLoading>
+        </div>
+      )}
     </div>
   );
 };
