@@ -1,6 +1,7 @@
 import { ApplicationUserType } from "./user.types";
 
 export type OrderRequestType = {
+  orderHeaderId: number;
   pickupName: string;
   pickupPhoneNumber: string;
   pickupEmail: string;
