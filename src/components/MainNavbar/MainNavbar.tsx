@@ -11,12 +11,15 @@ import { generateSlug } from "src/utils/slugify";
 import { ArrowDownIcon, BasketIcon, LogoIcon } from "../Icon";
 import Popover from "../Popover";
 import EmptyCart from "src/assets/images/EmptyCart.png";
+import { useTranslation } from "react-i18next";
 
 const MAX_PURCHASES_PER_CART = 10;
 
 const MainNavbar = () => {
   const { isAuthenticated, userProfile, setIsAuthenticated, setUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const currentLanguage = i18n.language;
   const queryClient = useQueryClient();
   const logOutAccountMutation = useMutation({
     mutationFn: () => authApi.logoutAccount(),
@@ -38,6 +41,12 @@ const MainNavbar = () => {
     enabled: isAuthenticated,
   });
   const cart = cartQueryData?.data.data;
+
+  const handleChangeLanguage = (lng: "en" | "vi") => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("lng", lng);
+    window.location.reload();
+  };
   return (
     <div className="bg-primaryGray px-2 py-5">
       <div className="layout-container">
@@ -55,16 +64,53 @@ const MainNavbar = () => {
             <span className="text-lg font-bold">Railway</span>
           </div>
           <div className="flex items-center gap-x-4">
-            <div className="flex items-center gap-x-2 border border-l-transparent border-t-transparent border-b-transparent border-r-[#D9D9D9] pr-2">
-              <span>EN</span>
-              <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/255px-Flag_of_the_United_States.svg.png"
-                  alt=""
-                  className="h-6 w-6 rounded-full object-cover"
-                />
-              </div>
-            </div>
+            <Popover
+              renderPopover={
+                <div className="bg-white shadow-shadow1">
+                  <button
+                    onClick={() => handleChangeLanguage("en")}
+                    className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40"
+                  >
+                    English
+                  </button>
+                  <button
+                    onClick={() => handleChangeLanguage("vi")}
+                    className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40"
+                  >
+                    Tiếng Việt
+                  </button>
+                </div>
+              }
+              offsetPx={5}
+              placement="bottom-end"
+              enableArrow={false}
+              className="flex items-center gap-x-2 border border-l-transparent border-t-transparent border-b-transparent border-r-[#D9D9D9] pr-2"
+            >
+              {currentLanguage == "en" && (
+                <>
+                  <span>EN</span>
+                  <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/255px-Flag_of_the_United_States.svg.png"
+                      alt=""
+                      className="h-6 w-6 rounded-full object-cover"
+                    />
+                  </div>
+                </>
+              )}
+              {currentLanguage == "vi" && (
+                <>
+                  <span>VI</span>
+                  <div className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-full">
+                    <img
+                      src="https://cdn.britannica.com/41/4041-004-D051B135/Flag-Vietnam.jpg"
+                      alt=""
+                      className="h-6 w-6 rounded-full object-cover"
+                    />
+                  </div>
+                </>
+              )}
+            </Popover>
             {isAuthenticated ? (
               <Popover
                 placement="bottom"
@@ -123,13 +169,13 @@ const MainNavbar = () => {
                         to={path.register}
                         className="border-b-2 border-b-primaryGray px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
-                        Đăng ký
+                        {t("sign up")}
                       </Link>
                       <Link
                         to={path.login}
                         className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
-                        Đăng nhập
+                        {t("sign in")}
                       </Link>
                     </div>
                   </div>

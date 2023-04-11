@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import provinceApi from "src/apis/province.api";
 import { ArrowDownIcon, ReturnTicketIcon, TicketIcon, TrainIcon } from "src/components/Icon";
@@ -17,6 +18,7 @@ type FormDataType = TrackSearchType;
 
 const Homepage = () => {
   const [departureTime, setDepartureTime] = useState<Date>(new Date());
+  const { t } = useTranslation();
   const queryConfig = useQueryConfig();
   const {
     handleSubmit,
@@ -35,7 +37,7 @@ const Homepage = () => {
     queryKey: ["countries"],
     queryFn: () => provinceApi.getCountries(),
   });
-
+  console.log(t("arrival select"));
   const handleSelectOption = (name: keyof FormDataType, value: string) => {
     setValue(name, value);
   };
@@ -76,7 +78,7 @@ const Homepage = () => {
                   containerClassName="flex items-center gap-x-2"
                   iconComponent={<TrainIcon className="h-4 w-4"></TrainIcon>}
                 >
-                  Đặt vé
+                  {t("ticket book")}
                 </ModalTab>
                 <ModalTab
                   containerClassName="flex items-center gap-x-2"
@@ -87,7 +89,7 @@ const Homepage = () => {
                     ></TicketIcon>
                   }
                 >
-                  Tra cứu vé
+                  {t("ticket find")}
                 </ModalTab>
                 <ModalTab
                   containerClassName="flex items-center gap-x-2"
@@ -98,7 +100,7 @@ const Homepage = () => {
                     ></ReturnTicketIcon>
                   }
                 >
-                  Trả vé
+                  {t("ticket return")}
                 </ModalTab>
               </div>
               <Popover
@@ -116,7 +118,7 @@ const Homepage = () => {
                 }
               >
                 <button className="hidden items-center gap-x-2 lg:flex">
-                  <span className="font-medium">Một chiều</span>
+                  <span className="font-medium">{t("one-way")}</span>
                   <ArrowDownIcon
                     width={11}
                     height={10}
@@ -128,8 +130,8 @@ const Homepage = () => {
             </div>
             <div className="mt-5 grid grid-cols-2 gap-2 lg:grid-cols-5 lg:gap-x-2">
               <ModalSelect
-                title="Ga đi"
-                subtitle="Chọn ga đi"
+                title={t("departure station") as string}
+                subtitle={t("departure select") as string}
                 colSpan={2}
                 provincesData={provincesData}
                 errorMsg={errors.departureStation?.message}
@@ -138,8 +140,8 @@ const Homepage = () => {
                 handleSelectOption={handleSelectOption}
               ></ModalSelect>
               <ModalSelect
-                title="Ga đến"
-                subtitle="Chọn ga đến"
+                title={t("arrival station") as string}
+                subtitle={t("arrival select") as string}
                 arrowIconBefore={true}
                 errorMsg={errors.arrivalStation?.message}
                 colSpan={2}
@@ -149,7 +151,7 @@ const Homepage = () => {
               ></ModalSelect>
               <ModalSelectDate
                 departureTime={departureTime}
-                title="Ngày đi"
+                title={t("departure time") as string}
                 subtitle="Chọn ngày đi"
                 name="departureTime"
                 arrowIconBefore={true}
@@ -165,7 +167,7 @@ const Homepage = () => {
               type="submit"
               className="mt-2 w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover lg:mt-0"
             >
-              Tìm kiếm
+              {t("search")}
             </button>
           </div>
         </div>
