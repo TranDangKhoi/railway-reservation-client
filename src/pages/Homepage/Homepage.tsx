@@ -60,13 +60,13 @@ const Homepage = () => {
     province.name.replace("Tỉnh", "").replace("Thành phố", "").trim(),
   );
   return (
-    <div className="relative h-[430px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat sm:h-[630px]">
-      <h2 className="absolute top-36 left-12 w-[300px] font-secondary font-bold text-white sm:block sm:text-4xl lg:w-[487px] lg:text-6xl lg:leading-[70px]">
+    <div className="relative h-[630px] w-full bg-homepageBackground bg-cover bg-bottom-center-4 bg-no-repeat">
+      <h2 className="absolute top-5 left-1/2 w-max -translate-x-1/2 font-secondary text-2xl font-bold text-white lg:top-36 lg:left-12 lg:w-[487px] lg:translate-x-0 lg:text-6xl lg:leading-[70px]">
         Travel With Us And Enjoy your Journey !
       </h2>
       <form
         onSubmit={handleSearchTrack}
-        className="absolute top-full left-1/2 w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-5 pl-12 pr-10 shadow-shadow1 sm:w-[500px] lg:top-[400px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]"
+        className="absolute top-1/2 left-1/2 w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-3 pl-8 pr-6 shadow-shadow1 sm:py-5 sm:pl-12 sm:pr-10 lg:top-[400px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]"
       >
         <div className="flex flex-col justify-between gap-x-5 lg:flex-row">
           <div className="flex w-full flex-col gap-y-3">
@@ -163,7 +163,7 @@ const Homepage = () => {
           <div className="flex-shrink-0 lg:self-end">
             <button
               type="submit"
-              className="w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover"
+              className="mt-2 w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover lg:mt-0"
             >
               Tìm kiếm
             </button>

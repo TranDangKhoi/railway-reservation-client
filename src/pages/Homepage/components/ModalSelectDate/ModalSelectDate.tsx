@@ -40,7 +40,7 @@ const ModalSelectDate = ({
   return (
     <div
       className={classNames(
-        "group relative cursor-pointer rounded-lg bg-tertiaryGray py-6 pr-16 pl-6 transition-all duration-150 hover:bg-[#E8EFFF]",
+        "group relative cursor-pointer rounded-lg bg-tertiaryGray py-4 pr-10 pl-3 transition-all duration-150 hover:bg-[#E8EFFF] sm:py-6 sm:pr-16 sm:pl-6",
         {
           "col-span-2": colSpan === 2,
           "col-span-1": colSpan === 1,

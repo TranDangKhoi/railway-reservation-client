@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <App />
         </AuthProvider>
         <ToastContainer pauseOnHover={false}></ToastContainer>
-        <ReactQueryDevtools></ReactQueryDevtools>
+        {/* <ReactQueryDevtools></ReactQueryDevtools> */}
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>,

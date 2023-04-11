@@ -66,7 +66,7 @@ const TrackPage = () => {
   );
   return (
     <>
-      <div className="relative h-[230px] w-full bg-gray-200 bg-cover bg-bottom-center-4 bg-no-repeat">
+      <div className="relative h-[630px] w-full bg-gray-200 bg-cover bg-bottom-center-4 bg-no-repeat lg:h-[270px]">
         <div className="absolute top-8 left-8 flex items-center gap-x-2 text-sm">
           <Link to={path.homepage}>Trang chủ</Link>
           <span>{">"}</span>
@@ -74,7 +74,7 @@ const TrackPage = () => {
         </div>
         <form
           onSubmit={handleSearchTrack}
-          className="absolute top-full left-1/2 w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-5 pl-12 pr-10 shadow-shadow1 sm:w-[500px] lg:top-[10px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]"
+          className="absolute top-1/2 left-1/2 w-full max-w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-3 pl-8 pr-6 shadow-shadow1 sm:max-w-[500px] sm:py-5 sm:pl-12 sm:pr-10 lg:top-[300px] lg:max-w-[1000px] xl:max-w-[1170px]"
         >
           <div className="flex flex-col justify-between gap-x-5 lg:flex-row">
             <div className="flex w-full flex-col gap-y-3">
@@ -149,8 +149,8 @@ const TrackPage = () => {
                   title="Ga đến"
                   subtitle="Chọn ga đến"
                   arrowIconBefore={true}
-                  colSpan={2}
                   errorMsg={errors.arrivalStation?.message}
+                  colSpan={2}
                   name="arrivalStation"
                   provincesData={provincesData}
                   handleSelectOption={handleSelectOption}
@@ -161,6 +161,8 @@ const TrackPage = () => {
                   subtitle="Chọn ngày đi"
                   name="departureTime"
                   arrowIconBefore={true}
+                  extendOnMobile
+                  colSpan={2}
                   setDepartureTime={setDepartureTime}
                   handleSelectOption={handleSelectOption}
                 ></ModalSelectDate>
@@ -169,7 +171,7 @@ const TrackPage = () => {
             <div className="flex-shrink-0 lg:self-end">
               <button
                 type="submit"
-                className="w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover"
+                className="mt-2 w-full rounded-lg bg-primary px-7 py-6 font-medium text-white transition-all duration-150 hover:bg-hover lg:mt-0"
               >
                 Tìm kiếm
               </button>
@@ -179,7 +181,7 @@ const TrackPage = () => {
       </div>
       {tracksData && tracksData?.length > 0 ? (
         <div>
-          <div className="container pt-48">
+          <div className="container pt-10 lg:pt-48">
             {tracksQueryIsLoading && !tracksData && <SkeletonLoading></SkeletonLoading>}
             {!tracksQueryIsLoading &&
               tracksData &&
@@ -192,7 +194,7 @@ const TrackPage = () => {
           </div>
         </div>
       ) : (
-        <div className="container pt-48 text-center text-lg font-medium">
+        <div className="container pt-10 text-center text-lg font-medium lg:pt-48">
           {tracksQueryIsLoading ? <SkeletonLoading></SkeletonLoading> : <span>Không tìm thấy chuyến đi nào!</span>}
         </div>
       )}
