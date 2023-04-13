@@ -1,25 +1,36 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import orderApi from "src/apis/order.api";
+import seatApi from "src/apis/seat.api";
 import SkeletonLoading from "src/components/SkeletonLoading";
 import Table from "src/components/Table";
 import { orderStatus } from "src/constants/orderStatus.enum";
+import { seatStatus } from "src/constants/seatStatus.enum";
 import { displayEnGBDateAndTime } from "src/utils/formatDate";
 import Swal from "sweetalert2";
 
 const AdminOrdersPage = () => {
   const queryClient = useQueryClient();
+  // const [orderId, setOrderId] = useState<number>();
   const { data: allOrdersQuery, isLoading: allOrdersIsLoading } = useQuery({
     queryKey: ["allOrders"],
     queryFn: () => orderApi.getAllOrders(),
   });
   const orders = allOrdersQuery?.data.data;
+  // const { data: orderQuery } = useQuery({
+  //   queryKey: ["order"],
+  //   queryFn: () => orderApi.getOrderDetailByOrderId,
+  // });
   const updateOrderMutation = useMutation({
     mutationFn: orderApi.updateOrderStatus,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["allOrders"] });
     },
   });
+  // const seatStatusMutation = useMutation({
+  //   mutationFn: seatApi.updateSeatStatusById,
+  // });
   const handleUpdateStatus = (orderHeaderId: number) => {
     Swal.fire({
       icon: "question",
@@ -38,7 +49,19 @@ const AdminOrdersPage = () => {
       if (result.isConfirmed) {
         updateOrderMutation.mutate({ status: orderStatus.confirmed, orderHeaderId });
       } else if (result.isDenied) {
+        // const seats: { seatId: number; price: number }[] = [];
         updateOrderMutation.mutate({ status: orderStatus.cancelled, orderHeaderId });
+        // orders?.forEach((order) => {
+        //   order.orderDetails.forEach((orderDetail) => {
+        //     // const tempSeatDetails: { seatId: number; seatStatus: number } = {
+        //     //   seatId: orderDetail.seat.id,
+        //     //   seatStatus: seatStatus.free,
+        //     // };
+        //     seatStatusMutation.mutate({ id: orderDetail.seat.id, seatStatus: seatStatus.free });
+        //     // seats.push(tempSeatDetails);
+        //   });
+        // });
+        // order;
       } else if (result.dismiss) {
         updateOrderMutation.mutate({ status: orderStatus.pending, orderHeaderId });
       }

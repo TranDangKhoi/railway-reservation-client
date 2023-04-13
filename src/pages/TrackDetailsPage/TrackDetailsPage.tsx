@@ -25,7 +25,6 @@ const TrackDetailsPage = () => {
     staleTime: 10 * 60 * 1000,
   });
   const track = trackDetailsQueryData?.data.data;
-  console.log(track);
   const { data: cartData, isLoading: cartIsLoading } = useQuery({
     queryKey: ["cart"],
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),

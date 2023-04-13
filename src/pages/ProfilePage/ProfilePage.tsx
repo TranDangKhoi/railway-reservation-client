@@ -7,7 +7,6 @@ import ProfileBanner from "./components/ProfileBanner";
 
 const ProfilePage = () => {
   const { userProfile } = useContext(AuthContext);
-  console.log();
   return (
     <div className="container mt-10">
       <Breadcrumb

@@ -1,3 +1,12 @@
 {
-  "ticketbook": "Booking"
+  "ticket book": "Booking",
+  "ticket find": "Ticket check",
+  "ticket return": "Return tickets",
+  "departure station": "Departure Station",
+  "departure select": "Select departure station",
+  "arrival station": "Arrival Station",
+  "arrival select": "Select arrival station",
+  "departure time": "Departure time",
+  "one-way": "One-way",
+  "search": "Search"
 }

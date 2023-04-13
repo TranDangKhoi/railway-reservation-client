@@ -18,7 +18,7 @@ const MAX_PURCHASES_PER_CART = 10;
 const MainNavbar = () => {
   const { isAuthenticated, userProfile, setIsAuthenticated, setUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation("navbar");
   const currentLanguage = i18n.language;
   const queryClient = useQueryClient();
   const logOutAccountMutation = useMutation({
@@ -69,19 +69,19 @@ const MainNavbar = () => {
                 <div className="bg-white shadow-shadow1">
                   <button
                     onClick={() => handleChangeLanguage("en")}
-                    className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40"
+                    className="block w-full cursor-pointer py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40"
                   >
                     English
                   </button>
                   <button
                     onClick={() => handleChangeLanguage("vi")}
-                    className="block w-full py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40"
+                    className="block w-full cursor-pointer py-3 pl-4 pr-20 text-left hover:bg-secondaryGray hover:bg-opacity-40"
                   >
                     Tiếng Việt
                   </button>
                 </div>
               }
-              offsetPx={5}
+              offsetPx={3}
               placement="bottom-end"
               enableArrow={false}
               className="flex items-center gap-x-2 border border-l-transparent border-t-transparent border-b-transparent border-r-[#D9D9D9] pr-2"
@@ -114,7 +114,7 @@ const MainNavbar = () => {
             {isAuthenticated ? (
               <Popover
                 placement="bottom"
-                offsetPx={15}
+                offsetPx={10}
                 renderPopover={
                   <div className="overflow-hidden rounded-lg bg-white text-center shadow-shadow1">
                     <div className="flex flex-col">

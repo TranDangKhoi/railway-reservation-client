@@ -1,3 +1,12 @@
 {
-  "ticketbook": "Đặt vé"
+  "ticket book": "Đặt vé",
+  "ticket find": "Tra cứu vé",
+  "ticket return": "Trả vé",
+  "departure station": "Ga đi",
+  "departure select": "Chọn ga đi",
+  "arrival station": "Ga đến",
+  "arrival select": "Chọn ga đến",
+  "departure time": "Ngày đi",
+  "one-way": "Một chiều",
+  "search": "Tìm kiếm"
 }

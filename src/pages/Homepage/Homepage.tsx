@@ -18,7 +18,10 @@ type FormDataType = TrackSearchType;
 
 const Homepage = () => {
   const [departureTime, setDepartureTime] = useState<Date>(new Date());
-  const { t } = useTranslation();
+  const { t } = useTranslation("homepage");
+  // Nếu dùng nhiều namespace thì truyền vào một cái array
+  // vd:
+  // const { t } = useTranslation(["homepage", "navbar"]);
   const queryConfig = useQueryConfig();
   const {
     handleSubmit,
@@ -37,7 +40,6 @@ const Homepage = () => {
     queryKey: ["countries"],
     queryFn: () => provinceApi.getCountries(),
   });
-  console.log(t("arrival select"));
   const handleSelectOption = (name: keyof FormDataType, value: string) => {
     setValue(name, value);
   };
