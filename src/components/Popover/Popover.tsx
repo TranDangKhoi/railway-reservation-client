@@ -79,6 +79,7 @@ const Popover = ({
               transition={{ duration: 0.1 }}
               {...getFloatingProps()}
             >
+              <div className="absolute top-0 left-0 h-5 w-full -translate-y-full"></div>
               {enableArrow && (
                 <span
                   className="absolute -translate-y-[98%] border-[11px] border-x-transparent border-t-transparent border-b-white"
