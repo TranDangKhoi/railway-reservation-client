@@ -7,9 +7,10 @@ function App() {
   const routeElements = useRouteElements();
   const { clearAuthenFromProvider } = useContext(AuthContext);
   useEffect(() => {
-    LocalStorageEventTarget.addEventListener("clearAuthen", () => {
-      clearAuthenFromProvider();
-    });
+    LocalStorageEventTarget.addEventListener("clearAuthen", clearAuthenFromProvider);
+    return () => {
+      LocalStorageEventTarget.removeEventListener("clearAuthen", clearAuthenFromProvider);
+    };
   }, [clearAuthenFromProvider]);
   return <>{routeElements}</>;
 }
