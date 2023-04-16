@@ -73,6 +73,7 @@ class Http {
         if (error?.response?.status === HttpStatusCode.Unauthorized) {
           toast.dismiss();
           toast.error("Vui lòng đăng nhập để sử dụng tính năng này");
+          clearAuthenInfoFromLS();
           return Promise.reject(error);
         }
         if (error?.response?.status !== HttpStatusCode.UnprocessableEntity) {
