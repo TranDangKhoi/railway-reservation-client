@@ -15,7 +15,7 @@ type SeatPropsType = {
 
 const Seat = ({ seat }: SeatPropsType) => {
   const [selectedSeatId, setSelectedSeatId] = useState<number[]>([]);
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, isAuthenticated } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const userId = userProfile?.id;
   const addToCartMutation = useMutation({
@@ -24,6 +24,7 @@ const Seat = ({ seat }: SeatPropsType) => {
   const { data: cartData } = useQuery({
     queryKey: ["cart"],
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
+    enabled: isAuthenticated,
   });
   const cart = cartData?.data.data;
   const handleAddToCart = (body: { userId: string; seatId: number }) => {

@@ -46,6 +46,7 @@ const TrackDetailsPage = () => {
       },
     });
   };
+  console.log("Yay");
   const cart = cartData?.data.data;
   if (!track) return null;
   return (

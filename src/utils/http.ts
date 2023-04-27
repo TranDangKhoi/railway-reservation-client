@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 import { HttpStatusCode } from "src/constants/httpStatusCode.enum";
@@ -70,12 +70,6 @@ class Http {
         return response;
       },
       (error: AxiosError) => {
-        if (error?.response?.status === HttpStatusCode.Unauthorized) {
-          toast.dismiss();
-          toast.error("Vui lòng đăng nhập để sử dụng tính năng này");
-          clearAuthenInfoFromLS();
-          return Promise.reject(error);
-        }
         if (error?.response?.status !== HttpStatusCode.UnprocessableEntity) {
           // const message = error.message;
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -83,9 +77,12 @@ class Http {
           const message = data.errorMessages || error.message;
           toast.dismiss();
           toast.error(message);
-          return Promise.reject(error);
         }
-
+        if (error?.response?.status === HttpStatusCode.Unauthorized) {
+          toast.dismiss();
+          toast.error("Vui lòng đăng nhập để sử dụng tính năng này");
+          clearAuthenInfoFromLS();
+        }
         return Promise.reject(error);
       },
     );

@@ -23,7 +23,7 @@ const stripePromise = loadStripe(
   "pk_test_51Mqv9vD9Ce6Kh26GBgqvgFd6rYmEwNm5TXMzC75MDZikqEsNW3IksOfvWs1zKW3OOyB67GyZaO1ZbsMni9iJjfcd00kIhs7vWX",
 );
 const PaymentPage = () => {
-  const { userProfile } = useContext(AuthContext);
+  const { userProfile, isAuthenticated } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [clientSecretKey, setClientSecretKey] = useState<string>("");
@@ -61,6 +61,7 @@ const PaymentPage = () => {
   const { data: cartQueryData } = useQuery({
     queryKey: ["cart"],
     queryFn: () => cartApi.getCart({ userId: userProfile?.id as string }),
+    enabled: isAuthenticated,
   });
   const cart = cartQueryData?.data.data;
   const removeFromCartMutation = useMutation({
