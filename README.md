@@ -150,7 +150,7 @@ Because you're using Tailwind to set the `font-size` and `line-height` for texts
 }
 ```
 
-What made your parent element height increase is the `line-height` property, you can fix that by setting only the font-size to 14px using jit-mode
+What made your parent element height increase is the `line-height` property, you can fix that by set only the font-size to 14px using jit-mode
 
 Usage:
 
