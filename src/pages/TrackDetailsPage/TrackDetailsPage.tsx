@@ -46,8 +46,8 @@ const TrackDetailsPage = () => {
       },
     });
   };
-  console.log("Yay");
   const cart = cartData?.data.data;
+  console.log(cart);
   if (!track) return null;
   return (
     <div className="small-container grid w-full grid-cols-3 gap-x-10 bg-white px-2 py-3">
@@ -126,7 +126,7 @@ const TrackDetailsPage = () => {
             </button>
           </>
         )}
-        {isAuthenticated && cart && cart.cartItems.length <= 0 && (
+        {isAuthenticated && ((cart && cart.cartItems.length) || !cart) <= 0 && (
           <div className="flex h-[272px] flex-col items-center justify-center overflow-y-auto rounded-t-none rounded-b-lg border-2 border-secondaryGray">
             <img
               src={EmptyCart}
