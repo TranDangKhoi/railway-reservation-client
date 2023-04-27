@@ -1,4 +1,7 @@
 {
   "sign up": "Đăng ký",
-  "sign in": "Đăng nhập"
+  "sign in": "Đăng nhập",
+  "sign out": "Đăng xuất",
+  "profile": "Thông tin cá nhân",
+  "transaction": "Lịch sử giao dịch"
 }

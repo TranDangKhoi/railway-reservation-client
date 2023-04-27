@@ -122,20 +122,20 @@ const MainNavbar = () => {
                         to={path.profile}
                         className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
-                        Thông tin cá nhân
+                        {t("profile")}
                       </Link>
                       <Link
                         to={path.orders}
                         className="px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                       >
-                        Lịch sử giao dịch
+                        {t("transaction")}
                       </Link>
                       <div
                         className="cursor-pointer px-10 py-1 text-base hover:bg-primary hover:bg-opacity-10 hover:text-primary"
                         onClick={handleLogout}
                         aria-hidden={true}
                       >
-                        Đăng xuất
+                        {t("sign out")}
                       </div>
                     </div>
                   </div>
