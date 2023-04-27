@@ -70,7 +70,7 @@ const Homepage = () => {
       </h2>
       <form
         onSubmit={handleSearchTrack}
-        className="absolute top-1/2 left-1/2 w-full max-w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-3 pl-8 pr-6 shadow-shadow1 sm:py-5 sm:pl-12 sm:pr-10 lg:top-[400px] lg:w-[1000px] lg:translate-y-[100px] xl:w-[1170px]"
+        className="absolute top-1/2 left-1/2 w-full max-w-[400px] -translate-y-1/2 -translate-x-1/2 rounded-md bg-white py-3 pl-8 pr-6 shadow-shadow1 sm:py-5 sm:pl-12 sm:pr-10 lg:top-[400px] lg:max-w-[1000px] lg:translate-y-[100px] xl:max-w-[1170px]"
       >
         <div className="flex flex-col justify-between gap-x-5 lg:flex-row">
           <div className="flex w-full flex-col gap-y-3">
