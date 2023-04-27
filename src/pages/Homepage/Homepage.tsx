@@ -17,7 +17,7 @@ import ModalTab from "./components/ModalTab";
 type FormDataType = TrackSearchType;
 
 const Homepage = () => {
-  const [departureTime, setDepartureTime] = useState<Date>(new Date());
+  const [departureTime, setDepartureTime] = useState<Date>(new Date("2023-04-20T00:00:00.000Z"));
   const { t } = useTranslation("homepage");
   // Nếu dùng nhiều namespace thì truyền vào một cái array
   // vd:

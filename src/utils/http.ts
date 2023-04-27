@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
 import jwtDecode from "jwt-decode";
 import { toast } from "react-toastify";
 import { HttpStatusCode } from "src/constants/httpStatusCode.enum";

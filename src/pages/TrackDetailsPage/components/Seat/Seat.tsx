@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import classNames from "classnames";
-import { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useContext, useState } from "react";
 import cartApi from "src/apis/cart.api";
 import Popover from "src/components/Popover";
 import { seatStatus } from "src/constants/seatStatus.enum";
@@ -14,7 +13,6 @@ type SeatPropsType = {
 };
 
 const Seat = ({ seat }: SeatPropsType) => {
-  const [selectedSeatId, setSelectedSeatId] = useState<number[]>([]);
   const { userProfile, isAuthenticated } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const userId = userProfile?.id;
@@ -29,9 +27,8 @@ const Seat = ({ seat }: SeatPropsType) => {
   const cart = cartData?.data.data;
   const handleAddToCart = (body: { userId: string; seatId: number }) => {
     addToCartMutation.mutate(body, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["cart"] });
-        data.data.data.cartItems.forEach((cartItem) => setSelectedSeatId((prev) => [...prev, cartItem.seat.id]));
       },
     });
   };

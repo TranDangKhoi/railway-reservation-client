@@ -19,7 +19,7 @@ import Track from "./components/Track";
 type FormDataType = TrackSearchType;
 
 const TrackPage = () => {
-  const [departureTime, setDepartureTime] = useState<Date>(new Date());
+  const [departureTime, setDepartureTime] = useState<Date>(new Date("2023-04-20T00:00:00.000Z"));
   const queryConfig = useQueryConfig();
   const {
     handleSubmit,
