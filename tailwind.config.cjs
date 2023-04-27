@@ -35,11 +35,11 @@ module.exports = {
       },
       backgroundImage: {
         homepageBackground: "url('./src/assets/images/TrainStation2.png')",
-        logoBackground: "url('./src/assets/images/BigWhiteLogo2.png')",
+        logoBackground: "url('/src/assets/images/BigWhiteLogo2.png')",
         randomBackground:
           "url('https://images.unsplash.com/photo-1543746379-597ec1921f02?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80')",
-        sendoTrainBackground: "url('src/assets/images/SendoTrainIcon.png')",
-        dashLineBackground: "url('src/assets/images/DashLineIcon.png')",
+        sendoTrainBackground: "url('/src/assets/images/SendoTrainIcon.png')",
+        dashLineBackground: "url('/src/assets/images/DashLineIcon.png')",
       },
       backgroundPosition: {
         "bottom-center-4": "60% 65%",
