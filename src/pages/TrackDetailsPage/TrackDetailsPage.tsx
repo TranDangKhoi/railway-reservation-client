@@ -126,7 +126,7 @@ const TrackDetailsPage = () => {
             </button>
           </>
         )}
-        {isAuthenticated && ((cart && cart.cartItems.length) || !cart) <= 0 && (
+        {isAuthenticated && ((cart && cart.cartItems.length <= 0) || !cart) && (
           <div className="flex h-[272px] flex-col items-center justify-center overflow-y-auto rounded-t-none rounded-b-lg border-2 border-secondaryGray">
             <img
               src={EmptyCart}
