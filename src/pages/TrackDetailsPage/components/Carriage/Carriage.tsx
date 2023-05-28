@@ -112,6 +112,11 @@ const Carriage = ({ carriages }: CarriagePropsType) => {
                 ></Seat>
               ))}
           </div>
+          {!carriageDetailsIsLoading && carriage?.seats && carriage.seats.length <= 0 && (
+            <div className="flex items-center justify-center text-xl font-medium text-primary">
+              Không có dữ liệu của toa này
+            </div>
+          )}
         </div>
       </div>
     </>
