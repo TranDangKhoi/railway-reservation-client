@@ -21,7 +21,7 @@ class Http {
     this.userProfile = getProfileFromLS() || null;
     this.instance = axios.create({
       baseURL: "https://railwayreservationapikhoi.azurewebsites.net/api",
-      timeout: 10000,
+      timeout: 30000,
       headers: {
         "Content-Type": "application/json",
       },
